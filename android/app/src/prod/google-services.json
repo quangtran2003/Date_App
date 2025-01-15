@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "229390424825",
+    "project_id": "easy-date-prod",
+    "storage_bucket": "easy-date-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229390424825:android:1d3a70408f2eb6a80ea028",
+        "android_client_info": {
+          "package_name": "vn.softdreams.easy_date"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX-PeF0IyrJjeANGsZI3qzV7D5JwvGGrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

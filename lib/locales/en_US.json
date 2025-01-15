@@ -1,0 +1,22 @@
+{
+    "app": {
+        "appName": "EasyInvoice",
+        "anErrorOccurred": "An error occurred",
+        "noInternet": "No internet",
+        "loading": "Loading..."
+    },
+    "home": {
+        "recent": "Recent",
+        "profile": "Profile"
+    },
+    "profile": {
+        "edit": "Edit profile",
+        "profile": "Profile",
+        "datingStandard": "Dating standard",
+        "setting": "Setting",
+        "logout": "Logout",
+        "language": "Language",
+        "yes": "Yes",
+        "titelLogout": "Do you really want to log out?"
+    }
+}

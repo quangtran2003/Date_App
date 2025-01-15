@@ -1,0 +1,11 @@
+export 'chat/chat_src.dart';
+export 'home/home_src.dart';
+export 'login/login_src.dart';
+export 'profile/profile_src.dart';
+export 'profile_detail/profile_detail_src.dart';
+export 'recent_chat/recent_chat_src.dart';
+export 'register/register_src.dart';
+export 'splash/splash_page.dart';
+export 'sticker/sticker_src.dart';
+export 'user_list/user_list_src.dart';
+export 'users_suggest/users_suggest_src.dart';

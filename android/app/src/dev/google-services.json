@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "788899673990",
+    "firebase_url": "https://easy-date-dev-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "easy-date-dev",
+    "storage_bucket": "easy-date-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788899673990:android:8bf8d872924706a6ce1e07",
+        "android_client_info": {
+          "package_name": "vn.softdreams.easy_date.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXuGjZXDuhz-MfpmXnV6aGyOZuDKwYW10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
