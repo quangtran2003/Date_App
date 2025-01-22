@@ -1,4 +1,5 @@
 import 'package:easy_date/features/feature_src.dart';
+import 'package:easy_date/features/forgot_pass/forgot_pass_src.dart';
 import 'package:easy_date/features/match_user/match_user_src.dart';
 import 'package:easy_date/features/profile_match/profile_match_src.dart';
 
@@ -58,6 +59,10 @@ class GlobalBinding extends Bindings {
     );
     Get.lazyPut<ProfileMatchRepository>(
       () => ProfileMatchRepositoryImp(),
+      fenix: true,
+    );
+    Get.lazyPut<ForgotPassRepository>(
+      () => ForgotPassRepositoryImpl(),
       fenix: true,
     );
   }

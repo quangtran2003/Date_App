@@ -20,6 +20,7 @@
         "tooManyRequests": "Quá nhiều thao tác, vui lòng thử lại sau"
     },
     "login": {
+        "forgotPassword": "Quên mật khẩu?",
         "login": "Đăng nhập",
         "register": "Đăng ký",
         "email": "Email",
@@ -27,6 +28,7 @@
         "emailHint": "Nhập email",
         "emailRequired": "Email không được để trống",
         "password": "Mật khẩu",
+        "newPassword": "Mật khẩu mới",
         "confirmPassword": "Xác thực mật khẩu",
         "confirmPasswordHint": "Nhập lại mật khẩu",
         "confirmPasswordWrong": "Xác thực mật khẩu không chính xác",

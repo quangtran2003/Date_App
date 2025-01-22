@@ -41,6 +41,7 @@ class LocaleKeys {
       'firebaseAuth_operationNotAllowed';
   static const firebaseAuth_weakPassword = 'firebaseAuth_weakPassword';
   static const firebaseAuth_tooManyRequests = 'firebaseAuth_tooManyRequests';
+  static const login_forgotPassword = 'login_forgotPassword';
   static const login_login = 'login_login';
   static const login_register = 'login_register';
   static const login_email = 'login_email';
@@ -48,6 +49,7 @@ class LocaleKeys {
   static const login_emailHint = 'login_emailHint';
   static const login_emailRequired = 'login_emailRequired';
   static const login_password = 'login_password';
+  static const login_newPassword = 'login_newPassword';
   static const login_confirmPassword = 'login_confirmPassword';
   static const login_confirmPasswordHint = 'login_confirmPasswordHint';
   static const login_confirmPasswordWrong = 'login_confirmPasswordWrong';
@@ -164,6 +166,7 @@ class Locales {
         'Bạn không có quyền thực hiện hành động này',
     'firebaseAuth_weakPassword': 'Mật khẩu yếu',
     'firebaseAuth_tooManyRequests': 'Quá nhiều thao tác, vui lòng thử lại sau',
+    'login_forgotPassword': 'Quên mật khẩu?',
     'login_login': 'Đăng nhập',
     'login_register': 'Đăng ký',
     'login_email': 'Email',
@@ -171,6 +174,7 @@ class Locales {
     'login_emailHint': 'Nhập email',
     'login_emailRequired': 'Email không được để trống',
     'login_password': 'Mật khẩu',
+    'login_newPassword': 'Mật khẩu mới',
     'login_confirmPassword': 'Xác thực mật khẩu',
     'login_confirmPasswordHint': 'Nhập lại mật khẩu',
     'login_confirmPasswordWrong': 'Xác thực mật khẩu không chính xác',

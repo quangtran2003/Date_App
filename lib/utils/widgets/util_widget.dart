@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../core/const/const_src.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../core/const/const_src.dart';
 import '../utils_src.dart';
 
 class UtilWidget {
@@ -604,7 +604,7 @@ class UtilWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimens.radius16),
+            borderRadius: BorderRadius.circular(AppDimens.radius6),
           ),
           backgroundColor: AppColors.primaryLight2,
           padding: const EdgeInsets.all(AppDimens.paddingVerySmall),

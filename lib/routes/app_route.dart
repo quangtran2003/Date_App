@@ -9,6 +9,7 @@ enum AppRoute {
   userList,
   profile_detail,
   pair,
+  forgot_pass,
   profile_match;
 
   String get path {

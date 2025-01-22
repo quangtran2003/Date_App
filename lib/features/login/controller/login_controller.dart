@@ -31,6 +31,14 @@ class LoginController extends BaseGetxController {
     }
   }
 
+  Future<void> goToForgotPass() async {
+    final result = await Get.toNamed(AppRoute.forgot_pass.path);
+    if (result != null && result is RegisterSuccessResult) {
+      emailTextCtrl.text = result.email;
+      passwordTextCtrl.text = result.password;
+    }
+  }
+
   @override
   void onReady() {
     super.onReady();

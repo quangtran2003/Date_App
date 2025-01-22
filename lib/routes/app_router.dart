@@ -1,3 +1,4 @@
+import 'package:easy_date/features/forgot_pass/forgot_pass_src.dart';
 import 'package:easy_date/features/match_user/binding/match_user_binding.dart';
 import 'package:easy_date/features/match_user/match_user_src.dart';
 import 'package:easy_date/features/profile_match/profile_match_src.dart';
@@ -16,6 +17,11 @@ class AppRouter {
       name: AppRoute.register.path,
       page: () => const RegisterPage(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: AppRoute.forgot_pass.path,
+      page: () => const ForgotPassPage(),
+      binding: ForgotPassBinding(),
     ),
     GetPage(
       name: AppRoute.chat.path,

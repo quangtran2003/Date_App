@@ -1,21 +1,20 @@
 import 'package:easy_date/assets.dart';
 import 'package:easy_date/core/core_src.dart';
-import 'package:easy_date/generated/locales.g.dart';
-import 'package:easy_date/utils/model/input_text_form_field_model.dart';
-import 'package:easy_date/utils/widgets/input_text_form.dart';
-import 'package:easy_date/utils/widgets/input_text_form_with_label.dart';
-import 'package:easy_date/utils/widgets/util_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../controller/login_controller.dart';
+import '../../../generated/locales.g.dart';
+import '../../../utils/model/input_text_form_field_model.dart';
+import '../../../utils/widgets/input_text_form.dart';
+import '../../../utils/widgets/input_text_form_with_label.dart';
+import '../../../utils/widgets/util_widget.dart';
+import '../controller/controller_src.dart';
 
-part 'login_widget.dart';
+part 'forgot_pass_widget.dart';
 
-class LoginPage extends BaseGetWidget<LoginController> {
-  const LoginPage({super.key});
-
+class ForgotPassPage extends BaseGetWidget<ForgotPassController> {
+  const ForgotPassPage({super.key});
   @override
   Widget buildWidgets(BuildContext context) {
     return Scaffold(
@@ -33,21 +32,15 @@ class LoginPage extends BaseGetWidget<LoginController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildImageBackGroup(),
-                  _buildAppName(),
+                  _buildImageBackGroud(),
                   AppDimens.vm16,
                   _buildInputEmail(controller),
                   AppDimens.vm16,
                   _buildInputPassword(controller),
+                  AppDimens.vm16,
+                  _buildInputConfirmPassword(controller),
                   AppDimens.vm24,
-                  _buildLoginButton(controller),
-                  AppDimens.vm24,
-                  InkWell(
-                      onTap: controller.goToForgotPass,
-                      child: UtilWidget.buildText(
-                          LocaleKeys.login_forgotPassword.tr)),
-                  AppDimens.vm24,
-                  _buildRegisterButton(controller),
+                  _buildResigerButton(controller),
                   AppDimens.vm48,
                 ],
               ),
