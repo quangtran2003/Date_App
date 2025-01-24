@@ -1,0 +1,146 @@
+import 'dart:io';
+
+import 'package:easy_date/core/core_src.dart';
+import 'package:easy_date/generated/locales.g.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:local_auth/local_auth.dart';
+
+import '../biometric.src.dart';
+import '../enums/support_state_enum.dart';
+
+class BiometricController extends BaseGetxController {
+  final RxBool wrongPassword = RxBool(false);
+  final Rx<SupportState> supportState = Rx(SupportState.unknown);
+  final Rxn<List<BiometricType>> availableBiometrics = Rxn();
+  var passwordController = TextEditingController();
+  final FocusNode passwordFocus = FocusNode();
+  final Rx<Biometric> biometric = Rx(Biometric.fingerprint);
+  final RxBool haveBiometric = (AppStorage.getBiometric ?? false).obs;
+  final RxBool isHidePass = true.obs;
+
+  @override
+  void onInit() async {
+    await checkBiometricSupport();
+    if (supportState.value == SupportState.supported) {
+      await checkBiometric();
+    }
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    passwordController.dispose();
+    passwordFocus.dispose();
+    super.onClose();
+  }
+
+  final LocalAuthentication auth = LocalAuthentication();
+
+  Future<void> checkBiometric() async {
+    try {
+      List<BiometricType> availableBiometrics =
+          await auth.getAvailableBiometrics();
+
+      if (Platform.isIOS) {
+        if (availableBiometrics.contains(BiometricType.face)) {
+          biometric.value = Biometric.faceId;
+        } else if (availableBiometrics.contains(BiometricType.fingerprint)) {
+          biometric.value = Biometric.fingerprint;
+        } else {
+          biometric.value = Biometric.none;
+        }
+      } else if (Platform.isAndroid) {
+        if (availableBiometrics.contains(BiometricType.strong)) {
+          biometric.value = Biometric.fingerprint;
+        } else if (availableBiometrics.contains(BiometricType.weak)) {
+          biometric.value = Biometric.faceId;
+        } else {
+          biometric.value = Biometric.none;
+        }
+      } else {
+        biometric.value = Biometric.fingerprint;
+      }
+    } on PlatformException {
+      biometric.value = Biometric.none;
+    }
+  }
+
+  Future<void> authCheck({required Widget child}) async {
+    showPopupBiometricSupport(
+        func: () => startBioMetricAuth(LocaleKeys.biometric_confirm.tr, child));
+  }
+
+  Future<void> checkBiometricSupport() async {
+    try {
+      bool isSupported = await auth.isDeviceSupported();
+      bool canCheckBiometrics = await auth.canCheckBiometrics;
+
+      if (isSupported) {
+        if (canCheckBiometrics) {
+          supportState.value = SupportState.supported;
+        } else {
+          supportState.value = SupportState.notSetUp;
+        }
+      } else {
+        supportState.value = SupportState.unsupported;
+      }
+    } on PlatformException {
+      supportState.value = SupportState.unknown;
+    }
+  }
+
+  Future<void> startBioMetricAuth(String message, Widget child) async {
+    try {
+      bool didAuthenticate = await auth.authenticate(
+          localizedReason: message,
+          options: const AuthenticationOptions(
+              biometricOnly: true, stickyAuth: true));
+      if (didAuthenticate) {
+        Get.dialog(child);
+      } else {
+        showMessage(LocaleKeys.biometric_confirmFail.tr, isSuccess: true);
+      }
+    } on PlatformException {
+      if (kDebugMode) {
+        showMessage(LocaleKeys.biometric_confirmSuccess.tr);
+      }
+    }
+  }
+
+  Future<void> checkPassword() async {
+    wrongPassword.value = false;
+    final password = await SecureStorage.password;
+
+    if (password == passwordController.text.trim()) {
+      wrongPassword.value = false;
+      haveBiometric.toggle();
+      AppStorage.saveBiometric(haveBiometric.value);
+      showMessage(LocaleKeys.biometric_changeConfigSuccess.tr);
+      Get.back();
+    } else {
+      wrongPassword.value = true;
+    }
+    passwordController.clear();
+  }
+
+  void showPopupBiometricSupport({required VoidCallback func}) {
+    switch (supportState.value) {
+      case SupportState.supported:
+        return func();
+
+      case SupportState.notSetUp:
+        showMessage(LocaleKeys.biometric_confirmFail.tr);
+        break;
+      case SupportState.unsupported:
+        showMessage(LocaleKeys.biometric_biometricsNotSupported.tr);
+        break;
+      default:
+        showMessage(LocaleKeys.biometric_confirmFail.tr);
+        break;
+    }
+  }
+}

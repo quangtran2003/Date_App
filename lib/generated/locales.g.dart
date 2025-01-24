@@ -41,11 +41,13 @@ class LocaleKeys {
       'firebaseAuth_operationNotAllowed';
   static const firebaseAuth_weakPassword = 'firebaseAuth_weakPassword';
   static const firebaseAuth_tooManyRequests = 'firebaseAuth_tooManyRequests';
+  static const login_backToLogin = 'login_backToLogin';
   static const login_forgotPassword = 'login_forgotPassword';
   static const login_login = 'login_login';
   static const login_register = 'login_register';
   static const login_email = 'login_email';
   static const login_continue = 'login_continue';
+  static const login_cancel = 'login_cancel';
   static const login_emailHint = 'login_emailHint';
   static const login_emailRequired = 'login_emailRequired';
   static const login_password = 'login_password';
@@ -57,12 +59,26 @@ class LocaleKeys {
   static const login_passwordRequired = 'login_passwordRequired';
   static const login_registerSuccess = 'login_registerSuccess';
   static const login_pleaseVerifyEmail = 'login_pleaseVerifyEmail';
+  static const login_forgotPassSuccess = 'login_forgotPassSuccess';
   static const home_pairing = 'home_pairing';
   static const home_likedYou = 'home_likedYou';
   static const home_paired = 'home_paired';
   static const home_dating = 'home_dating';
   static const home_notData = 'home_notData';
   static const home_home = 'home_home';
+  static const biometric_faceSecurity = 'biometric_faceSecurity';
+  static const biometric_fingerprintSecurity = 'biometric_fingerprintSecurity';
+  static const biometric_biometricsNotSupported =
+      'biometric_biometricsNotSupported';
+  static const biometric_changeConfigSuccess = 'biometric_changeConfigSuccess';
+  static const biometric_confirmFail = 'biometric_confirmFail';
+  static const biometric_confirmSuccess = 'biometric_confirmSuccess';
+  static const biometric_confirm = 'biometric_confirm';
+  static const biometric_passBiometric = 'biometric_passBiometric';
+  static const biometric_passBiometricHint = 'biometric_passBiometricHint';
+  static const biometric_passBiometricFail = 'biometric_passBiometricFail';
+  static const biometric_suggestBiometric = 'biometric_suggestBiometric';
+  static const biometric_inputPassToVerify = 'biometric_inputPassToVerify';
   static const user_chatNew = 'user_chatNew';
   static const user_acceptList = 'user_acceptList';
   static const user_blockList = 'user_blockList';
@@ -166,11 +182,13 @@ class Locales {
         'Bạn không có quyền thực hiện hành động này',
     'firebaseAuth_weakPassword': 'Mật khẩu yếu',
     'firebaseAuth_tooManyRequests': 'Quá nhiều thao tác, vui lòng thử lại sau',
+    'login_backToLogin': 'Quay trở lại đăng nhập',
     'login_forgotPassword': 'Quên mật khẩu?',
     'login_login': 'Đăng nhập',
     'login_register': 'Đăng ký',
     'login_email': 'Email',
     'login_continue': 'Tiếp tục',
+    'login_cancel': 'Hủy bỏ',
     'login_emailHint': 'Nhập email',
     'login_emailRequired': 'Email không được để trống',
     'login_password': 'Mật khẩu',
@@ -181,8 +199,10 @@ class Locales {
     'login_passwordHint': 'Nhập mật khẩu',
     'login_passwordRequired': 'Mật khẩu phải từ 6 đến 20 ký tự',
     'login_registerSuccess':
-        'Đăng kí thành công, vui lòng xác thực email và đăng nhập lại',
+        'Đăng kí thành công, vui lòng truy cập đường link được gửi vào email và đăng nhập lại',
     'login_pleaseVerifyEmail': 'Vui lòng xác thực email và đăng nhập lại',
+    'login_forgotPassSuccess':
+        'Đặt lại mật khẩu thành công, vui lòng truy cập đường link được gửi vào email và đặt lại mật khẩu',
     'home_recent': 'Gần đây',
     'home_pairing': 'Ghép đôi',
     'home_profile': 'Hồ sơ',
@@ -191,6 +211,19 @@ class Locales {
     'home_dating': 'Hẹn hò',
     'home_notData': 'Không có dữ liệu!',
     'home_home': 'Trang chủ',
+    'biometric_faceSecurity': 'Bảo mật khuôn mặt',
+    'biometric_fingerprintSecurity': 'Bảo mật vân tay',
+    'biometric_biometricsNotSupported': 'Không hỗ trợ sinh trắc học',
+    'biometric_changeConfigSuccess': 'Thay đổi cấu hình thành công',
+    'biometric_confirmFail': 'Xác thực không thành công!',
+    'biometric_confirmSuccess': 'Xác thức thành công!',
+    'biometric_confirm': 'Xác thực sinh trắc học',
+    'biometric_passBiometric': 'Mật khẩu sinh trắc học',
+    'biometric_passBiometricHint': 'Nhập mật khẩu sinh trắc học',
+    'biometric_passBiometricFail': 'Mật khẩu sinh trắc học không chính xác',
+    'biometric_suggestBiometric':
+        'Bạn chưa cài đặt sinh trắc học, bạn có muốn cài đặt không?',
+    'biometric_inputPassToVerify': 'Nhập mật khẩu để bật sinh trắc học',
     'user_chatNew': 'Tạo mới',
     'user_acceptList': 'Đã ghép đôi',
     'user_blockList': 'Đã bị chặn',

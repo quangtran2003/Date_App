@@ -2,8 +2,11 @@ import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/login/login_src.dart';
 import 'package:easy_date/features/register/model/register_success_result.dart';
 import 'package:easy_date/routes/routers_src.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:local_auth/local_auth.dart';
 
 import '../../../generated/locales.g.dart';
 import '../../../utils/show_snackbar.dart';
@@ -12,7 +15,7 @@ class LoginController extends BaseGetxController {
   final LoginRepository loginRepository;
 
   final formKey = GlobalKey<FormState>();
-
+  final LocalAuthentication auth = LocalAuthentication();
   final emailTextCtrl = TextEditingController();
   final passwordTextCtrl = TextEditingController();
 
@@ -31,11 +34,38 @@ class LoginController extends BaseGetxController {
     }
   }
 
-  Future<void> goToForgotPass() async {
+  Future<void> biometricAuth({required Function func}) async {
+    try {
+      bool didAuthenticate = await auth.authenticate(
+        localizedReason: LocaleKeys.biometric_confirm.tr,
+        options: const AuthenticationOptions(
+          biometricOnly: true,
+          stickyAuth: true,
+        ),
+      );
+      if (didAuthenticate) {
+        await func();
+      } else {
+        showMessage(LocaleKeys.biometric_confirmFail.tr);
+      }
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print("Error: ${e.message}");
+        showMessage(LocaleKeys.biometric_confirmFail.tr + e.toString());
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
+        showMessage(LocaleKeys.biometric_confirmFail.tr + e.toString());
+      }
+    }
+  }
+
+  Future<void> goToForgotPassPage() async {
     final result = await Get.toNamed(AppRoute.forgot_pass.path);
     if (result != null && result is RegisterSuccessResult) {
       emailTextCtrl.text = result.email;
-      passwordTextCtrl.text = result.password;
+      passwordTextCtrl.clear();
     }
   }
 
@@ -79,7 +109,7 @@ class LoginController extends BaseGetxController {
     super.onClose();
   }
 
-  Future<void> login() async {
+  Future<void> login({isBiometric = false}) async {
     if (!(formKey.currentState?.validate() ?? false)) return;
 
     showLoading();

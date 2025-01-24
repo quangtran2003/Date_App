@@ -92,6 +92,7 @@ dependencies:
   rxdart: ^0.27.7
   vibration: ^1.9.0
   mime: ^1.0.5
+  local_auth: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -164,9 +165,11 @@ flutter:
     - assets/icons/app_icon2.svg
     - assets/icons/ic_add_user_selected.svg
     - assets/icons/ic_add_user_unselected.svg
+    - assets/icons/ic_biometric.svg
     - assets/icons/ic_block.svg
     - assets/icons/ic_chat_selected.svg
     - assets/icons/ic_chat_unselected.svg
+    - assets/icons/ic_fingerprint.svg
     - assets/icons/ic_home_selected.svg
     - assets/icons/ic_home_unselected.svg
     - assets/icons/ic_location.svg

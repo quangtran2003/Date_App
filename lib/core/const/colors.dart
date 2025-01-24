@@ -32,6 +32,7 @@ class AppColors {
   static const Color dsGray4 = Color(0xFFD5D8DD);
 
   // Figma light colors
+  static const transparent = Colors.transparent;
   static const primaryLight2 = Color(0xFFF24E1E);
   static const grayLight1 = Color.fromARGB(255, 21, 22, 24);
   static const grayLight2 = Color(0xFF33414E);

@@ -30,17 +30,15 @@ class ForgotPassPage extends BaseGetWidget<ForgotPassController> {
             child: Form(
               key: controller.formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                
                 children: [
                   _buildImageBackGroud(),
                   AppDimens.vm16,
                   _buildInputEmail(controller),
                   AppDimens.vm16,
-                  _buildInputPassword(controller),
-                  AppDimens.vm16,
-                  _buildInputConfirmPassword(controller),
-                  AppDimens.vm24,
                   _buildResigerButton(controller),
+                  _buildLoginButton(),
                   AppDimens.vm48,
                 ],
               ),

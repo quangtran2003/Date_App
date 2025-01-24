@@ -568,14 +568,14 @@ class UtilWidget {
     );
   }
 
-  static Widget buildSolidButton({
-    required String title,
-    VoidCallback? onPressed,
-    double? width,
-    double? height,
-    bool isLoading = false,
-    bool showShadow = false,
-  }) {
+  static Widget buildSolidButton(
+      {required String title,
+      VoidCallback? onPressed,
+      double? width,
+      double? height,
+      bool isLoading = false,
+      bool showShadow = false,
+      Color? backgroundColor}) {
     return Container(
       width: width,
       height: height ?? AppDimens.btnDefaultFigma,
@@ -606,7 +606,7 @@ class UtilWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimens.radius6),
           ),
-          backgroundColor: AppColors.primaryLight2,
+          backgroundColor: backgroundColor ?? AppColors.primaryLight2,
           padding: const EdgeInsets.all(AppDimens.paddingVerySmall),
         ),
         child: Stack(

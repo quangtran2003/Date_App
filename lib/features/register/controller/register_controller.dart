@@ -43,11 +43,13 @@ class RegisterController extends BaseGetxController {
     try {
       showLoading();
       await registerRepository.register(email: email, password: password);
-      ShowPopup.showDialogNotification(LocaleKeys.login_registerSuccess.tr,
-          function: () {
-        final data = RegisterSuccessResult(email, password);
-        Get.back(result: data);
-      });
+      ShowPopup.showDialogNotification(
+        LocaleKeys.login_registerSuccess.tr,
+        function: () {
+          final data = RegisterSuccessResult(email, password);
+          Get.back(result: data);
+        },
+      );
     } catch (e) {
       handleException(e);
     } finally {

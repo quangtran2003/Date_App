@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 abstract final class AppStorage {
   static const _boxName = 'app';
   static const _accessTokenKey = 'access_token';
+  static const _biometricKey = 'biometric';
   static const _refreshTokenKey = 'refresh_token';
   static const _lastUsedAlbumStickerIdKey = 'last_used_album_sticker_id';
 
@@ -43,5 +44,13 @@ abstract final class AppStorage {
 
   static Future<void> deleteAll() async {
     await _box.clear();
+  }
+
+  static Future<void> saveBiometric(bool biometricValue) async {
+    return _box.put(_biometricKey, biometricValue);
+  }
+
+  static bool? get getBiometric {
+    return _box.get(_biometricKey);
   }
 }

@@ -29,6 +29,10 @@ class Assets {
   static const String ASSETS_ICONS_IC_ADD_USER_UNSELECTED_SVG =
       'assets/icons/ic_add_user_unselected.svg';
 
+  /// {@macro assets_generator.ASSETS_ICONS_IC_BIOMETRIC_SVG.preview}
+  static const String ASSETS_ICONS_IC_BIOMETRIC_SVG =
+      'assets/icons/ic_biometric.svg';
+
   /// {@macro assets_generator.ASSETS_ICONS_IC_BLOCK_SVG.preview}
   static const String ASSETS_ICONS_IC_BLOCK_SVG = 'assets/icons/ic_block.svg';
 
@@ -39,6 +43,10 @@ class Assets {
   /// {@macro assets_generator.ASSETS_ICONS_IC_CHAT_UNSELECTED_SVG.preview}
   static const String ASSETS_ICONS_IC_CHAT_UNSELECTED_SVG =
       'assets/icons/ic_chat_unselected.svg';
+
+  /// {@macro assets_generator.ASSETS_ICONS_IC_FINGERPRINT_SVG.preview}
+  static const String ASSETS_ICONS_IC_FINGERPRINT_SVG =
+      'assets/icons/ic_fingerprint.svg';
 
   /// {@macro assets_generator.ASSETS_ICONS_IC_HOME_SELECTED_SVG.preview}
   static const String ASSETS_ICONS_IC_HOME_SELECTED_SVG =

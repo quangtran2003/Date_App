@@ -20,11 +20,13 @@
         "tooManyRequests": "Quá nhiều thao tác, vui lòng thử lại sau"
     },
     "login": {
+        "backToLogin": "Quay trở lại đăng nhập",
         "forgotPassword": "Quên mật khẩu?",
         "login": "Đăng nhập",
         "register": "Đăng ký",
         "email": "Email",
         "continue": "Tiếp tục",
+        "cancel": "Hủy bỏ",
         "emailHint": "Nhập email",
         "emailRequired": "Email không được để trống",
         "password": "Mật khẩu",
@@ -34,8 +36,9 @@
         "confirmPasswordWrong": "Xác thực mật khẩu không chính xác",
         "passwordHint": "Nhập mật khẩu",
         "passwordRequired": "Mật khẩu phải từ 6 đến 20 ký tự",
-        "registerSuccess": "Đăng kí thành công, vui lòng xác thực email và đăng nhập lại",
-        "pleaseVerifyEmail": "Vui lòng xác thực email và đăng nhập lại"
+        "registerSuccess": "Đăng kí thành công, vui lòng truy cập đường link được gửi vào email và đăng nhập lại",
+        "pleaseVerifyEmail": "Vui lòng xác thực email và đăng nhập lại",
+        "forgotPassSuccess": "Đặt lại mật khẩu thành công, vui lòng truy cập đường link được gửi vào email và đặt lại mật khẩu"
     },
     "home": {
         "recent": "Gần đây",
@@ -46,6 +49,20 @@
         "dating": "Hẹn hò",
         "notData": "Không có dữ liệu!",
         "home": "Trang chủ"
+    },
+    "biometric": {
+        "faceSecurity": "Bảo mật khuôn mặt",
+        "fingerprintSecurity": "Bảo mật vân tay",
+        "biometricsNotSupported": "Không hỗ trợ sinh trắc học",
+        "changeConfigSuccess":"Thay đổi cấu hình thành công",
+        "confirmFail":"Xác thực không thành công!",
+        "confirmSuccess":"Xác thức thành công!",
+        "confirm":"Xác thực sinh trắc học",
+        "passBiometric":"Mật khẩu sinh trắc học",
+        "passBiometricHint":"Nhập mật khẩu sinh trắc học",
+        "passBiometricFail":"Mật khẩu sinh trắc học không chính xác",
+        "suggestBiometric":"Bạn chưa cài đặt sinh trắc học, bạn có muốn cài đặt không?",
+        "inputPassToVerify":"Nhập mật khẩu để bật sinh trắc học"
     },
     "user": {
         "chatNew": "Tạo mới",

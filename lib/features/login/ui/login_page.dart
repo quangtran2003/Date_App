@@ -1,15 +1,8 @@
 import 'package:easy_date/assets.dart';
-import 'package:easy_date/core/core_src.dart';
-import 'package:easy_date/generated/locales.g.dart';
-import 'package:easy_date/utils/model/input_text_form_field_model.dart';
-import 'package:easy_date/utils/widgets/input_text_form.dart';
-import 'package:easy_date/utils/widgets/input_text_form_with_label.dart';
-import 'package:easy_date/utils/widgets/util_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:easy_date/features/feature_src.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
-import '../controller/login_controller.dart';
+import '../../biometric/biometric.src.dart';
 
 part 'login_widget.dart';
 
@@ -32,6 +25,7 @@ class LoginPage extends BaseGetWidget<LoginController> {
               key: controller.formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   _buildImageBackGroup(),
                   _buildAppName(),
@@ -41,11 +35,8 @@ class LoginPage extends BaseGetWidget<LoginController> {
                   _buildInputPassword(controller),
                   AppDimens.vm24,
                   _buildLoginButton(controller),
-                  AppDimens.vm24,
-                  InkWell(
-                      onTap: controller.goToForgotPass,
-                      child: UtilWidget.buildText(
-                          LocaleKeys.login_forgotPassword.tr)),
+                  AppDimens.vm16,
+                  _buildForgotpassBtn(controller),
                   AppDimens.vm24,
                   _buildRegisterButton(controller),
                   AppDimens.vm48,

@@ -2,14 +2,56 @@ part of 'login_page.dart';
 
 Widget _buildLoginButton(LoginController controller) {
   return Obx(
-    () => UtilWidget.buildSolidButton(
-      height: AppDimens.btnDefaultFigma,
-      title: LocaleKeys.login_login.tr,
-      onPressed: controller.login,
-      isLoading: controller.isShowLoading.value,
-      showShadow: true,
+    () => Row(
+      children: [
+        Expanded(
+          child: UtilWidget.buildSolidButton(
+            height: AppDimens.btnDefaultFigma,
+            title: LocaleKeys.login_login.tr,
+            onPressed: controller.login,
+            isLoading: controller.isShowLoading.value,
+            showShadow: true,
+          ),
+        ),
+        _buildButtonBiometric(controller),
+        AppDimens.hm8,
+      ],
     ),
   );
+}
+
+Widget _buildButtonBiometric(LoginController controller) {
+  return BiometricLogin(
+    func: () async {
+      if (AppStorage.getBiometric == true) {
+        controller.biometricAuth(func: () async {
+          controller.passwordTextCtrl.text = await SecureStorage.password ?? '';
+          Get.toNamed(AppRoute.home.path);
+        });
+      } else {
+        _promptBiometricSetup(controller);
+      }
+    },
+  );
+}
+
+void _formSettingBio(LoginController controller) {
+  ShowPopup.showDialogConfirmWidget(
+    confirm: () async {
+      await controller.login(isBiometric: true);
+    },
+    actionTitle: LocaleKeys.biometric_inputPassToVerify.tr,
+    buildBody: _buildInputPassword(controller),
+  );
+  controller.passwordTextCtrl.clear();
+}
+
+void _promptBiometricSetup(LoginController controller) {
+  ShowPopup.showDialogConfirm(LocaleKeys.biometric_suggestBiometric.tr,
+      confirm: () => controller.biometricAuth(
+            func: () => _formSettingBio(controller),
+          ),
+      actionTitle: LocaleKeys.login_continue.tr);
 }
 
 Widget _buildInputEmail(LoginController controller) {
@@ -62,26 +104,36 @@ Widget _buildInputPassword(LoginController controller) {
 }
 
 Widget _buildRegisterButton(LoginController controller) {
-  return TextButton(
-    onPressed: controller.goToRegisterPage,
-    child: UtilWidget.buildText(
-      LocaleKeys.login_register.tr,
-      style: AppTextStyle.font16Semi.copyWith(
-        color: AppColors.grayLight2,
-        decoration: TextDecoration.underline,
+  return Center(
+    child: TextButton(
+      onPressed: controller.goToRegisterPage,
+      child: UtilWidget.buildText(
+        LocaleKeys.login_register.tr,
+        style: AppTextStyle.font16Semi.copyWith(
+          color: AppColors.grayLight2,
+          decoration: TextDecoration.underline,
+        ),
       ),
     ),
   );
 }
 
+Widget _buildForgotpassBtn(LoginController controller) {
+  return InkWell(
+      onTap: controller.goToForgotPassPage,
+      child: UtilWidget.buildText(LocaleKeys.login_forgotPassword.tr));
+}
+
 Widget _buildImageBackGroup() {
-  return Hero(
-    tag: 'bg_login',
-    child: SvgPicture.asset(
-      Assets.ASSETS_ICONS_APP_ICON2_SVG,
-      width: 200,
-      height: 200,
-    ).paddingOnly(bottom: AppDimens.paddingVerySmall),
+  return Center(
+    child: Hero(
+      tag: 'bg_login',
+      child: SvgPicture.asset(
+        Assets.ASSETS_ICONS_APP_ICON2_SVG,
+        width: 200,
+        height: 200,
+      ).paddingOnly(bottom: AppDimens.paddingVerySmall),
+    ),
   );
 }
 
