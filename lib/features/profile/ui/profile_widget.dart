@@ -1,6 +1,7 @@
 part of 'profile_page.dart';
 
 extension ProfileWidget on ProfilePage {
+  /// To Do: chưa biết fix
   Widget _buildProfile() {
     return Container(
       margin: const EdgeInsets.only(
@@ -16,28 +17,14 @@ extension ProfileWidget on ProfilePage {
               return InkWell(
                 onTap: controller.selectAvatar,
                 customBorder: const CircleBorder(),
-                child: Container(
-                  width: AppDimens.sizeImageBig * 2,
-                  height: AppDimens.sizeImageBig * 2,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.white,
-                    border: Border.all(
-                      color: AppColors.primaryLight2.withOpacity(0.1),
-                      width: 2,
-                    ),
-                    image: controller.user.value?.imgAvt != null
-                        ? DecorationImage(
-                            image: CachedNetworkImageProvider(
-                              controller.user.value!.imgAvt,
-                            ),
-                            fit: BoxFit.cover,
-                          )
-                        : null,
+                child: SDSImageNetwork(
+                  SDSImageNetworkModel(
+                    borderRadius: BorderRadius.circular(AppDimens.radius90),
+                    width: AppDimens.sizeImageBig * 2,
+                    height: AppDimens.sizeImageBig * 2,
+                    imgUrl: controller.user.value?.imgAvt,
+                    fit: BoxFit.cover,
                   ),
-                  child: controller.isUploading.value
-                      ? const CupertinoActivityIndicator()
-                      : null,
                 ),
               );
             },
@@ -96,49 +83,49 @@ extension ProfileWidget on ProfilePage {
     );
   }
 
-  // Widget _buildLanguage(ProfileController controller) {
-  //   return ListTile(
-  //     leading: const Icon(
-  //       Icons.language,
-  //       size: AppDimens.sizeIconSpinner,
-  //     ),
-  //     title: UtilWidget.buildText(
-  //       LocaleKeys.profile_language.tr,
-  //       fontSize: AppDimens.fontMedium(),
-  //       fontWeight: FontWeight.bold,
-  //     ),
-  //     contentPadding: EdgeInsets.zero,
-  //     trailing: AdvancedSwitch(
-  //       activeColor: Colors.red,
-  //       inactiveColor: Colors.indigo,
-  //       activeChild: UtilWidget.buildText(
-  //         "VNI",
-  //         textColor: AppColors.white,
-  //         fontSize: AppDimens.fontSmallest(),
-  //         fontWeight: FontWeight.bold,
-  //       ),
-  //       inactiveChild: UtilWidget.buildText(
-  //         "ENG",
-  //         textColor: AppColors.white,
-  //         fontSize: AppDimens.fontSmallest(),
-  //         fontWeight: FontWeight.bold,
-  //       ),
-  //       width: 60,
-  //       controller: controller.languageController,
-  //       thumb: const Icon(
-  //         Icons.flag_circle_sharp,
-  //         color: AppColors.white,
-  //         size: AppDimens.sizeIcon,
-  //       ),
-  //       initialValue: SettingStorage.language == LanguageEnum.vietnamese,
-  //       onChanged: (value) {
-  //         if (value) {
-  //           controller.changeLanguage(LanguageEnum.vietnamese);
-  //         } else {
-  //           controller.changeLanguage(LanguageEnum.english);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+  Widget _buildLanguage(ProfileController controller) {
+    return ListTile(
+      leading: const Icon(
+        Icons.language,
+        size: AppDimens.sizeIconSpinner,
+      ),
+      title: UtilWidget.buildText(
+        LocaleKeys.profile_language.tr,
+        style: AppTextStyle.font18Bo,
+      ),
+      contentPadding: EdgeInsets.zero,
+      trailing: AdvancedSwitch(
+        activeColor: Colors.red,
+        inactiveColor: Colors.indigo,
+        activeChild: UtilWidget.buildText(
+          "VN",
+          textColor: AppColors.white,
+          fontSize: AppDimens.fontSmallest(),
+          fontWeight: FontWeight.bold,
+        ),
+        inactiveChild: UtilWidget.buildText(
+          "US",
+          textColor: AppColors.white,
+          fontSize: AppDimens.fontSmallest(),
+          fontWeight: FontWeight.bold,
+        ),
+        height: 32,
+        width: 52,
+        controller: controller.languageController,
+        thumb: const Icon(
+          Icons.flag_circle_sharp,
+          color: AppColors.white,
+          size: AppDimens.sizeIcon,
+        ),
+        initialValue: SettingStorage.language == LanguageEnum.vietnamese,
+        onChanged: (value) {
+          if (value) {
+            controller.changeLanguage(LanguageEnum.vietnamese);
+          } else {
+            controller.changeLanguage(LanguageEnum.english);
+          }
+        },
+      ).paddingAll(AppDimens.paddingSmallest),
+    );
+  }
 }

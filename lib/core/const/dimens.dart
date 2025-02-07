@@ -93,6 +93,7 @@ class AppDimens {
   static const double radius16 = 16;
   static const double radius20 = 20;
   static const double radius30 = 30;
+  static const double radius90 = 90;
 
   // appbar
   static const double paddingSearchBarBig = 50;

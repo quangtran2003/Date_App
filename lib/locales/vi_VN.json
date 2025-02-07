@@ -51,6 +51,9 @@
         "home": "Trang chủ"
     },
     "biometric": {
+        "finger":"Bảo mật vân tay",
+        "faceId":"Bảo mật khuôn mặt",
+        "biometric": "Sinh trắc học",
         "faceSecurity": "Bảo mật khuôn mặt",
         "fingerprintSecurity": "Bảo mật vân tay",
         "biometricsNotSupported": "Không hỗ trợ sinh trắc học",
@@ -59,7 +62,7 @@
         "confirmSuccess":"Xác thức thành công!",
         "confirm":"Xác thực sinh trắc học",
         "passBiometric":"Mật khẩu sinh trắc học",
-        "passBiometricHint":"Nhập mật khẩu sinh trắc học",
+        "passBiometricHint":"Nhập mật khẩu để bật sinh trắc học",
         "passBiometricFail":"Mật khẩu sinh trắc học không chính xác",
         "suggestBiometric":"Bạn chưa cài đặt sinh trắc học, bạn có muốn cài đặt không?",
         "inputPassToVerify":"Nhập mật khẩu để bật sinh trắc học"
@@ -88,6 +91,8 @@
         "block_list": "Danh sách đã chặn"
     },
     "chat": {
+        "inputQuestionHint": "Nhập câu hỏi của bạn",
+        "suggestAI":"Chào bạn, tôi là Gemini, một mô hình AI của Google. Tôi có thể giúp gì bạn hôm nay?",
         "textFieldHint": "Lời từ trái tim...",
         "emptyChat": "Bắt đầu cuộc trò chuyện nào!",
         "blockUser": "Chặn người dùng",

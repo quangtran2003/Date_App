@@ -1,15 +1,8 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:easy_date/features/users_suggest/ui/users_suggest_page.dart';
-import 'package:easy_date/generated/locales.g.dart';
-import 'package:flutter/material.dart';
+import 'package:easy_date/features/feature_src.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../assets.dart';
-import '../../core/const/const_src.dart';
-import '../../utils/utils_src.dart';
-import '../profile/profile_src.dart';
-import '../user_list/ui/user_list_page.dart';
-import 'controller/home_controller.dart';
+import '../../../assets.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -23,6 +16,24 @@ class HomePage extends GetView<HomeController> {
           appBar: AppBar(toolbarHeight: 0),
           body: _buildBody(),
           bottomNavigationBar: _buildBottomNavigationBar(),
+          floatingActionButton: _buildFloatingAction(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFloatingAction() {
+    return InkWell(
+      onTap: controller.gotoChatBot,
+      child: Container(
+        height: AppDimens.sizeImage,
+        width: AppDimens.sizeImage,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage(Assets.ASSETS_IMAGES_META_AI_GIF),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );

@@ -44,7 +44,7 @@ class AppRouter {
       binding: StickerBinding(),
     ),
     GetPage(
-      name: AppRoute.userList.path,
+      name: AppRoute.user_list.path,
       page: () => const UserListPage(),
       binding: UserListBinding(),
     ),

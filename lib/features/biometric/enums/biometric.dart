@@ -1,5 +1,5 @@
-
 import 'package:easy_date/assets.dart';
+import 'package:easy_date/features/feature_src.dart';
 
 enum Biometric { faceId, fingerprint, none }
 
@@ -7,11 +7,11 @@ extension BiometricExt on Biometric {
   String get title {
     switch (this) {
       case Biometric.faceId:
-        return 'Bảo mật khuôn mặt';
+        return LocaleKeys.biometric_faceId.tr;
       case Biometric.fingerprint:
-        return 'Bảo mật vân tay';
+        return LocaleKeys.biometric_finger.tr;
       case Biometric.none:
-        return 'Không hỗ trợ snh trắc học';
+        return LocaleKeys.biometric_biometricsNotSupported.tr;
     }
   }
 

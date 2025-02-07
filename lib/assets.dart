@@ -99,8 +99,20 @@ class Assets {
   static const String ASSETS_IMAGES_CHAT_LOVE_ICON_PNG =
       'assets/images/chat_love_icon.png';
 
+  /// {@macro assets_generator.ASSETS_IMAGES_DEFAULT_IMAGE_PNG.preview}
+  static const String ASSETS_IMAGES_DEFAULT_IMAGE_PNG =
+      'assets/images/default_image.png';
+
   /// {@macro assets_generator.ASSETS_IMAGES_DUCK_JPG.preview}
   static const String ASSETS_IMAGES_DUCK_JPG = 'assets/images/duck.jpg';
+
+  /// {@macro assets_generator.ASSETS_IMAGES_GEMINI_ICON_PNG.preview}
+  static const String ASSETS_IMAGES_GEMINI_ICON_PNG =
+      'assets/images/gemini_icon.png';
+
+  /// {@macro assets_generator.ASSETS_IMAGES_GEMINI_TEXT_PNG.preview}
+  static const String ASSETS_IMAGES_GEMINI_TEXT_PNG =
+      'assets/images/gemini_text.png';
 
   /// {@macro assets_generator.ASSETS_IMAGES_HEART_PNG.preview}
   static const String ASSETS_IMAGES_HEART_PNG = 'assets/images/heart.png';
@@ -116,9 +128,20 @@ class Assets {
   static const String ASSETS_IMAGES_LOVE_SUGGEST_ICON_PNG =
       'assets/images/love_suggest_icon.png';
 
+  /// {@macro assets_generator.ASSETS_IMAGES_META_AI_GIF.preview}
+  static const String ASSETS_IMAGES_META_AI_GIF = 'assets/images/meta_ai.gif';
+
   /// {@macro assets_generator.ASSETS_IMAGES_PLACE_GIF.preview}
   static const String ASSETS_IMAGES_PLACE_GIF = 'assets/images/place.gif';
 
   /// {@macro assets_generator.ASSETS_IMAGES_PLACE_PNG.preview}
   static const String ASSETS_IMAGES_PLACE_PNG = 'assets/images/place.png';
+
+  /// {@macro assets_generator.ASSETS_IMAGES_TYPING_DARK_GIF.preview}
+  static const String ASSETS_IMAGES_TYPING_DARK_GIF =
+      'assets/images/typing-dark.gif';
+
+  /// {@macro assets_generator.ASSETS_IMAGES_TYPING_LIGHT_GIF.preview}
+  static const String ASSETS_IMAGES_TYPING_LIGHT_GIF =
+      'assets/images/typing_light.gif';
 }

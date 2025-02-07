@@ -564,7 +564,7 @@ class UtilWidget {
             overflow: TextOverflow.ellipsis,
             fontSize: fontSize ?? AppDimens.fontSmall(),
           ),
-      maxLines: maxLine ?? 1,
+      maxLines: maxLine,
     );
   }
 

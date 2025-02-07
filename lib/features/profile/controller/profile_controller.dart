@@ -5,13 +5,20 @@ class ProfileController extends BaseGetxController {
 
   late final user = Get.find<HomeController>().currentUser;
 
-  // final languageController = ValueNotifier<bool>(false);
+  final languageController = ValueNotifier<bool>(false);
 
-  final isUploading = false.obs;
+  final RxBool hasBiometric = (AppStorage.getBiometric ?? false).obs;
+
+  final RxBool isUploading = false.obs;
 
   ProfileController({
     required this.profileRepository,
   });
+  @override
+  onInit() async {
+    super.onInit();
+    hasBiometric.value = AppStorage.getBiometric ?? false;
+  }
 
   // @override
   // void onClose() {
@@ -64,7 +71,7 @@ class ProfileController extends BaseGetxController {
 
   void openBlockList() {
     Get.toNamed(
-      AppRoute.userList.path,
+      AppRoute.user_list.path,
       arguments: MatchEnum.block,
     );
   }

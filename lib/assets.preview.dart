@@ -92,8 +92,20 @@
 /// ![](d:\gitrepository\date_app\assets/images/chat_love_icon.png)
 /// {@endtemplate}
 
+/// {@template assets_generator.ASSETS_IMAGES_DEFAULT_IMAGE_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/default_image.png)
+/// {@endtemplate}
+
 /// {@template assets_generator.ASSETS_IMAGES_DUCK_JPG.preview}
 /// ![](d:\gitrepository\date_app\assets/images/duck.jpg)
+/// {@endtemplate}
+
+/// {@template assets_generator.ASSETS_IMAGES_GEMINI_ICON_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gemini_icon.png)
+/// {@endtemplate}
+
+/// {@template assets_generator.ASSETS_IMAGES_GEMINI_TEXT_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gemini_text.png)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_IMAGES_HEART_PNG.preview}
@@ -112,12 +124,24 @@
 /// ![](d:\gitrepository\date_app\assets/images/love_suggest_icon.png)
 /// {@endtemplate}
 
+/// {@template assets_generator.ASSETS_IMAGES_META_AI_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/meta_ai.gif)
+/// {@endtemplate}
+
 /// {@template assets_generator.ASSETS_IMAGES_PLACE_GIF.preview}
 /// ![](d:\gitrepository\date_app\assets/images/place.gif)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_IMAGES_PLACE_PNG.preview}
 /// ![](d:\gitrepository\date_app\assets/images/place.png)
+/// {@endtemplate}
+
+/// {@template assets_generator.ASSETS_IMAGES_TYPING_DARK_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/typing-dark.gif)
+/// {@endtemplate}
+
+/// {@template assets_generator.ASSETS_IMAGES_TYPING_LIGHT_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/typing_light.gif)
 /// {@endtemplate}
 
 // ignore_for_file: camel_case_types, unused_element
