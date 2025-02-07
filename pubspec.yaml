@@ -93,6 +93,8 @@ dependencies:
   vibration: ^1.9.0
   mime: ^1.0.5
   local_auth: ^2.3.0
+  google_generative_ai: ^0.4.6
+  animated_text_kit: ^4.2.3
 
 dev_dependencies:
   flutter_test:
@@ -184,12 +186,18 @@ flutter:
     - assets/images/bg_login.png
     - assets/images/chat_background.png
     - assets/images/chat_love_icon.png
+    - assets/images/default_image.png
     - assets/images/duck.jpg
+    - assets/images/gemini_icon.png
+    - assets/images/gemini_text.png
     - assets/images/heart.png
     - assets/images/love .png
     - assets/images/love_anmation_icon.gif
     - assets/images/love_suggest_icon.png
+    - assets/images/meta_ai.gif
     - assets/images/place.gif
     - assets/images/place.png
+    - assets/images/typing-dark.gif
+    - assets/images/typing_light.gif
 
   # assets end

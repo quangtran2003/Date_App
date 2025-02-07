@@ -1,7 +1,7 @@
 part of 'user_list_repository.dart';
 
 class UserListRepositoryImpl extends UserListRepository {
-  late final String _userId = firebaseAuth.currentUser!.uid;
+  late final String _userId = firebaseAuth.currentUser?.uid??'';
 
   @override
   Stream<List<Chat>> getChatList() {

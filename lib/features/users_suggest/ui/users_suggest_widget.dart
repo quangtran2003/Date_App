@@ -22,26 +22,11 @@ Widget _buildCard(UsersSuggestController controller) {
               child: UtilWidget.buildText(LocaleKeys.home_notData.tr),
             )
           : InkWell(
-              onTap: () {
-                Get.toNamed(AppRoute.match.path);
-              },
-              child: Stack(
-                alignment: Alignment.bottomRight,
+              onTap: () => Get.toNamed(AppRoute.match.path),
+              child: Column(
                 children: [
-                  Column(
-                    children: [
-                      _buildImage(controller),
-                      _buildInfoCard(controller),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // _buildCircleChip(isExits: true),
-                      AppDimens.hm12,
-                      _buildCircleChip(),
-                    ],
-                  ).paddingOnly(bottom: 60, right: AppDimens.padding24),
+                  _buildImage(controller),
+                  _buildInfoCard(controller),
                 ],
               ),
             ),
@@ -49,43 +34,16 @@ Widget _buildCard(UsersSuggestController controller) {
   );
 }
 
-Widget _buildCircleChip({bool isExits = false}) {
-  return Container(
-    width: AppDimens.sizeImageMedium,
-    height: AppDimens.sizeImageMedium,
-    decoration: BoxDecoration(
-        color: AppColors.grayLight7,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ]),
-    child: Center(
-      child: isExits
-          ? UtilWidget.buildText(
-              'X',
-              style: AppTextStyle.font36Re.copyWith(
-                color: AppColors.primaryLight2,
-              ),
-            )
-          : Image.asset(Assets.ASSETS_IMAGES_LOVE__PNG)
-              .paddingAll(AppDimens.paddingSmall),
-    ),
-  );
-}
-
-Container _buildInfoCard(UsersSuggestController controller) {
+Widget _buildInfoCard(UsersSuggestController controller) {
   return Container(
     width: double.infinity,
     height: 90,
     padding: const EdgeInsets.symmetric(
-        horizontal: AppDimens.paddingMedium, vertical: AppDimens.paddingSmall),
+      horizontal: AppDimens.paddingMedium,
+      vertical: AppDimens.paddingSmall,
+    ),
     decoration: const BoxDecoration(
-      color: AppColors.grayLight7,
+      color: AppColors.white,
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(AppDimens.radius20),
       ),
@@ -104,15 +62,10 @@ Container _buildInfoCard(UsersSuggestController controller) {
             maxLine: 1),
         Row(
           children: [
-            // Image.asset(
-            //   Assets.ASSETS_IMAGES_PLACE_PNG,
-            //   height: AppDimens.sizeIcon,
-            //   width: AppDimens.sizeIcon,
-            // ),
-            SvgPicture.asset(
-              Assets.ASSETS_ICONS_IC_LOCATION_SVG,
-              width: AppDimens.sizeIcon,
+            Image.asset(
+              Assets.ASSETS_IMAGES_PLACE_GIF,
               height: AppDimens.sizeIcon,
+              width: AppDimens.sizeIcon,
             ),
             AppDimens.hm8,
             UtilWidget.buildText(controller.userSuggest.value?.place ?? '',
@@ -205,7 +158,7 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
           isSelected: true,
           title: LocaleKeys.home_likedYou.tr,
           onChanged: (_) => Get.toNamed(
-            AppRoute.userList.path,
+            AppRoute.user_list.path,
             arguments: MatchEnum.waiting,
           ),
         ),
@@ -214,7 +167,7 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
           isSelected: true,
           title: LocaleKeys.user_waitingList.tr,
           onChanged: (_) => Get.toNamed(
-            AppRoute.userList.path,
+            AppRoute.user_list.path,
             arguments: MatchEnum.request,
           ),
         ),
@@ -223,7 +176,7 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
           isSelected: true,
           title: LocaleKeys.user_blockList.tr,
           onChanged: (_) => Get.toNamed(
-            AppRoute.userList.path,
+            AppRoute.user_list.path,
             arguments: MatchEnum.block,
           ),
         ),
@@ -231,26 +184,6 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
     ),
   ).paddingSymmetric(vertical: AppDimens.paddingSmall);
 }
-
-// Widget _buildChoiceChip(String content, Function()? onTap) {
-//   return Expanded(
-//     child: InkWell(
-//       onTap: onTap,
-//       child: Container(
-//         alignment: Alignment.center,
-//         decoration: const BoxDecoration(
-//           color: AppColors.grayLight7,
-//           borderRadius: BorderRadius.all(
-//             Radius.circular(AppDimens.radius16),
-//           ),
-//         ),
-//         child: UtilWidget.buildText(content, fontWeight: FontWeight.bold)
-//             .paddingSymmetric(
-//                 horizontal: AppDimens.padding10, vertical: AppDimens.padding6),
-//       ),
-//     ),
-//   );
-// }
 
 AppBar _buildAppBar() {
   return AppBar(

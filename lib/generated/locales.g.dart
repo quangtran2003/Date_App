@@ -66,6 +66,9 @@ class LocaleKeys {
   static const home_dating = 'home_dating';
   static const home_notData = 'home_notData';
   static const home_home = 'home_home';
+  static const biometric_finger = 'biometric_finger';
+  static const biometric_faceId = 'biometric_faceId';
+  static const biometric_biometric = 'biometric_biometric';
   static const biometric_faceSecurity = 'biometric_faceSecurity';
   static const biometric_fingerprintSecurity = 'biometric_fingerprintSecurity';
   static const biometric_biometricsNotSupported =
@@ -90,6 +93,8 @@ class LocaleKeys {
   static const user_recallUser = 'user_recallUser';
   static const user_unblockUser = 'user_unblockUser';
   static const profile_block_list = 'profile_block_list';
+  static const chat_inputQuestionHint = 'chat_inputQuestionHint';
+  static const chat_suggestAI = 'chat_suggestAI';
   static const chat_textFieldHint = 'chat_textFieldHint';
   static const chat_emptyChat = 'chat_emptyChat';
   static const chat_blockUser = 'chat_blockUser';
@@ -211,6 +216,9 @@ class Locales {
     'home_dating': 'Hẹn hò',
     'home_notData': 'Không có dữ liệu!',
     'home_home': 'Trang chủ',
+    'biometric_finger': 'Bảo mật vân tay',
+    'biometric_faceId': 'Bảo mật khuôn mặt',
+    'biometric_biometric': 'Sinh trắc học',
     'biometric_faceSecurity': 'Bảo mật khuôn mặt',
     'biometric_fingerprintSecurity': 'Bảo mật vân tay',
     'biometric_biometricsNotSupported': 'Không hỗ trợ sinh trắc học',
@@ -219,7 +227,7 @@ class Locales {
     'biometric_confirmSuccess': 'Xác thức thành công!',
     'biometric_confirm': 'Xác thực sinh trắc học',
     'biometric_passBiometric': 'Mật khẩu sinh trắc học',
-    'biometric_passBiometricHint': 'Nhập mật khẩu sinh trắc học',
+    'biometric_passBiometricHint': 'Nhập mật khẩu để bật sinh trắc học',
     'biometric_passBiometricFail': 'Mật khẩu sinh trắc học không chính xác',
     'biometric_suggestBiometric':
         'Bạn chưa cài đặt sinh trắc học, bạn có muốn cài đặt không?',
@@ -243,6 +251,9 @@ class Locales {
     'profile_yes': 'Đồng ý',
     'profile_titelLogout': 'Bạn có thực sự muốn đăng xuất không?',
     'profile_block_list': 'Danh sách đã chặn',
+    'chat_inputQuestionHint': 'Nhập câu hỏi của bạn',
+    'chat_suggestAI':
+        'Chào bạn, tôi là Gemini, một mô hình AI của Google. Tôi có thể giúp gì bạn hôm nay?',
     'chat_textFieldHint': 'Lời từ trái tim...',
     'chat_emptyChat': 'Bắt đầu cuộc trò chuyện nào!',
     'chat_blockUser': 'Chặn người dùng',

@@ -6,7 +6,7 @@ enum AppRoute {
   chat,
   sticker,
   match,
-  userList,
+  user_list,
   profile_detail,
   pair,
   forgot_pass,

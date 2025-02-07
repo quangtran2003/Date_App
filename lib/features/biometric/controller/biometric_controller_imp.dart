@@ -13,13 +13,12 @@ import '../biometric.src.dart';
 import '../enums/support_state_enum.dart';
 
 class BiometricController extends BaseGetxController {
-  final RxBool wrongPassword = RxBool(false);
   final Rx<SupportState> supportState = Rx(SupportState.unknown);
   final Rxn<List<BiometricType>> availableBiometrics = Rxn();
   var passwordController = TextEditingController();
   final FocusNode passwordFocus = FocusNode();
   final Rx<Biometric> biometric = Rx(Biometric.fingerprint);
-  final RxBool haveBiometric = (AppStorage.getBiometric ?? false).obs;
+  final RxBool hasBiometric = (AppStorage.getBiometric ?? false).obs;
   final RxBool isHidePass = true.obs;
 
   @override
@@ -112,17 +111,17 @@ class BiometricController extends BaseGetxController {
   }
 
   Future<void> checkPassword() async {
-    wrongPassword.value = false;
     final password = await SecureStorage.password;
 
     if (password == passwordController.text.trim()) {
-      wrongPassword.value = false;
-      haveBiometric.toggle();
-      AppStorage.saveBiometric(haveBiometric.value);
-      showMessage(LocaleKeys.biometric_changeConfigSuccess.tr);
-      Get.back();
+      hasBiometric.toggle();
+      AppStorage.saveBiometric(hasBiometric.value);
+      showMessage(
+        LocaleKeys.biometric_changeConfigSuccess.tr,
+        isSuccess: true,
+      );
     } else {
-      wrongPassword.value = true;
+      showMessage(LocaleKeys.login_confirmPasswordWrong.tr);
     }
     passwordController.clear();
   }

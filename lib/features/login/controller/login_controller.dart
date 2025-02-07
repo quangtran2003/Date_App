@@ -18,6 +18,7 @@ class LoginController extends BaseGetxController {
   final LocalAuthentication auth = LocalAuthentication();
   final emailTextCtrl = TextEditingController();
   final passwordTextCtrl = TextEditingController();
+  final passwordBiometricCtrl = TextEditingController();
 
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
@@ -110,11 +111,15 @@ class LoginController extends BaseGetxController {
   }
 
   Future<void> login({isBiometric = false}) async {
+    final email = emailTextCtrl.text.trim();
+    final password =
+        isBiometric ? passwordBiometricCtrl.text : passwordTextCtrl.text;
+    if (isBiometric) {
+      passwordTextCtrl.text = passwordBiometricCtrl.text;
+    }
     if (!(formKey.currentState?.validate() ?? false)) return;
 
     showLoading();
-    final email = emailTextCtrl.text.trim();
-    final password = passwordTextCtrl.text;
 
     try {
       await loginRepository.login(
@@ -123,6 +128,7 @@ class LoginController extends BaseGetxController {
       );
       _saveEmailAndPassword();
       final user = await loginRepository.getUser();
+      if (isBiometric) AppStorage.saveBiometric(true);
       if (user.status == StatusEnum.inactive.value) {
         Get.offAllNamed(
           AppRoute.profile_detail.path,

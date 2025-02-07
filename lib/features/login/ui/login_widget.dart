@@ -21,17 +21,30 @@ Widget _buildLoginButton(LoginController controller) {
 }
 
 Widget _buildButtonBiometric(LoginController controller) {
-  return BiometricLogin(
-    func: () async {
-      if (AppStorage.getBiometric == true) {
-        controller.biometricAuth(func: () async {
-          controller.passwordTextCtrl.text = await SecureStorage.password ?? '';
-          Get.toNamed(AppRoute.home.path);
-        });
-      } else {
-        _promptBiometricSetup(controller);
-      }
-    },
+  return Container(
+    height: AppDimens.btnDefaultFigma,
+    width: AppDimens.btnDefaultFigma,
+    decoration: const BoxDecoration(
+      color: AppColors.primaryLight2,
+      borderRadius: BorderRadius.all(Radius.circular(AppDimens.radius8)),
+    ),
+    child: Center(
+      child: BiometricLogin(
+        func: () async {
+          if (AppStorage.getBiometric == true) {
+            controller.biometricAuth(func: () async {
+              controller.passwordTextCtrl.text =
+                  await SecureStorage.password ?? '';
+              Get.toNamed(AppRoute.home.path);
+            });
+          } else {
+            _promptBiometricSetup(controller);
+          }
+        },
+      ),
+    ),
+  ).paddingOnly(
+    left: AppDimens.paddingSmallest,
   );
 }
 
@@ -40,10 +53,27 @@ void _formSettingBio(LoginController controller) {
     confirm: () async {
       await controller.login(isBiometric: true);
     },
-    actionTitle: LocaleKeys.biometric_inputPassToVerify.tr,
-    buildBody: _buildInputPassword(controller),
+    actionTitle: LocaleKeys.login_continue.tr,
+    buildBody: _buildBodyPopup(controller),
   );
   controller.passwordTextCtrl.clear();
+}
+
+Widget _buildBodyPopup(LoginController controller) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      UtilWidget.buildText(
+        LocaleKeys.biometric_inputPassToVerify.tr,
+        style: Get.textTheme.bodyLarge?.copyWith(color: AppColors.dsGray1),
+        textAlign: TextAlign.center,
+      ),
+      _buildInputPasswordBiometric(controller),
+      AppDimens.vm12,
+    ],
+  ).paddingSymmetric(
+    horizontal: AppDimens.paddingVerySmall,
+  );
 }
 
 void _promptBiometricSetup(LoginController controller) {
@@ -103,10 +133,36 @@ Widget _buildInputPassword(LoginController controller) {
   );
 }
 
+Widget _buildInputPasswordBiometric(LoginController controller) {
+  return BuildInputTextWithLabel(
+    buildInputText: BuildInputText(
+      InputTextModel(
+        hintText: LocaleKeys.login_passwordHint.tr,
+        controller: controller.passwordBiometricCtrl,
+        iconNextTextInputAction: TextInputAction.done,
+        isReadOnly: controller.isShowLoading.value,
+        obscureText: true,
+        submitFunc: (_) {
+          controller.login(isBiometric: true);
+        },
+        validator: (value) {
+          if (value != null && (value.length < 6 || value.length > 20)) {
+            return LocaleKeys.login_passwordRequired.tr;
+          }
+          return null;
+        },
+      ),
+    ),
+  );
+}
+
 Widget _buildRegisterButton(LoginController controller) {
   return Center(
     child: TextButton(
-      onPressed: controller.goToRegisterPage,
+      onPressed: () {
+        _formSettingBio(controller);
+      },
+      //controller.goToRegisterPage,
       child: UtilWidget.buildText(
         LocaleKeys.login_register.tr,
         style: AppTextStyle.font16Semi.copyWith(
