@@ -1,4 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:easy_date/utils/date_utils.dart';
 
 import 'message_type.dart';
@@ -9,6 +11,8 @@ class ChatMessage {
   final String senderId;
   final MessageType type;
   final Timestamp createTime;
+  final bool? isOnline;
+  final String? token;
 
   // Local variables
   final DateTime createDate;
@@ -16,11 +20,13 @@ class ChatMessage {
   final String createTimeDdMMyyyy;
 
   ChatMessage({
-    required this.senderId,
+    this.isMe = false,
     required this.content,
+    required this.senderId,
     this.type = MessageType.text,
     required this.createTime,
-    this.isMe = false,
+    this.isOnline,
+    this.token,
     required this.createDate,
     required this.createTimeHHmma,
     required this.createTimeDdMMyyyy,
@@ -42,6 +48,8 @@ class ChatMessage {
       createDate: createTimeDate,
       createTimeHHmma: createTimeHHmm,
       createTimeDdMMyyyy: createTimeDdMMyyyy,
+      isOnline: json["isOnline"],
+      token: json["token"],
     );
   }
 
@@ -71,6 +79,8 @@ class ChatMessage {
       isMe: userId == senderId,
       createTimeHHmma: createTimeHHmm,
       createTimeDdMMyyyy: createTimeDdMMyyyy,
+      isOnline: data["isOnline"] ?? false,
+      token: data["token"],
     );
   }
 }
