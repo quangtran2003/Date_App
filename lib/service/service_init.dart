@@ -17,5 +17,5 @@ Future<void> initLocal() async {
   );
 }
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();

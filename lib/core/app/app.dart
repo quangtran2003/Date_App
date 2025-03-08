@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_date/generated/locales.g.dart';
+import 'package:easy_date/main_dev.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,6 +43,8 @@ class AppState extends State<App> {
     // Also handle any interaction when the app is in the background via a
     // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
   }
 
   void _handleMessage(RemoteMessage message) {
@@ -51,14 +53,6 @@ class AppState extends State<App> {
         AppRoute.chat.path,
       );
     }
-  }
-
-  @pragma('vm:entry-point')
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    // If you're going to use other Firebase services in the background, such as Firestore,
-    // make sure you call `initializeApp` before using other Firebase services.
-    await Firebase.initializeApp(options: widget.config.firebaseOptions);
   }
 
   @override
@@ -90,11 +84,6 @@ class AppState extends State<App> {
   }
 
   Future<void> _loadApp(BuildContext context) async {
-    // Init Firebase
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    // NOTE: Consider only enabling Crashlytics in the production environment
-    // if (widget.config.env == AppEnv.prod)
 
     // Pass all uncaught "fatal" errors from the framework to Crashlytics
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

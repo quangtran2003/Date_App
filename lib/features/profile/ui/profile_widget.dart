@@ -117,13 +117,11 @@ extension ProfileWidget on ProfilePage {
           color: AppColors.white,
           size: AppDimens.sizeIcon,
         ),
-        initialValue: SettingStorage.language == LanguageEnum.vietnamese,
+        initialValue: SettingStorage.language == LanguageEnum.vietnamese ||
+            SettingStorage.language == null,
         onChanged: (value) {
-          if (value) {
-            controller.changeLanguage(LanguageEnum.vietnamese);
-          } else {
-            controller.changeLanguage(LanguageEnum.english);
-          }
+          controller.changeLanguage(
+              value ? LanguageEnum.vietnamese : LanguageEnum.english);
         },
       ).paddingAll(AppDimens.paddingSmallest),
     );
