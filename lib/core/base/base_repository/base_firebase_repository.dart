@@ -19,7 +19,6 @@ abstract class BaseFirebaseRepository {
   }
 
   Future<void> getFirebaseMessagingToken(Rxn<InfoUserMatchModel> user) async {
-    log("vào day");
     await firebaseMessage.requestPermission();
     await firebaseMessage.getToken().then(
       (token) {
