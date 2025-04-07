@@ -159,10 +159,7 @@ Widget _buildInputPasswordBiometric(LoginController controller) {
 Widget _buildRegisterButton(LoginController controller) {
   return Center(
     child: TextButton(
-      onPressed: () {
-        _formSettingBio(controller);
-      },
-      //controller.goToRegisterPage,
+      onPressed: controller.goToRegisterPage,
       child: UtilWidget.buildText(
         LocaleKeys.login_register.tr,
         style: AppTextStyle.font16Semi.copyWith(
