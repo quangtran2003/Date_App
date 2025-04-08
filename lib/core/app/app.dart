@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:easy_date/core/config_noti/fcm.dart';
+import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/generated/locales.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +30,8 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   @override
   void initState() {
+    FCM.initialMessage();
+    LocalNotif.initialMessage();
     super.initState();
     RendererBinding.instance.deferFirstFrame();
 
