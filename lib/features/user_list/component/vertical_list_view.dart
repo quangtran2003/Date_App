@@ -50,7 +50,7 @@ class VerticalListView extends BaseGetWidget<UserListController> {
     final user = controller.userList.entries.elementAt(index);
     return ListTile(
       title: _buildUserName(user.value.name),
-      leading: _buildUserAvatar(user.value.imgAvt),
+      leading: _buildUserAvatar(user.value),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -112,7 +112,7 @@ class VerticalListView extends BaseGetWidget<UserListController> {
     }
 
     return ListTile(
-      leading: _buildUserAvatar(user2.imgAvt),
+      leading: _buildUserAvatar(user2),
       title: _buildUserName(user2.name),
       subtitle: Row(
         children: [

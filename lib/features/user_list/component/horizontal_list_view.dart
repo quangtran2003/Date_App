@@ -57,7 +57,7 @@ class HorizontalListView extends BaseGetWidget<UserListController>
   Widget _buildUser(User user) {
     return Column(
       children: [
-        _buildUserAvatar(user.imgAvt),
+        _buildUserAvatar(user),
         UtilWidget.buildText(
           user.name.length <= 8 ? user.name : '${user.name.substring(0, 8)}...',
           fontSize: AppDimens.fontSmall(),

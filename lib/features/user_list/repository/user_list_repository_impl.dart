@@ -1,14 +1,17 @@
 part of 'user_list_repository.dart';
 
 class UserListRepositoryImpl extends UserListRepository {
-  late final String _userId = firebaseAuth.currentUser?.uid??'';
+  late final String _userId = firebaseAuth.currentUser?.uid ?? '';
 
   @override
   Stream<List<Chat>> getChatList() {
     final query = firestore
         .collection(FirebaseCollection.chats)
         .where(FirebaseCollection.users, arrayContains: _userId)
+        // Lọc các document trong collection "chats" mà trường "users" chứa `_userId`
+        // Điều này có nghĩa là lấy tất cả các cuộc trò chuyện mà người dùng `_userId` đang tham gia
         .orderBy('lastMessageTime', descending: true)
+        // Sắp xếp kết quả theo "lastMessageTime" giảm dần (cuộc trò chuyện mới nhất sẽ ở đầu danh sách)
         .snapshots();
     return query.map(
       (snapshot) => List.from(
