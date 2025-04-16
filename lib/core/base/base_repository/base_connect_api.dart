@@ -1,7 +1,7 @@
 import 'package:dio_log/utils/dio_log_util.dart';
-import '../../const/const_src.dart';
 
 import '../../../utils/utils_src.dart';
+import '../../const/const_src.dart';
 
 // ignore: constant_identifier_names
 enum RequestMethod { POST, GET, DELETE }
@@ -65,16 +65,16 @@ class BaseConnectAPI {
     CancelToken? cancelToken,
     BaseOptions? dioOptions,
     Function(Object error)? functionError,
+    String? auth,
   }) async {
     dio.options = dioOptions ?? buildDefaultOptions();
 
     final Response response;
-    const baseUrl = "baseUrl";
+    const baseUrl = "";
 
     final String url = urlOther ?? (baseUrl + action);
 
-    final Map<String, String> headers =
-        headersUrlOther ?? await getBaseHeader();
+    final Map<String, String> headers = getBaseHeader(auth);
     final Options options = isDownload
         ? Options(
             headers: headers,
@@ -133,11 +133,10 @@ class BaseConnectAPI {
     onErrorCallBack(e);
   }
 
-  Future<Map<String, String>> getBaseHeader() async {
-    // final String authentication = hiveApp.get(AppKey.keyToken) ?? "";
+  Map<String, String> getBaseHeader(String? auth) {
     return {
       "Content-Type": "application/json",
-      // 'Authorization': "Bearer $authentication",
+      "Authorization": "Bearer $auth",
     };
   }
 }

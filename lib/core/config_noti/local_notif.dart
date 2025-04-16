@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:easy_date/utils/logger.dart';
+
+import 'package:easy_date/features/feature_src.dart';
+import 'package:easy_date/features/recent_chat/model/user_chat_argument.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void _onDidReceiveBackgroundNotificationResponse(
@@ -11,13 +13,23 @@ void _onDidReceiveBackgroundNotificationResponse(
 }
 
 void _handleNotificationResponse(NotificationResponse notificationResponse) {
-  log('payload: ${notificationResponse.payload}');
   final payloadJson = notificationResponse.payload;
   if (payloadJson == null) return;
 
   final payload = jsonDecode(payloadJson) as Map;
-  if (payload.containsKey('navigate_to')) {
-    logger.d('adasdas');
+  try {
+    if (payload.containsKey('pageName') && payload.containsKey('uidUser')) {
+      Get.toNamed(
+        payload['pageName'],
+        arguments: UserChatArgument(
+          uid: payload['uidUser'],
+          name: payload['nameUser'] ?? '',
+          avatar: payload['imgUser'] ?? '',
+        ),
+      );
+    }
+  } catch (e) {
+    log(e.toString());
   }
 }
 
@@ -25,18 +37,33 @@ class LocalNotif {
   static final _notifPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
-    _notifPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestNotificationsPermission();
+    const androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const iosSettings = DarwinInitializationSettings();
 
-    final androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    final iosSettings = DarwinInitializationSettings();
-
-    final initializationSettings = InitializationSettings(
+    const initializationSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
     );
+
+    // 👉 Tạo channel trước
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'channelId', // Đảm bảo giống với ID bạn dùng trong NotificationDetails
+      'High Importance Notifications',
+      description: 'This channel is used for important notifications.',
+      importance: Importance.max,
+    );
+
+    await _notifPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    // 👉 Request permission
+    await _notifPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
 
     await _notifPlugin.initialize(
       initializationSettings,
@@ -47,6 +74,30 @@ class LocalNotif {
         _handleNotificationResponse(notificationResponse);
       },
     );
+
+    // await _notifPlugin
+    //     .resolvePlatformSpecificImplementation<
+    //         AndroidFlutterLocalNotificationsPlugin>()
+    //     ?.requestNotificationsPermission();
+
+    // const androidSettings =
+    //     AndroidInitializationSettings('@mipmap/ic_launcher');
+    // const iosSettings = DarwinInitializationSettings();
+
+    // const initializationSettings = InitializationSettings(
+    //   android: androidSettings,
+    //   iOS: iosSettings,
+    // );
+
+    // await _notifPlugin.initialize(
+    //   initializationSettings,
+    //   onDidReceiveBackgroundNotificationResponse:
+    //       _onDidReceiveBackgroundNotificationResponse,
+    //   onDidReceiveNotificationResponse: (notificationResponse) {
+    //     log('foreground: ${notificationResponse.id}');
+    //     _handleNotificationResponse(notificationResponse);
+    //   },
+    // );
   }
 
   // handle notif from terminate state
@@ -64,8 +115,15 @@ class LocalNotif {
   }
 
   static NotificationDetails _defaultNotifDetails() {
-    return NotificationDetails(
-      android: AndroidNotificationDetails('channelId', 'channelName'),
+    return const NotificationDetails(
+      android: AndroidNotificationDetails(
+        'channelId',
+        'channelName',
+        channelDescription: '',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+      ),
       iOS: DarwinNotificationDetails(),
     );
   }

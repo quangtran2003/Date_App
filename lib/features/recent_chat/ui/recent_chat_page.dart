@@ -43,7 +43,7 @@ class RecentChatPage extends BaseGetWidget<RecentChatController> {
                         return InkWell(
                           onTap: () {
                             Get.toNamed(
-                              AppRoute.chat.path,
+                              AppRouteEnum.chat.path,
                               arguments: UserChatArgument(
                                 name: "${user.email} [FAKE]",
                                 uid: user.uid,

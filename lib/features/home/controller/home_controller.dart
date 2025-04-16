@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/chat_bot/controller/chat_bot_controller.dart';
 import 'package:easy_date/features/chat_bot/ui/chat_bot_page.dart';
 import 'package:easy_date/features/home/home_src.dart';
 import 'package:easy_date/utils/widgets/bottom_sheet.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -21,11 +23,48 @@ class HomeController extends BaseGetxController {
   /// vì BehaviorSubject khi lắng nghe sẽ nhận được giá trị cuối cùng của stream
   late final userStream = BehaviorSubject<InfoUserMatchModel?>.seeded(null);
 
+  bool _hasHandledUserChange = false;
+
   @override
   void onInit() async {
     super.onInit();
     userStream.addStream(homeRepository.getUserStream());
     currentUser.bindStream(userStream);
+    //getUserCurrent();
+    ever(
+      currentUser,
+      (user) async {
+        if (!_hasHandledUserChange && user != null) {
+          _hasHandledUserChange = true;
+          //userStream.add(user);
+          await Future.wait([
+            homeRepository.getFirebaseMessagingToken(user.uid),
+            homeRepository.updateActiveStatus(
+              isOnline: true,
+              uid: user.uid,
+            ),
+          ]);
+        }
+      },
+    );
+  }
+
+  void getUserCurrent() {
+    FirebaseFirestore.instance
+        .collection(FirebaseCollection.users)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .snapshots()
+        .listen(
+      (snapshot) {
+        if (snapshot.exists) {
+          currentUser.value = InfoUserMatchModel.fromJson(
+            snapshot.data() ?? {},
+          );
+        } else {
+          currentUser.value = null;
+        }
+      },
+    );
   }
 
   @override

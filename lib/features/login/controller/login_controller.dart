@@ -28,7 +28,7 @@ class LoginController extends BaseGetxController {
   });
 
   Future<void> goToRegisterPage() async {
-    final result = await Get.toNamed(AppRoute.register.path);
+    final result = await Get.toNamed(AppRouteEnum.register.path);
     if (result != null && result is RegisterSuccessResult) {
       emailTextCtrl.text = result.email;
       passwordTextCtrl.text = result.password;
@@ -63,7 +63,7 @@ class LoginController extends BaseGetxController {
   }
 
   Future<void> goToForgotPassPage() async {
-    final result = await Get.toNamed(AppRoute.forgot_pass.path);
+    final result = await Get.toNamed(AppRouteEnum.forgot_pass.path);
     if (result != null && result is RegisterSuccessResult) {
       emailTextCtrl.text = result.email;
       passwordTextCtrl.clear();
@@ -131,14 +131,14 @@ class LoginController extends BaseGetxController {
       if (isBiometric) AppStorage.saveBiometric(true);
       if (user.status == StatusEnum.inactive.value) {
         Get.offAllNamed(
-          AppRoute.profile_detail.path,
+          AppRouteEnum.profile_detail.path,
           arguments: {
             "currentUser": user,
           },
         );
         return;
       }
-      Get.offAllNamed(AppRoute.home.path);
+      Get.offAllNamed(AppRouteEnum.home.path);
     } on EmailNotVerifiedException {
       showSnackBar(LocaleKeys.login_pleaseVerifyEmail.tr, isSuccess: false);
     } catch (e) {

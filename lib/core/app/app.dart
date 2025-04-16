@@ -48,9 +48,9 @@ class AppState extends State<App> {
       if (mounted) {
         final user = FirebaseAuth.instance.currentUser;
         if (user != null && user.emailVerified) {
-          Get.offAllNamed(AppRoute.home.path);
+          Get.offAllNamed(AppRouteEnum.home.path);
         } else {
-          Get.offAllNamed(AppRoute.login.path);
+          Get.offAllNamed(AppRouteEnum.login.path);
         }
       }
     });
@@ -132,7 +132,7 @@ class AppState extends State<App> {
         getPages: AppRouter.routes,
         initialBinding: GlobalBinding(appConfig: widget.config),
         themeMode: ThemeMode.light,
-        initialRoute: AppRoute.splash.path,
+        initialRoute: AppRouteEnum.splash.path,
         builder: BotToastInit(),
         navigatorObservers: [
           BotToastNavigatorObserver(),

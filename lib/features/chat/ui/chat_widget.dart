@@ -3,6 +3,7 @@ part of 'chat_page.dart';
 extension ChatWidget on ChatPage {
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
+      leadingWidth: 24,
       scrolledUnderElevation: 0,
       shape: const Border(
         bottom: BorderSide(color: AppColors.grayLight6, width: 1),
@@ -11,12 +12,12 @@ extension ChatWidget on ChatPage {
         borderRadius: BorderRadius.circular(AppDimens.radius8),
         onTap: () {
           Get.toNamed(
-            AppRoute.profile_match.path,
+            AppRouteEnum.profile_match.path,
             arguments: controller.receiverUser.uid,
           );
         },
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
@@ -46,7 +47,6 @@ extension ChatWidget on ChatPage {
           ],
         ).paddingSymmetric(horizontal: AppDimens.paddingSmallest),
       ),
-      centerTitle: true,
       actions: [
         IconButton(
           onPressed: () {
@@ -217,7 +217,7 @@ extension ChatWidget on ChatPage {
           ),
           prefixIcon: InkWell(
             onTap: () async {
-              final sticker = await Get.toNamed(AppRoute.sticker.path);
+              final sticker = await Get.toNamed(AppRouteEnum.sticker.path);
               if (sticker != null && sticker is Sticker) {
                 controller.sendSticker(sticker);
               }

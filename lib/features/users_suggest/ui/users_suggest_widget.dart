@@ -22,7 +22,7 @@ Widget _buildCard(UsersSuggestController controller) {
               child: UtilWidget.buildText(LocaleKeys.home_notData.tr),
             )
           : InkWell(
-              onTap: () => Get.toNamed(AppRoute.match.path),
+              onTap: () => Get.toNamed(AppRouteEnum.match.path),
               child: Column(
                 children: [
                   _buildImage(controller),
@@ -158,7 +158,7 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
           isSelected: true,
           title: LocaleKeys.home_likedYou.tr,
           onChanged: (_) => Get.toNamed(
-            AppRoute.user_list.path,
+            AppRouteEnum.user_list.path,
             arguments: MatchEnum.waiting,
           ),
         ),
@@ -167,7 +167,7 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
           isSelected: true,
           title: LocaleKeys.user_waitingList.tr,
           onChanged: (_) => Get.toNamed(
-            AppRoute.user_list.path,
+            AppRouteEnum.user_list.path,
             arguments: MatchEnum.request,
           ),
         ),
@@ -176,7 +176,7 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
           isSelected: true,
           title: LocaleKeys.user_blockList.tr,
           onChanged: (_) => Get.toNamed(
-            AppRoute.user_list.path,
+            AppRouteEnum.user_list.path,
             arguments: MatchEnum.block,
           ),
         ),

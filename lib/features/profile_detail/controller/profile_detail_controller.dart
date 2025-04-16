@@ -152,7 +152,7 @@ class ProfileDetailController extends BaseGetxController {
 
       showSnackBar(LocaleKeys.profileDetail_updateSuccess.tr);
       if (currentUser.value?.status == StatusEnum.inactive.value) {
-        Get.offAllNamed(AppRoute.home.path);
+        Get.offAllNamed(AppRouteEnum.home.path);
         return;
       }
       Get.back();

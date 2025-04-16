@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_date/core/base/base_repository/base_firebase_repository.dart';
-import 'package:easy_date/features/chat/model/chat_message.dart';
-
-import '../model/block_user_request.dart';
-import '../model/message_type.dart';
+import 'package:easy_date/features/feature_src.dart';
 
 abstract class ChatRepository extends BaseFirebaseRepository {
   String get userId;
@@ -30,4 +26,10 @@ abstract class ChatRepository extends BaseFirebaseRepository {
     required BlockUserRequest current,
     required BlockUserRequest other,
   });
+
+  Future<void> pushNoti({
+    required PushNotificationModel notiModel,
+    required String authToken,
+  });
+  Future<String?> getDeviceReceiverToken(String uid);
 }

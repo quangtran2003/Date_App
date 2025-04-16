@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_date/core/config_noti/fcm.dart';
 import 'package:heart_overlay/heart_overlay.dart';
 import 'package:vibration/vibration.dart';
 
@@ -127,11 +128,14 @@ class ChatController extends BaseRefreshGetxController {
       messageTextCtrl.clear();
       showSendButton.value = false;
 
-      await chatRepository.createMessage(
-        receiverId: receiverUser.uid,
-        message: message,
-        type: MessageType.text,
-      );
+      await Future.wait([
+        chatRepository.createMessage(
+          receiverId: receiverUser.uid,
+          message: message,
+          type: MessageType.text,
+        ),
+        pushNotif(message),
+      ]);
 
       _scrollToBottom();
     } catch (e) {
@@ -147,10 +151,61 @@ class ChatController extends BaseRefreshGetxController {
         type: MessageType.sticker,
       );
 
+      await pushNotif(sticker.link, isSticker: true);
+
       _scrollToBottom();
     } catch (e) {
       handleException(e);
     }
+  }
+
+  Future<void> pushNotif(
+    String message, {
+    bool isSticker = false,
+  }) async {
+    // Step 1: Get receiver's FCM token
+    final receiverToken =
+        await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+    if (receiverToken == null) return;
+
+    // Step 2: Get server auth token
+    final serverAuthToken = await FCM.getToken();
+    if (serverAuthToken.isEmpty) return;
+
+    logger.d('AuthToken: $serverAuthToken');
+
+    // Step 3: Prepare notification data
+    final notificationPayload = getNotifModel(
+      isSticker,
+      message,
+      receiverToken,
+    );
+
+    // Step 4: Push to server
+    await chatRepository.pushNoti(
+      notiModel: notificationPayload,
+      authToken: serverAuthToken,
+    );
+  }
+
+  PushNotificationModel getNotifModel(
+    bool isSticker,
+    String message,
+    String receiverToken,
+  ) {
+    return PushNotificationModel(
+      data: Data(
+        pageName: AppRouteEnum.chat.path,
+        uidUser: receiverUser.uid,
+        nameUser: receiverUser.name,
+        imgUser: receiverUser.avatar,
+      ),
+      notification: NotificationContent(
+        title: currentUser.value?.name ?? 'Người dùng Easy Date',
+        body: isSticker ? 'Đã gửi một nhãn dán!' : message,
+      ),
+      token: receiverToken,
+    );
   }
 
   Future<void> blockUser() async {
