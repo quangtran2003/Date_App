@@ -79,6 +79,7 @@ class FCM extends BaseFirebaseRepository {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 
+//
   static Future<String> getToken() async {
     final jsonString =
         await rootBundle.loadString('assets/keys/service_account.json');
