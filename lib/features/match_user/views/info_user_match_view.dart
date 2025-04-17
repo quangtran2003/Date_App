@@ -99,7 +99,7 @@ class InfoUserMatchView extends StatelessWidget {
     );
   }
 
-  Column _buildInfo() {
+  Widget _buildInfo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

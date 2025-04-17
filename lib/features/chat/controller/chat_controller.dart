@@ -8,7 +8,6 @@ import 'package:vibration/vibration.dart';
 
 import '../../feature_src.dart';
 import '../../match_user/match_user_src.dart';
-import '../../recent_chat/model/model_src.dart';
 
 const heartText = '❤';
 const heartAnimationDuration = Duration(milliseconds: 1500);
@@ -188,25 +187,43 @@ class ChatController extends BaseRefreshGetxController {
     );
   }
 
-  PushNotificationModel getNotifModel(
+  PushNotificationMessage getNotifModel(
     bool isSticker,
     String message,
     String receiverToken,
   ) {
-    return PushNotificationModel(
-      data: Data(
-        pageName: AppRouteEnum.chat.path,
-        uidUser: receiverUser.uid,
-        nameUser: receiverUser.name,
-        imgUser: receiverUser.avatar,
-      ),
-      notification: NotificationContent(
-        title: currentUser.value?.name ?? 'Người dùng Easy Date',
-        body: isSticker ? 'Đã gửi một nhãn dán!' : message,
-      ),
+    final data = PushNotificationData(
+      pageName: AppRouteEnum.chat.path,
+      uidUser: receiverUser.uid,
+      nameUser: receiverUser.name,
+      imgUser: receiverUser.avatar,
+      notifTitle: currentUser.value?.name ?? 'Người dùng Easy Date',
+      notifBody: isSticker ? 'Đã gửi một nhãn dán!' : message,
+    );
+    return PushNotificationMessage(
+      data: data,
       token: receiverToken,
     );
   }
+  //   PushNotificationModel getNotifModel(
+  //   bool isSticker,
+  //   String message,
+  //   String receiverToken,
+  // ) {
+  //   return PushNotificationModel(
+  //     data: Data(
+  //       pageName: AppRouteEnum.chat.path,
+  //       uidUser: receiverUser.uid,
+  //       nameUser: receiverUser.name,
+  //       imgUser: receiverUser.avatar,
+  //     ),
+  //     notification: NotificationContent(
+  //       title: currentUser.value?.name ?? 'Người dùng Easy Date',
+  //       body: isSticker ? 'Đã gửi một nhãn dán!' : message,
+  //     ),
+  //     token: receiverToken,
+  //   );
+  // }
 
   Future<void> blockUser() async {
     if (currentUser.value == null) {

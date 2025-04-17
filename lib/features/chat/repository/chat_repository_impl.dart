@@ -144,7 +144,7 @@ class ChatRepositoryImpl extends ChatRepository {
 
   @override
   Future<void> pushNoti({
-    required PushNotificationModel notiModel,
+    required PushNotificationMessage notiModel,
     required String authToken,
   }) async {
     await baseSendRequest(

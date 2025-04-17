@@ -54,11 +54,6 @@ class AppRouter {
       binding: ProfileDetailBinding(),
     ),
     GetPage(
-      name: AppRouteEnum.pair.path,
-      page: () => const RecentChatPage(),
-      binding: RecentChatBinding(),
-    ),
-    GetPage(
       name: AppRouteEnum.match.path,
       page: () => const MatchUserPage(),
       binding: MatchUserBinding(),

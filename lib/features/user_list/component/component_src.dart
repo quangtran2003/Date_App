@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_date/features/feature_src.dart';
-import 'package:easy_date/features/recent_chat/model/model_src.dart';
-
 part 'horizontal_list_view.dart';
 part 'vertical_list_view.dart';
 

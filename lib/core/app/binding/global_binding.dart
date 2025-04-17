@@ -21,10 +21,6 @@ class GlobalBinding extends Bindings {
       () => LoginRepositoryImpl(),
       fenix: true,
     );
-    Get.lazyPut<RecentChatRepository>(
-      () => RecentChatRepositoryImpl(),
-      fenix: true,
-    );
     Get.lazyPut<ProfileRepository>(
       () => ProfileRepositoryImpl(),
       fenix: true,

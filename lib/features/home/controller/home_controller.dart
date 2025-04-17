@@ -39,7 +39,7 @@ class HomeController extends BaseGetxController {
           //userStream.add(user);
           await Future.wait([
             homeRepository.getFirebaseMessagingToken(user.uid),
-            homeRepository.updateActiveStatus(
+            homeRepository.updateUserOnlineStatus(
               isOnline: true,
               uid: user.uid,
             ),

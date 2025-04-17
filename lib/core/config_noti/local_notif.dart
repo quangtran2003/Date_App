@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:easy_date/features/feature_src.dart';
-import 'package:easy_date/features/recent_chat/model/user_chat_argument.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void _onDidReceiveBackgroundNotificationResponse(
@@ -38,7 +37,7 @@ class LocalNotif {
 
   static Future<void> init() async {
     const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings("@mipmap/ic_launcher");
     const iosSettings = DarwinInitializationSettings();
 
     const initializationSettings = InitializationSettings(

@@ -18,7 +18,7 @@ class AppStr {
       ' phải lớn hơn $length ký tự!';
 
   // view match
-  static const String address = "Địa chi: ";
+  static const String address = "Địa chỉ: ";
   static const String sex = "Giới tính: ";
 
   //error

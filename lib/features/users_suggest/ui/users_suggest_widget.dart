@@ -189,9 +189,15 @@ AppBar _buildAppBar() {
   return AppBar(
     centerTitle: false,
     scrolledUnderElevation: 0,
-    title: UtilWidget.buildText(
-      LocaleKeys.app_appName,
-      style: AppTextStyle.font36Bo,
+    title: InkWell(
+      onTap: () {
+        Get.toNamed(AppRouteEnum.pair.path);
+        // /LocalNotif.showNotif(id: 1, body: 'qưqw', title: 'qưeqweq');
+      },
+      child: UtilWidget.buildText(
+        LocaleKeys.app_appName,
+        style: AppTextStyle.font36Bo,
+      ),
     ),
   );
 }
