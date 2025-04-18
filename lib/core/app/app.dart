@@ -1,19 +1,14 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_date/core/config_noti/fcm.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
-import 'package:easy_date/generated/locales.g.dart';
+import 'package:easy_date/features/feature_src.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
-import '../../routes/routers_src.dart';
-import '../../utils/utils_src.dart';
-import '../core_src.dart';
 
 class App extends StatefulWidget {
   const App({
@@ -27,17 +22,57 @@ class App extends StatefulWidget {
   AppState createState() => AppState();
 }
 
-class AppState extends State<App> {
+class AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
+    super.initState();
+
     FCM.initialMessage();
     LocalNotif.initialMessage();
-    super.initState();
     RendererBinding.instance.deferFirstFrame();
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (Get.isRegistered<HomeController>()) {
+      final homeRepo = Get.find<HomeController>().homeRepository;
+      final uid = homeRepo.firebaseAuth.currentUser?.uid;
+      if (state == AppLifecycleState.paused) {
+        _handleAppLifecycle(
+          uid: uid,
+          homeRepo: homeRepo,
+        );
+      } else if (state == AppLifecycleState.resumed) {
+        _handleAppLifecycle(
+          uid: uid,
+          homeRepo: homeRepo,
+          isOnline: true,
+        );
+      }
+    }
+  }
+
+  Future<void> _handleAppLifecycle({
+    required String? uid,
+    required HomeRepository homeRepo,
+    bool isOnline = false,
+  }) async {
+    if (uid == null) return;
+    await homeRepo.updateUserOnlineStatus(
+      isOnline: isOnline,
+      uid: uid,
+    );
+    logger.d('App paused: Đã cập nhật trạng thái online = $isOnline');
   }
 
   @override

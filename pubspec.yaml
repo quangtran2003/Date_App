@@ -201,5 +201,6 @@ flutter:
     - assets/images/place.png
     - assets/images/typing-dark.gif
     - assets/images/typing_light.gif
+    - assets/keys/service_account.json
 
   # assets end

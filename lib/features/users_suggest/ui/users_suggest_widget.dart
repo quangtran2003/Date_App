@@ -195,7 +195,7 @@ AppBar _buildAppBar() {
         // /LocalNotif.showNotif(id: 1, body: 'qưqw', title: 'qưeqweq');
       },
       child: UtilWidget.buildText(
-        LocaleKeys.app_appName,
+        LocaleKeys.app_appName.tr,
         style: AppTextStyle.font36Bo,
       ),
     ),

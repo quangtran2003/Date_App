@@ -28,9 +28,7 @@ class SDSImageNetwork extends StatelessWidget {
     }
     return ClipRRect(
       borderRadius: sdsImageNetworkModel.borderRadius ??
-          BorderRadius.circular(
-            AppDimens.paddingVerySmall,
-          ),
+          BorderRadius.circular(AppDimens.paddingVerySmall),
       child: CachedNetworkImage(
         imageUrl: sdsImageNetworkModel.imgUrl!,
         fit: sdsImageNetworkModel.fit,
@@ -38,8 +36,14 @@ class SDSImageNetwork extends StatelessWidget {
         height: sdsImageNetworkModel.height,
         progressIndicatorBuilder: (context, url, progress) {
           return Center(
-            child: CircularProgressIndicator(
-              value: progress.progress,
+            child: SizedBox(
+              height: AppDimens.sizeIconDefault,
+              width: AppDimens.sizeIconDefault,
+              child: CircularProgressIndicator(
+                color: AppColors.dsGray3,
+                strokeWidth: 2,
+                value: progress.progress,
+              ),
             ),
           );
         },

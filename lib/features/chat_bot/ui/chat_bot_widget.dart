@@ -30,7 +30,6 @@ Widget _buildListMessage(ChatBotController controller) {
                               message,
                               controller,
                             ),
-                      //message.text.value.isNotEmpty || message.images.isNotEmpty
                       message.isTyping.value
                           ? _buildResponseLoadding()
                           : _buildResponseView(message)
@@ -67,7 +66,7 @@ BoxDecoration _buildBoxDecoration(bool isMe) {
       topLeft: const Radius.circular(AppDimens.radius20),
       topRight: const Radius.circular(AppDimens.radius20),
     ),
-    color: isMe ? AppColors.grayLight7 : AppColors.dsGray4,
+    color: isMe ? AppColors.grayLight7 : AppColors.bgText,
   );
 }
 
@@ -118,6 +117,7 @@ Widget _buildResponseView(Message message) {
                 message.text.value.tr,
                 textStyle: TextStyle(
                   fontSize: AppDimens.fontSmall(),
+                  color: AppColors.black,
                 ),
               ),
             ],
@@ -127,6 +127,7 @@ Widget _buildResponseView(Message message) {
           )
         : UtilWidget.buildText(
             message.text.value.tr,
+            textColor: AppColors.black,
             maxLine: 20,
             fontSize: AppDimens.fontSmall(),
           ),

@@ -15,16 +15,6 @@ class LocaleKeys {
   static const app_anErrorOccurred = 'app_anErrorOccurred';
   static const app_noInternet = 'app_noInternet';
   static const app_loading = 'app_loading';
-  static const home_recent = 'home_recent';
-  static const home_profile = 'home_profile';
-  static const profile_edit = 'profile_edit';
-  static const profile_profile = 'profile_profile';
-  static const profile_datingStandard = 'profile_datingStandard';
-  static const profile_setting = 'profile_setting';
-  static const profile_logout = 'profile_logout';
-  static const profile_language = 'profile_language';
-  static const profile_yes = 'profile_yes';
-  static const profile_titelLogout = 'profile_titelLogout';
   static const app_cancel = 'app_cancel';
   static const app_ok = 'app_ok';
   static const firebaseAuth_emailOrPasswordInvalid =
@@ -60,7 +50,9 @@ class LocaleKeys {
   static const login_registerSuccess = 'login_registerSuccess';
   static const login_pleaseVerifyEmail = 'login_pleaseVerifyEmail';
   static const login_forgotPassSuccess = 'login_forgotPassSuccess';
+  static const home_recent = 'home_recent';
   static const home_pairing = 'home_pairing';
+  static const home_profile = 'home_profile';
   static const home_likedYou = 'home_likedYou';
   static const home_paired = 'home_paired';
   static const home_dating = 'home_dating';
@@ -92,6 +84,14 @@ class LocaleKeys {
   static const user_rejectUser = 'user_rejectUser';
   static const user_recallUser = 'user_recallUser';
   static const user_unblockUser = 'user_unblockUser';
+  static const profile_edit = 'profile_edit';
+  static const profile_profile = 'profile_profile';
+  static const profile_datingStandard = 'profile_datingStandard';
+  static const profile_setting = 'profile_setting';
+  static const profile_logout = 'profile_logout';
+  static const profile_language = 'profile_language';
+  static const profile_yes = 'profile_yes';
+  static const profile_titelLogout = 'profile_titelLogout';
   static const profile_block_list = 'profile_block_list';
   static const chat_inputQuestionHint = 'chat_inputQuestionHint';
   static const chat_suggestAI = 'chat_suggestAI';
@@ -153,20 +153,140 @@ class LocaleKeys {
 
 class Locales {
   static const en_US = {
-    'app_appName': 'EasyInvoice',
+    'app_appName': 'Easy Date',
     'app_anErrorOccurred': 'An error occurred',
-    'app_noInternet': 'No internet',
+    'app_noInternet': 'Internet is not available',
     'app_loading': 'Loading...',
+    'app_cancel': 'Cancel',
+    'app_ok': 'OK',
+    'firebaseAuth_emailOrPasswordInvalid': 'Invalid email or password',
+    'firebaseAuth_wrongPassword': 'Incorrect password',
+    'firebaseAuth_invalidEmail': 'Invalid email',
+    'firebaseAuth_userDisabled': 'Account is disabled',
+    'firebaseAuth_verificationEmailError': 'Email not verified',
+    'firebaseAuth_userNotFound': 'User not found',
+    'firebaseAuth_emailAlreadyInUse': 'Email already in use',
+    'firebaseAuth_operationNotAllowed':
+        'You are not allowed to perform this action',
+    'firebaseAuth_weakPassword': 'Weak password',
+    'firebaseAuth_tooManyRequests': 'Too many requests, please try again later',
+    'login_backToLogin': 'Back to login',
+    'login_forgotPassword': 'Forgot password?',
+    'login_login': 'Login',
+    'login_register': 'Register',
+    'login_email': 'Email',
+    'login_continue': 'Continue',
+    'login_cancel': 'Cancel',
+    'login_emailHint': 'Enter email',
+    'login_emailRequired': 'Email is required',
+    'login_password': 'Password',
+    'login_newPassword': 'New password',
+    'login_confirmPassword': 'Confirm password',
+    'login_confirmPasswordHint': 'Re-enter password',
+    'login_confirmPasswordWrong': 'Password confirmation does not match',
+    'login_passwordHint': 'Enter password',
+    'login_passwordRequired': 'Password must be between 6 and 20 characters',
+    'login_registerSuccess':
+        'Registration successful, please check your email and log in again',
+    'login_pleaseVerifyEmail': 'Please verify your email and log in again',
+    'login_forgotPassSuccess':
+        'Password reset successful, please check your email to reset it',
     'home_recent': 'Recent',
+    'home_pairing': 'Pairing',
     'home_profile': 'Profile',
+    'home_likedYou': 'Liked you',
+    'home_paired': 'Paired',
+    'home_dating': 'Dating',
+    'home_notData': 'No data!',
+    'home_home': 'Home',
+    'biometric_finger': 'Fingerprint security',
+    'biometric_faceId': 'Face ID security',
+    'biometric_biometric': 'Biometrics',
+    'biometric_faceSecurity': 'Face security',
+    'biometric_fingerprintSecurity': 'Fingerprint security',
+    'biometric_biometricsNotSupported': 'Biometrics not supported',
+    'biometric_changeConfigSuccess': 'Configuration changed successfully',
+    'biometric_confirmFail': 'Authentication failed!',
+    'biometric_confirmSuccess': 'Authentication successful!',
+    'biometric_confirm': 'Biometric authentication',
+    'biometric_passBiometric': 'Biometric password',
+    'biometric_passBiometricHint': 'Enter password to enable biometrics',
+    'biometric_passBiometricFail': 'Incorrect biometric password',
+    'biometric_suggestBiometric':
+        'You haven\'t set up biometrics, would you like to do it now?',
+    'biometric_inputPassToVerify': 'Enter password to enable biometrics',
+    'user_chatNew': 'New Chat',
+    'user_acceptList': 'Matched',
+    'user_blockList': 'Blocked',
+    'user_waitingList': 'Waiting for match',
+    'user_chatSender': 'You: @content',
+    'user_chatSticker': 'Sent a sticker',
+    'user_acceptUser': 'You successfully matched with @username <3',
+    'user_rejectUser': 'You rejected the match with @username :(',
+    'user_recallUser': 'You cancelled the match request with @username :|',
+    'user_unblockUser': 'You unblocked @username successfully :D',
     'profile_edit': 'Edit profile',
-    'profile_profile': 'Profile',
-    'profile_datingStandard': 'Dating standard',
-    'profile_setting': 'Setting',
+    'profile_profile': 'Personal profile',
+    'profile_datingStandard': 'Dating criteria',
+    'profile_setting': 'Settings',
     'profile_logout': 'Logout',
     'profile_language': 'Language',
     'profile_yes': 'Yes',
-    'profile_titelLogout': 'Do you really want to log out?',
+    'profile_titelLogout': 'Are you sure you want to logout?',
+    'profile_block_list': 'Blocked list',
+    'chat_inputQuestionHint': 'Enter your question',
+    'chat_suggestAI':
+        'Hi, I\'m Gemini, a Google AI model. How can I help you today?',
+    'chat_textFieldHint': 'Words from the heart...',
+    'chat_emptyChat': 'Start a conversation now!',
+    'chat_blockUser': 'Block user',
+    'chat_userInfoNotFound': 'User information not found',
+    'chat_blockUserSuccess': 'User blocked successfully',
+    'chat_blockUserConfirmMessage': 'Are you sure you want to block this user?',
+    'sticker_stickerPageTitle': 'Stickers',
+    'sticker_invalidAlumUrl': 'Invalid album URL',
+    'sticker_loadAlumSuccess': 'Sticker album loaded successfully',
+    'sticker_loadAlumError': 'Failed to load sticker album',
+    'sticker_addStickerDialogTitle': 'Add sticker album',
+    'sticker_enterAlumUrl': 'Enter sticker album URL',
+    'profileDetail_datingProfile': 'Dating profile',
+    'profileDetail_info': 'Basic information',
+    'profileDetail_name': 'Name',
+    'profileDetail_age': 'Age',
+    'profileDetail_location': 'Dating location',
+    'profileDetail_gender': 'Gender',
+    'profileDetail_idealModel': 'Ideal type',
+    'profileDetail_addIdealModel': 'Add ideal type',
+    'profileDetail_height': 'Height',
+    'profileDetail_placeOfOrigion': 'Hometown',
+    'profileDetail_addPlaceOfOrigion': 'Add hometown',
+    'profileDetail_imageSuggest': 'Images and suggestions',
+    'profileDetail_addImageSuggest': 'Add images or suggestions',
+    'profileDetail_introduce': 'Introduction',
+    'profileDetail_warningIntroduce':
+        'Do not share phone numbers, addresses or emails as everyone on the Dating feature can see your introduction.',
+    'profileDetail_secret': 'View safety tips',
+    'profileDetail_description':
+        'Describe yourself in a few words or sentences...!!!',
+    'profileDetail_uploadImageInvalid': 'Maximum of 3 images allowed',
+    'profileDetail_save': 'Save',
+    'profileDetail_updateSuccess': 'Information updated successfully!',
+    'profileDetail_email': 'Email',
+    'profileDetail_yearOfBirth': 'Year of birth',
+    'profileDetail_inputName': 'Enter name',
+    'profileDetail_selectYear': 'Select year of birth',
+    'profileDetail_invalidInfo': 'Please fill in all required information',
+    'profileDetail_invalidAvatar': 'Please upload an avatar image',
+    'profileDetail_female': 'Female',
+    'profileDetail_male': 'Male',
+    'profileDetail_all': 'All',
+    'profileDetail_sexualOrientation': 'Interested in',
+    'profileDetail_nameRequired': 'Name is required',
+    'profileDetail_placeRequired': 'Hometown is required',
+    'profileDetail_birthdayRequired': 'Year of birth is required',
+    'profileDetail_selectBirthday': 'Select year of birth',
+    'profileDetail_sexualOrientationRequired': 'Interested gender is required',
+    'matchUser_dataIsEmpty': 'No more data',
   };
   static const vi_VN = {
     'app_appName': 'Easy Date',

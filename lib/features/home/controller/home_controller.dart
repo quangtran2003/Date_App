@@ -6,6 +6,7 @@ import 'package:easy_date/features/home/home_src.dart';
 import 'package:easy_date/utils/widgets/bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../utils/utils_src.dart';
@@ -24,6 +25,8 @@ class HomeController extends BaseGetxController {
   late final userStream = BehaviorSubject<InfoUserMatchModel?>.seeded(null);
 
   bool _hasHandledUserChange = false;
+  DateTime? _currentBackPressTime;
+  final RxBool canPop = false.obs;
 
   @override
   void onInit() async {
@@ -101,5 +104,18 @@ class HomeController extends BaseGetxController {
   void selectPage(int index) {
     currentPageIndex.value = index;
     pageController.jumpToPage(index);
+  }
+
+  Future<bool> onWillPop() async {
+    DateTime now = DateTime.now();
+    if (_currentBackPressTime == null ||
+        now.difference(_currentBackPressTime ?? DateTime.now()) >
+            const Duration(seconds: 2)) {
+      _currentBackPressTime = now;
+      Fluttertoast.showToast(msg: AppStr.exitApp.tr);
+      return Future.value(false);
+    }
+    SystemNavigator.pop();
+    return Future.value(true);
   }
 }

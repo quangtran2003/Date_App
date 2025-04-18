@@ -13,21 +13,19 @@ extension ProfileWidget on ProfilePage {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Obx(
-            () {
-              return InkWell(
-                onTap: controller.selectAvatar,
-                customBorder: const CircleBorder(),
-                child: SDSImageNetwork(
-                  SDSImageNetworkModel(
-                    borderRadius: BorderRadius.circular(AppDimens.radius90),
-                    width: AppDimens.sizeImageBig * 2,
-                    height: AppDimens.sizeImageBig * 2,
-                    imgUrl: controller.user.value?.imgAvt,
-                    fit: BoxFit.cover,
-                  ),
+            () => InkWell(
+              onTap: controller.selectAvatar,
+              customBorder: const CircleBorder(),
+              child: SDSImageNetwork(
+                SDSImageNetworkModel(
+                  borderRadius: BorderRadius.circular(AppDimens.radius90),
+                  width: AppDimens.sizeImageBig * 2,
+                  height: AppDimens.sizeImageBig * 2,
+                  imgUrl: controller.user.value?.imgAvt,
+                  fit: BoxFit.cover,
                 ),
-              );
-            },
+              ),
+            ),
           ),
           AppDimens.vm8,
           Row(

@@ -37,8 +37,16 @@ class HorizontalListView extends BaseGetWidget<UserListController>
   }
 
   Widget _buildTile(BuildContext context, int index) {
-    final allUsers = controller.userList.entries;
-    final user = allUsers.elementAt(index);
+    // Sắp xếp entries: user online lên trước
+    final sortedUsers = controller.userList.entries.toList()
+      ..sort((a, b) {
+        // true -> false = -1 => true đứng trước
+        if (a.value.isOnline == b.value.isOnline) return 0;
+        return a.value.isOnline.value ? -1 : 1;
+      });
+
+    final user = sortedUsers[index];
+
     return InkWell(
       onTap: () {
         Get.toNamed(
