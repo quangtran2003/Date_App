@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:easy_date/assets.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:googleapis_auth/auth_io.dart';
 
 @pragma('vm:entry-point')
@@ -76,24 +78,9 @@ class FCM extends BaseFirebaseRepository {
   }
 
   static Future<String> getToken() async {
-    final credentials = ServiceAccountCredentials.fromJson({
-      "type": "service_account",
-      "project_id": "easy-date-dev",
-      "private_key_id": "6c8fb947e8b7127a7ca6e1392e1ae0351387e5bc",
-      "private_key":
-          "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDAAyjTFGnVntci\nk9joyYwXfOLjq4OXIicdirVk+9cfq4jQMBwRWIkR2Mgw94HWMKSattYZZ/75VykK\nOphETaVBT1ElCRUy8ew7czKflF9H+cErjH4zt5VArVIGOXMB9Uhh+O1SHIty/J46\n6Z8muHIXBYmYb54sTKzmqs/Tl+gGzihcj13tpD9OKqSrDH3uqQGTxettdhuvL/9Z\nrwm6cL6126OiUOBK4yz7LsR2UqcDNn3TTkvKoyykPy9L7FT3/2dS5DxxIsaFR7/o\nIkLh4V8ApGHsKbpCY10eoHc4S9kMcvJNDDOttLUQ+3hqLnZS787YY7+1HJqdsvdi\nmvvfz8adAgMBAAECggEAEVc3tKMUpnTgkQAxMrTLsMNX6kpvE+htspP4VdUN/zo1\nR41Qu5r3ULlMkGo0kOzLsNKaUKkSXzT+loHm2873VwfxbXAojfVIlFs5qIJ0fcI8\ng9D9r3CroK+xHLF2MChqumO0wG77g7hKF0qfU5aMwdoqLFjIPCVLPXm8/dWrirxN\n1hFmnuwUJKr1I7bKQKIXWeLdjESHH3oLOUS7de665OwGWQmWqdIM5R7cHMDeYLZB\nQK+9nYpYE8eZSrC53VxoGNM8b48G5zlT/5LFe2fQn/ehzwCNkkJZ7KoL0D/Avoq0\noLfSvAnxbUtg04rSwHZ/ot3VxnMicIw8exYaO4uxsQKBgQDBgkJkm77PLLph5SDC\nyuIDVm+ovsPi/prG2XvM+V8hNBPsnL3cVOjfIU9X74P4T/CghT44ozW4+LZncjmd\nVmdhnZubgcArnF3Z1lqYR3s0A90f/2Y0frdBx63eE7WGZFmzKN9xBiA61HlT3Crd\nsJrHDqU7NnnBK8c9Ud9HyXRF+wKBgQD+BS7XDLCm8XARO9w/dg73fjxkDbSN/AX3\nIcuSVmYRJtKWriX5JPLOB/ZS0nyKEZg/nxrRPR0L8a0CWEFtm3CvfrLNrpYr6Ww1\n2L09dCo/Lnq1nRN8pWYHbZ0NTsNg3BVrKz+zNHCohW1KJSBVEzJ7PkpmFwUycc4Y\n57ule6i6RwKBgDLfGK80VpRGcPU9dEBhb8tq1M3q4LpzLqNqF2bKhBzJgRdqGWus\nEtBeBGrct7f25A5/GN1w4rWvBNzrJYRca6847OiT0r5kTDPxaz2vRQ9mmKJJ1Uel\nrG2pnebNDaK4DPDRpPQkpSJyKzdFoStIu1frXLrVVmrXJHjVZjqMFnozAoGADfsN\nC+r34ghRybEIuzltM3PwMPWMJXBkh6iFgsVckr8XQhHNpzvAXVSU2xQYpKS5Q28n\nU7LQYXLoucNPvo+akR4hCy77tuj++qu2Jqa5GIcfW9WMWATma6w9w5i9KhyS1TYp\nKFzPgobtb/JBKE2JLr1L7PiBYbhfxoEik8YNkEsCgYAoErn+2I+LfRcaNGDbvExh\nFlQbIxtttDGxNYRE4Tnqq13Vu4IL9/SA1PGZLOy+4HF6IPIduGy1nfBeRpisUKsW\nDrz5OxuJDmDSgi+9/4gPnmC8jG29uw70i386mAeXDk4SldNykAraUn0J1Wf6pM7+\n1yThzMbHiIq77DabrRCDHQ==\n-----END PRIVATE KEY-----\n",
-      "client_email":
-          "firebase-adminsdk-mvrk7@easy-date-dev.iam.gserviceaccount.com",
-      "client_id": "110700428732485649716",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url":
-          "https://www.googleapis.com/oauth2/v1/certs",
-      "client_x509_cert_url":
-          "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-mvrk7%40easy-date-dev.iam.gserviceaccount.com",
-      "universe_domain": "googleapis.com"
-    });
-
+    final jsonStr =
+        await rootBundle.loadString(Assets.ASSETS_KEYS_SERVICE_ACCOUNT_JSON);
+    final credentials = ServiceAccountCredentials.fromJson(jsonDecode(jsonStr));
     final scopes = [
       "https://www.googleapis.com/auth/firebase.messaging"
     ]; // Thay thế bằng danh sách SCOPES của bạn
