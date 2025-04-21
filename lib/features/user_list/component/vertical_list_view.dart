@@ -50,7 +50,7 @@ class VerticalListView extends BaseGetWidget<UserListController> {
     final user = controller.userList.entries.elementAt(index);
     return ListTile(
       title: _buildUserName(user.value.name),
-      leading: _buildUserAvatar(user.value.imgAvt),
+      leading: buildUserAvatar(user.value.imgAvt, user.value.isOnline),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -71,7 +71,7 @@ class VerticalListView extends BaseGetWidget<UserListController> {
           ? null
           : () {
               Get.toNamed(
-                AppRoute.profile_match.path,
+                AppRouteEnum.profile_match.path,
                 arguments: user.value.uid,
               );
             },
@@ -112,7 +112,7 @@ class VerticalListView extends BaseGetWidget<UserListController> {
     }
 
     return ListTile(
-      leading: _buildUserAvatar(user2.imgAvt),
+      leading: buildUserAvatar(user2.imgAvt, user2.isOnline),
       title: _buildUserName(user2.name),
       subtitle: Row(
         children: [
@@ -126,18 +126,15 @@ class VerticalListView extends BaseGetWidget<UserListController> {
           UtilWidget.buildText(getLastTime()),
         ],
       ),
-      onTap: () {
-        Get.toNamed(
-          AppRoute.chat.path,
-          arguments: UserChatArgument(
-            uid: userId2,
-            name: user2.name,
-            avatar: user2.imgAvt,
-          ),
-        )?.then((_) {
-          // controller.chatList.refresh();
-        });
-      },
+      onTap: () => Get.toNamed(
+        AppRouteEnum.chat.path,
+        arguments: UserChatArgument(
+          uid: userId2,
+          name: user2.name,
+          avatar: user2.imgAvt,
+          lastOnline: user2.lastOnline,
+        )..isOnline.value = user2.isOnline.value,
+      ),
     );
   }
 }

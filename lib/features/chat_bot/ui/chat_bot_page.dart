@@ -12,10 +12,7 @@ part 'chat_bot_widget.dart';
 class ChatBotPage extends BaseGetWidget<ChatBotController> {
   const ChatBotPage({super.key});
   @override
-  ChatBotController get controller => Get.put(
-        ChatBotController(),
-        permanent: true,
-      );
+  get controller => Get.put(ChatBotController(), permanent: true);
   @override
   buildWidgets(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -41,6 +38,4 @@ class ChatBotPage extends BaseGetWidget<ChatBotController> {
       ),
     );
   }
-
-
 }

@@ -59,7 +59,7 @@ class UserListControllerImpl extends UserListController {
         ).toJson(),
       });
       final params = {'username': user.value.name};
-      showSnackBar(LocaleKeys.user_acceptUser.trParams(params));
+      showSnackBar(LocaleKeys.user_acceptUser.trParams(params).tr);
     } catch (e) {
       handleException(e);
     }
@@ -72,8 +72,8 @@ class UserListControllerImpl extends UserListController {
       final params = {'username': user.value.name};
       showSnackBar(
         switch (listStatus) {
-          MatchEnum.block => LocaleKeys.user_unblockUser.trParams(params),
-          MatchEnum.waiting => LocaleKeys.user_rejectUser.trParams(params),
+          MatchEnum.block => LocaleKeys.user_unblockUser.trParams(params).tr,
+          MatchEnum.waiting => LocaleKeys.user_rejectUser.trParams(params).tr,
           _ => LocaleKeys.profileDetail_updateSuccess.tr,
         },
       );

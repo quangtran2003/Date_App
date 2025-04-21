@@ -1,6 +1,5 @@
-import '../base_src.dart';
-
 import '../../../utils/utils_src.dart';
+import '../base_src.dart';
 
 class BaseRepository {
   final BaseConnectAPI _baseRequest = Get.find<BaseConnectAPI>();
@@ -20,6 +19,7 @@ class BaseRepository {
     bool isQueryParametersPost = false,
     CancelToken? cancelToken,
     BaseOptions? dioOptions,
+    String? authBearerToken,
     Function(Object error)? functionError,
   }) {
     return _baseRequest.sendRequest(
@@ -33,6 +33,7 @@ class BaseRepository {
       cancelToken: cancelToken,
       dioOptions: dioOptions,
       functionError: functionError,
+      auth: authBearerToken,
     );
   }
 

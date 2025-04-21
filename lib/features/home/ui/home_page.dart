@@ -10,8 +10,15 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => NavigatorPopHandler(
-        onPop: () async => await onWillPop(),
+      () => PopScope(
+        canPop: controller.canPop.value,
+        onPopInvoked: (didPop) async {
+          if (didPop) return;
+          final shouldPop = await controller.onWillPop();
+          if (!shouldPop) {
+            controller.canPop.value = false;
+          }
+        },
         child: Scaffold(
           appBar: AppBar(toolbarHeight: 0),
           body: _buildBody(),

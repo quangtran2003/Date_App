@@ -78,17 +78,6 @@ class ChatBotController extends BaseGetxController {
     }
   }
 
-  //hàm cuộn listView XUống dưới
-  // Future<void> scrollToBottom() async {
-  //   if (scrollController.hasClients) {
-  //     await scrollController.animateTo(
-  //       scrollController.position.maxScrollExtent,
-  //       duration: const Duration(milliseconds: 300),
-  //       curve: Curves.easeOut,
-  //     );
-  //   }
-  // }
-
   void scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
@@ -102,7 +91,6 @@ class ChatBotController extends BaseGetxController {
   }
 
   void sendQuestion() async {
-    //await scrollToBottom();
     final question = textCtrl.text;
     if (question.isEmpty) return;
     final message = Message(
@@ -124,8 +112,6 @@ class ChatBotController extends BaseGetxController {
       hasAnimated: true,
     );
     messageList.add(messageResponse);
-    // scrollDown();
-    // await scrollToBottom();
     scrollToBottom();
 
     final response = await getResponseMessage(message);

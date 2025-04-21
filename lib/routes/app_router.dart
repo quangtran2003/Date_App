@@ -9,27 +9,27 @@ import '../features/feature_src.dart';
 class AppRouter {
   static final routes = [
     GetPage(
-      name: AppRoute.login.path,
+      name: AppRouteEnum.login.path,
       page: () => const LoginPage(),
       binding: LoginBinding(),
     ),
     GetPage(
-      name: AppRoute.register.path,
+      name: AppRouteEnum.register.path,
       page: () => const RegisterPage(),
       binding: RegisterBinding(),
     ),
     GetPage(
-      name: AppRoute.forgot_pass.path,
+      name: AppRouteEnum.forgot_pass.path,
       page: () => const ForgotPassPage(),
       binding: ForgotPassBinding(),
     ),
     GetPage(
-      name: AppRoute.chat.path,
+      name: AppRouteEnum.chat.path,
       page: () => const ChatPage(),
       binding: ChatBinding(),
     ),
     GetPage(
-      name: AppRoute.home.path,
+      name: AppRouteEnum.home.path,
       page: () => const HomePage(),
       bindings: [
         HomeBinding(),
@@ -39,37 +39,32 @@ class AppRouter {
       ],
     ),
     GetPage(
-      name: AppRoute.sticker.path,
+      name: AppRouteEnum.sticker.path,
       page: () => const StickerPage(),
       binding: StickerBinding(),
     ),
     GetPage(
-      name: AppRoute.user_list.path,
+      name: AppRouteEnum.user_list.path,
       page: () => const UserListPage(),
       binding: UserListBinding(),
     ),
     GetPage(
-      name: AppRoute.profile_detail.path,
+      name: AppRouteEnum.profile_detail.path,
       page: () => const ProfileDetailPage(),
       binding: ProfileDetailBinding(),
     ),
     GetPage(
-      name: AppRoute.pair.path,
-      page: () => const RecentChatPage(),
-      binding: RecentChatBinding(),
-    ),
-    GetPage(
-      name: AppRoute.match.path,
+      name: AppRouteEnum.match.path,
       page: () => const MatchUserPage(),
       binding: MatchUserBinding(),
     ),
     GetPage(
-      name: AppRoute.profile_match.path,
+      name: AppRouteEnum.profile_match.path,
       page: () => const ProfileMatchPage(),
       binding: ProfileMatchBinding(),
     ),
     GetPage(
-      name: AppRoute.splash.path,
+      name: AppRouteEnum.splash.path,
       page: () => const SplashPage(),
     ),
   ];

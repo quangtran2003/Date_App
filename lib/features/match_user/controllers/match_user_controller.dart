@@ -33,9 +33,7 @@ class MatchUserController extends BaseGetxController {
   @override
   Future<void> onInit() async {
     await getDataMatch();
-    if (listInfoUserMatchModel.isNotEmpty) {
-      userMatchView = listInfoUserMatchModel[0];
-    }
+
     super.onInit();
   }
 
@@ -56,6 +54,9 @@ class MatchUserController extends BaseGetxController {
   Future<void> getDataInit() async {
     listInfoUserMatchModel.value = await matchUserRepository
         .fetchFirstPage(homeController.currentUser.value!);
+    if (listInfoUserMatchModel.isNotEmpty) {
+      userMatchView = listInfoUserMatchModel[0];
+    }
   }
 
   Future<bool> onSwipe(
@@ -67,6 +68,9 @@ class MatchUserController extends BaseGetxController {
 
     if (direction == CardSwiperDirection.right) {
       heartFly();
+      matchUser(userMatchView);
+    } else {
+      skipUser(userMatchView);
     }
 
     if (currentIndex == null) {
@@ -101,22 +105,6 @@ class MatchUserController extends BaseGetxController {
     ratioIconRight.value = 1.0;
     directionSwipe = -1;
   }
-
-  //
-  // Future<void> loadMore() async {
-  //   if (indexCard >= listInfoUserMatchModel.length - 5) {
-  //     if (homeController.currentUser.value != null) {
-  //       List<InfoUserMatchModel> listMatchNext = await matchUserRepository
-  //           .fetchNextPage(homeController.currentUser.value!);
-  //
-  //       if (listMatchNext.isNotEmpty) {
-  //         for (var item in listMatchNext) {
-  //           listInfoUserMatchModel.add(item);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   void setSwipe(CardSwiperDirection horizontalDirection) {
     if (horizontalDirection == CardSwiperDirection.left) {

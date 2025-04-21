@@ -1,4 +1,4 @@
-enum AppRoute {
+enum AppRouteEnum {
   splash,
   login,
   register,

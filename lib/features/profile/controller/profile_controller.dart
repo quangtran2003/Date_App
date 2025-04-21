@@ -32,7 +32,7 @@ class ProfileController extends BaseGetxController {
       actionTitle: LocaleKeys.profile_yes.tr,
       confirm: () {
         profileRepository.logout();
-        Get.offAllNamed(AppRoute.login.path);
+        Get.offAllNamed(AppRouteEnum.login.path);
       },
     );
   }
@@ -62,7 +62,7 @@ class ProfileController extends BaseGetxController {
 
   void openProfileDetail() {
     Get.toNamed(
-      AppRoute.profile_detail.path,
+      AppRouteEnum.profile_detail.path,
       arguments: {
         "currentUser": user.value,
       },
@@ -71,7 +71,7 @@ class ProfileController extends BaseGetxController {
 
   void openBlockList() {
     Get.toNamed(
-      AppRoute.user_list.path,
+      AppRouteEnum.user_list.path,
       arguments: MatchEnum.block,
     );
   }

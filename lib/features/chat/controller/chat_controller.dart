@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_date/core/config_noti/fcm.dart';
 import 'package:heart_overlay/heart_overlay.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../feature_src.dart';
 import '../../match_user/match_user_src.dart';
-import '../../recent_chat/model/model_src.dart';
 
 const heartText = '❤';
 const heartAnimationDuration = Duration(milliseconds: 1500);
@@ -75,6 +75,28 @@ class ChatController extends BaseRefreshGetxController {
     });
   }
 
+  String timeAgoCustom(Timestamp? timestamp) {
+    if (timestamp == null) return '';
+    final DateTime dateTime = timestamp.toDate();
+    final Duration diff = DateTime.now().difference(dateTime);
+
+    if (diff.inSeconds < 60) {
+      return '${diff.inSeconds} ${LocaleKeys.chat_secondeAgo.tr}';
+    } else if (diff.inMinutes < 60) {
+      return '${diff.inMinutes} ${LocaleKeys.chat_minuteAgo.tr}';
+    } else if (diff.inHours < 24) {
+      return '${diff.inHours} ${LocaleKeys.chat_hourAgo.tr}';
+    } else if (diff.inDays < 30) {
+      return '${diff.inDays} ${LocaleKeys.chat_dayAgo.tr}';
+    } else if (diff.inDays < 365) {
+      final int months = (diff.inDays / 30).floor();
+      return '$months ${LocaleKeys.chat_monthAgo.tr}';
+    } else {
+      final int years = (diff.inDays / 365).floor();
+      return '$years ${LocaleKeys.chat_yearAgo.tr}';
+    }
+  }
+
   @override
   Future<void> onLoadMore() async {
     await getOldMessages(isLoadMore: true);
@@ -127,11 +149,14 @@ class ChatController extends BaseRefreshGetxController {
       messageTextCtrl.clear();
       showSendButton.value = false;
 
-      await chatRepository.createMessage(
-        receiverId: receiverUser.uid,
-        message: message,
-        type: MessageType.text,
-      );
+      await Future.wait([
+        chatRepository.createMessage(
+          receiverId: receiverUser.uid,
+          message: message,
+          type: MessageType.text,
+        ),
+        pushNotif(message),
+      ]);
 
       _scrollToBottom();
     } catch (e) {
@@ -147,11 +172,80 @@ class ChatController extends BaseRefreshGetxController {
         type: MessageType.sticker,
       );
 
+      await pushNotif(sticker.link, isSticker: true);
+
       _scrollToBottom();
     } catch (e) {
       handleException(e);
     }
   }
+
+  Future<void> pushNotif(
+    String message, {
+    bool isSticker = false,
+  }) async {
+    // Step 1: Get receiver's FCM token
+    final receiverToken =
+        await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+    if (receiverToken == null) return;
+
+    // Step 2: Get server auth token
+    final serverAuthToken = await FCM.getToken();
+    if (serverAuthToken.isEmpty) return;
+
+    logger.d('AuthToken: $serverAuthToken');
+
+    // Step 3: Prepare notification data
+    final notificationPayload = getNotifModel(
+      isSticker,
+      message,
+      receiverToken,
+    );
+
+    // Step 4: Push to server
+    await chatRepository.pushNoti(
+      notiModel: notificationPayload,
+      authToken: serverAuthToken,
+    );
+  }
+
+  PushNotificationMessage getNotifModel(
+    bool isSticker,
+    String message,
+    String receiverToken,
+  ) {
+    final data = PushNotificationData(
+      pageName: AppRouteEnum.chat.path,
+      uidUser: receiverUser.uid,
+      nameUser: receiverUser.name,
+      imgUser: receiverUser.avatar,
+      notifTitle: currentUser.value?.name ?? 'Người dùng Easy Date',
+      notifBody: isSticker ? 'Đã gửi một nhãn dán!' : message,
+    );
+    return PushNotificationMessage(
+      data: data,
+      token: receiverToken,
+    );
+  }
+  //   PushNotificationModel getNotifModel(
+  //   bool isSticker,
+  //   String message,
+  //   String receiverToken,
+  // ) {
+  //   return PushNotificationModel(
+  //     data: Data(
+  //       pageName: AppRouteEnum.chat.path,
+  //       uidUser: receiverUser.uid,
+  //       nameUser: receiverUser.name,
+  //       imgUser: receiverUser.avatar,
+  //     ),
+  //     notification: NotificationContent(
+  //       title: currentUser.value?.name ?? 'Người dùng Easy Date',
+  //       body: isSticker ? 'Đã gửi một nhãn dán!' : message,
+  //     ),
+  //     token: receiverToken,
+  //   );
+  // }
 
   Future<void> blockUser() async {
     if (currentUser.value == null) {

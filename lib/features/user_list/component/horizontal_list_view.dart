@@ -37,17 +37,26 @@ class HorizontalListView extends BaseGetWidget<UserListController>
   }
 
   Widget _buildTile(BuildContext context, int index) {
-    final allUsers = controller.userList.entries;
-    final user = allUsers.elementAt(index);
+    // Sắp xếp entries: user online lên trước
+    final sortedUsers = controller.userList.entries.toList()
+      ..sort((a, b) {
+        // true -> false = -1 => true đứng trước
+        if (a.value.isOnline == b.value.isOnline) return 0;
+        return a.value.isOnline.value ? -1 : 1;
+      });
+
+    final user = sortedUsers[index];
+
     return InkWell(
       onTap: () {
         Get.toNamed(
-          AppRoute.chat.path,
+          AppRouteEnum.chat.path,
           arguments: UserChatArgument(
             uid: user.key,
             name: user.value.name,
             avatar: user.value.imgAvt,
-          ),
+            lastOnline: user.value.lastOnline,
+          )..isOnline.value = user.value.isOnline.value,
         );
       },
       child: _buildUser(user.value),
@@ -57,7 +66,7 @@ class HorizontalListView extends BaseGetWidget<UserListController>
   Widget _buildUser(User user) {
     return Column(
       children: [
-        _buildUserAvatar(user.imgAvt),
+        buildUserAvatar(user.imgAvt, user.isOnline),
         UtilWidget.buildText(
           user.name.length <= 8 ? user.name : '${user.name.substring(0, 8)}...',
           fontSize: AppDimens.fontSmall(),

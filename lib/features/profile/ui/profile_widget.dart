@@ -13,21 +13,19 @@ extension ProfileWidget on ProfilePage {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Obx(
-            () {
-              return InkWell(
-                onTap: controller.selectAvatar,
-                customBorder: const CircleBorder(),
-                child: SDSImageNetwork(
-                  SDSImageNetworkModel(
-                    borderRadius: BorderRadius.circular(AppDimens.radius90),
-                    width: AppDimens.sizeImageBig * 2,
-                    height: AppDimens.sizeImageBig * 2,
-                    imgUrl: controller.user.value?.imgAvt,
-                    fit: BoxFit.cover,
-                  ),
+            () => InkWell(
+              onTap: controller.selectAvatar,
+              customBorder: const CircleBorder(),
+              child: SDSImageNetwork(
+                SDSImageNetworkModel(
+                  borderRadius: BorderRadius.circular(AppDimens.radius90),
+                  width: AppDimens.sizeImageBig * 2,
+                  height: AppDimens.sizeImageBig * 2,
+                  imgUrl: controller.user.value?.imgAvt,
+                  fit: BoxFit.cover,
                 ),
-              );
-            },
+              ),
+            ),
           ),
           AppDimens.vm8,
           Row(
@@ -117,13 +115,11 @@ extension ProfileWidget on ProfilePage {
           color: AppColors.white,
           size: AppDimens.sizeIcon,
         ),
-        initialValue: SettingStorage.language == LanguageEnum.vietnamese,
+        initialValue: SettingStorage.language == LanguageEnum.vietnamese ||
+            SettingStorage.language == null,
         onChanged: (value) {
-          if (value) {
-            controller.changeLanguage(LanguageEnum.vietnamese);
-          } else {
-            controller.changeLanguage(LanguageEnum.english);
-          }
+          controller.changeLanguage(
+              value ? LanguageEnum.vietnamese : LanguageEnum.english);
         },
       ).paddingAll(AppDimens.paddingSmallest),
     );

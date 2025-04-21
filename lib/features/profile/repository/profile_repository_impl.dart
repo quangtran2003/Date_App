@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:mime/mime.dart';
-import 'package:easy_date/features/recent_chat/model/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../feature_src.dart';

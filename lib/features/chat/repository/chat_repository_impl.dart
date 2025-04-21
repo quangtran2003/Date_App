@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_date/core/const/firebase_collection.dart';
-
-import '../model/model_src.dart';
-import 'chat_repository.dart';
+import 'package:easy_date/features/feature_src.dart';
 
 class ChatRepositoryImpl extends ChatRepository {
   late final _chatRoomsCollection =
@@ -143,5 +140,35 @@ class ChatRepositoryImpl extends ChatRepository {
         "users.${current.uid}": current.toJson(),
       }),
     ]);
+  }
+
+  @override
+  Future<void> pushNoti({
+    required PushNotificationMessage notiModel,
+    required String authToken,
+  }) async {
+    await baseSendRequest(
+      ApiUrl.urlPushNoti,
+      RequestMethod.POST,
+      jsonMap: notiModel.toJson(),
+      authBearerToken: authToken,
+    );
+  }
+
+  @override
+  Future<String?> getDeviceReceiverToken(String uid) async {
+    final token = await firebaseMessage.getToken();
+    // await firestore.collection(FirebaseCollection.users).doc(uid).update({
+    //   'token': token,
+    // });
+    logger.d(token);
+    final docSnapshot =
+        await firestore.collection(FirebaseCollection.users).doc(uid).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.data()?['token'] as String?;
+    } else {
+      return null;
+    }
   }
 }

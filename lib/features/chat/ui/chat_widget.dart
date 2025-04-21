@@ -2,7 +2,9 @@ part of 'chat_page.dart';
 
 extension ChatWidget on ChatPage {
   PreferredSizeWidget _buildAppBar() {
+    final receiver = controller.receiverUser;
     return AppBar(
+      leadingWidth: 24,
       scrolledUnderElevation: 0,
       shape: const Border(
         bottom: BorderSide(color: AppColors.grayLight6, width: 1),
@@ -11,42 +13,39 @@ extension ChatWidget on ChatPage {
         borderRadius: BorderRadius.circular(AppDimens.radius8),
         onTap: () {
           Get.toNamed(
-            AppRoute.profile_match.path,
-            arguments: controller.receiverUser.uid,
+            AppRouteEnum.profile_match.path,
+            arguments: receiver.uid,
           );
         },
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: AppDimens.radius20 * 2,
-              height: AppDimens.radius20 * 2,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.primaryLight2.withOpacity(0.2),
-                  width: 2,
-                ),
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                    controller.receiverUser.avatar,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            buildUserAvatar(
+              receiver.avatar,
+              receiver.isOnline,
             ),
             AppDimens.hm8,
             Flexible(
-              child: UtilWidget.buildText(
-                controller.receiverUser.name,
-                style: AppTextStyle.font16Bo,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UtilWidget.buildText(
+                    receiver.name,
+                    style: AppTextStyle.font16Bo,
+                  ),
+                  UtilWidget.buildText(
+                    receiver.isOnline.value
+                        ? LocaleKeys.chat_online.tr
+                        : controller.timeAgoCustom(receiver.lastOnline),
+                    textColor: AppColors.dsGray2,
+                  ),
+                ],
               ),
             ),
           ],
         ).paddingSymmetric(horizontal: AppDimens.paddingSmallest),
       ),
-      centerTitle: true,
       actions: [
         IconButton(
           onPressed: () {
@@ -217,7 +216,7 @@ extension ChatWidget on ChatPage {
           ),
           prefixIcon: InkWell(
             onTap: () async {
-              final sticker = await Get.toNamed(AppRoute.sticker.path);
+              final sticker = await Get.toNamed(AppRouteEnum.sticker.path);
               if (sticker != null && sticker is Sticker) {
                 controller.sendSticker(sticker);
               }

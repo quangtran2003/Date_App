@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:easy_date/core/core_src.dart';
+
 import '../../../routes/routers_src.dart';
 import '../../../utils/utils_src.dart';
 import '../exception/exception_handler.dart';
@@ -58,7 +59,7 @@ class BaseGetxController extends GetxController {
                 errorContent = AppStr.error401.tr;
                 ShowPopup.showDialogNotification(errorContent,
                     isActiveBack: true, function: () {
-                  Get.offAndToNamed(AppRoute.login.path);
+                  Get.offAndToNamed(AppRouteEnum.login.path);
                 });
                 return;
 

@@ -106,7 +106,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
           textColor: AppColors.black,
         ),
         _buildItemLock(
-          title: LocaleKeys.profileDetail_email,
+          title: LocaleKeys.profileDetail_email.tr,
           text: controller.currentUser.value?.email ?? '',
           iconData: Icons.lock,
         ),

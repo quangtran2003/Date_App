@@ -144,4 +144,7 @@ class Assets {
   /// {@macro assets_generator.ASSETS_IMAGES_TYPING_LIGHT_GIF.preview}
   static const String ASSETS_IMAGES_TYPING_LIGHT_GIF =
       'assets/images/typing_light.gif';
+
+  static const String ASSETS_KEYS_SERVICE_ACCOUNT_JSON =
+      'assets/keys/service_account.json';
 }

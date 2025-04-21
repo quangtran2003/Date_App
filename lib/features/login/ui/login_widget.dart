@@ -35,7 +35,7 @@ Widget _buildButtonBiometric(LoginController controller) {
             controller.biometricAuth(func: () async {
               controller.passwordTextCtrl.text =
                   await SecureStorage.password ?? '';
-              Get.toNamed(AppRoute.home.path);
+              Get.toNamed(AppRouteEnum.home.path);
             });
           } else {
             _promptBiometricSetup(controller);

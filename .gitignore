@@ -979,4 +979,5 @@ DerivedData/
 \lib\assets.preview.dart
 
 # FVM Version Cache
-.fvm/
+.fvm/"assets/keys/service_account.json" 
+#"assets/keys/service_account.json" 
