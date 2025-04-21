@@ -81,12 +81,14 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
     _loadApp(context).whenComplete(() {
       if (mounted) {
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null && user.emailVerified) {
-          Get.offAllNamed(AppRouteEnum.home.path);
-        } else {
-          Get.offAllNamed(AppRouteEnum.login.path);
-        }
+        //final user = FirebaseAuth.instance.currentUser;
+        Get.offAllNamed(AppRouteEnum.login.path);
+
+        // if (user != null && user.emailVerified) {
+        //   Get.offAllNamed(AppRouteEnum.home.path);
+        // } else {
+        //   Get.offAllNamed(AppRouteEnum.login.path);
+        // }
       }
     });
   }

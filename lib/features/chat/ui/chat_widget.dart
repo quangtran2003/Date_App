@@ -2,6 +2,7 @@ part of 'chat_page.dart';
 
 extension ChatWidget on ChatPage {
   PreferredSizeWidget _buildAppBar() {
+    final receiver = controller.receiverUser;
     return AppBar(
       leadingWidth: 24,
       scrolledUnderElevation: 0,
@@ -13,35 +14,33 @@ extension ChatWidget on ChatPage {
         onTap: () {
           Get.toNamed(
             AppRouteEnum.profile_match.path,
-            arguments: controller.receiverUser.uid,
+            arguments: receiver.uid,
           );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: AppDimens.radius20 * 2,
-              height: AppDimens.radius20 * 2,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.primaryLight2.withOpacity(0.2),
-                  width: 2,
-                ),
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                    controller.receiverUser.avatar,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            buildUserAvatar(
+              receiver.avatar,
+              receiver.isOnline,
             ),
             AppDimens.hm8,
             Flexible(
-              child: UtilWidget.buildText(
-                controller.receiverUser.name,
-                style: AppTextStyle.font16Bo,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UtilWidget.buildText(
+                    receiver.name,
+                    style: AppTextStyle.font16Bo,
+                  ),
+                  UtilWidget.buildText(
+                    receiver.isOnline.value
+                        ? LocaleKeys.chat_online.tr
+                        : controller.timeAgoCustom(receiver.lastOnline),
+                    textColor: AppColors.dsGray2,
+                  ),
+                ],
               ),
             ),
           ],

@@ -55,7 +55,8 @@ class HorizontalListView extends BaseGetWidget<UserListController>
             uid: user.key,
             name: user.value.name,
             avatar: user.value.imgAvt,
-          ),
+            lastOnline: user.value.lastOnline,
+          )..isOnline.value = user.value.isOnline.value,
         );
       },
       child: _buildUser(user.value),
@@ -65,7 +66,7 @@ class HorizontalListView extends BaseGetWidget<UserListController>
   Widget _buildUser(User user) {
     return Column(
       children: [
-        _buildUserAvatar(user.imgAvt, user.isOnline),
+        buildUserAvatar(user.imgAvt, user.isOnline),
         UtilWidget.buildText(
           user.name.length <= 8 ? user.name : '${user.name.substring(0, 8)}...',
           fontSize: AppDimens.fontSmall(),

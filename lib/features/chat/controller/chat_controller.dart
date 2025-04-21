@@ -75,6 +75,28 @@ class ChatController extends BaseRefreshGetxController {
     });
   }
 
+  String timeAgoCustom(Timestamp? timestamp) {
+    if (timestamp == null) return '';
+    final DateTime dateTime = timestamp.toDate();
+    final Duration diff = DateTime.now().difference(dateTime);
+
+    if (diff.inSeconds < 60) {
+      return '${diff.inSeconds} ${LocaleKeys.chat_secondeAgo.tr}';
+    } else if (diff.inMinutes < 60) {
+      return '${diff.inMinutes} ${LocaleKeys.chat_minuteAgo.tr}';
+    } else if (diff.inHours < 24) {
+      return '${diff.inHours} ${LocaleKeys.chat_hourAgo.tr}';
+    } else if (diff.inDays < 30) {
+      return '${diff.inDays} ${LocaleKeys.chat_dayAgo.tr}';
+    } else if (diff.inDays < 365) {
+      final int months = (diff.inDays / 30).floor();
+      return '$months ${LocaleKeys.chat_monthAgo.tr}';
+    } else {
+      final int years = (diff.inDays / 365).floor();
+      return '$years ${LocaleKeys.chat_yearAgo.tr}';
+    }
+  }
+
   @override
   Future<void> onLoadMore() async {
     await getOldMessages(isLoadMore: true);

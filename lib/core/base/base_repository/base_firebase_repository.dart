@@ -22,8 +22,10 @@ abstract class BaseFirebaseRepository extends BaseRepository {
     required bool isOnline,
     required String uid,
   }) async {
+    logger.d(FieldValue.serverTimestamp());
     firestore.collection(FirebaseCollection.users).doc(uid).update({
       'isOnline': isOnline,
+      'lastOnline': FieldValue.serverTimestamp(),
     });
     final querySnapshot =
         await firestore.collection(FirebaseCollection.users).get();
@@ -35,6 +37,7 @@ abstract class BaseFirebaseRepository extends BaseRepository {
       if (data.containsKey('users') && data['users'][uid] != null) {
         await firestore.collection('users').doc(doc.id).update({
           'users.$uid.isOnline': isOnline,
+          'users.$uid.lastOnline': FieldValue.serverTimestamp(),
         });
       }
     }

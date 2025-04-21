@@ -14,7 +14,6 @@ extension BiometricWidget on BiometricSetting {
         width: AppDimens.sizeIcon28,
       ),
       trailing: CupertinoSwitch(
-        
         trackColor: AppColors.grayLight5,
         activeColor: AppColors.primaryLight2,
         value: controller.hasBiometric.value,

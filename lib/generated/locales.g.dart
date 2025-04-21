@@ -101,6 +101,13 @@ class LocaleKeys {
   static const chat_userInfoNotFound = 'chat_userInfoNotFound';
   static const chat_blockUserSuccess = 'chat_blockUserSuccess';
   static const chat_blockUserConfirmMessage = 'chat_blockUserConfirmMessage';
+  static const chat_online = 'chat_online';
+  static const chat_secondeAgo = 'chat_secondeAgo';
+  static const chat_minuteAgo = 'chat_minuteAgo';
+  static const chat_hourAgo = 'chat_hourAgo';
+  static const chat_dayAgo = 'chat_dayAgo';
+  static const chat_monthAgo = 'chat_monthAgo';
+  static const chat_yearAgo = 'chat_yearAgo';
   static const sticker_stickerPageTitle = 'sticker_stickerPageTitle';
   static const sticker_invalidAlumUrl = 'sticker_invalidAlumUrl';
   static const sticker_loadAlumSuccess = 'sticker_loadAlumSuccess';
@@ -243,6 +250,13 @@ class Locales {
     'chat_userInfoNotFound': 'User information not found',
     'chat_blockUserSuccess': 'User blocked successfully',
     'chat_blockUserConfirmMessage': 'Are you sure you want to block this user?',
+    'chat_online': 'Online',
+    'chat_secondeAgo': 'seconds ago',
+    'chat_minuteAgo': 'minutes ago',
+    'chat_hourAgo': 'hours ago',
+    'chat_dayAgo': 'days ago',
+    'chat_monthAgo': 'months ago',
+    'chat_yearAgo': 'years ago',
     'sticker_stickerPageTitle': 'Stickers',
     'sticker_invalidAlumUrl': 'Invalid album URL',
     'sticker_loadAlumSuccess': 'Sticker album loaded successfully',
@@ -381,6 +395,13 @@ class Locales {
     'chat_blockUserSuccess': 'Chặn người dùng thành công',
     'chat_blockUserConfirmMessage':
         'Bạn có chắc chắn muốn chặn người này không?',
+    'chat_online': 'Hoạt động',
+    'chat_secondeAgo': 'giây trước',
+    'chat_minuteAgo': 'phút trước',
+    'chat_hourAgo': 'giờ trước',
+    'chat_dayAgo': 'ngày trước',
+    'chat_monthAgo': 'tháng trước',
+    'chat_yearAgo': 'năm trước',
     'sticker_stickerPageTitle': 'Stickers',
     'sticker_invalidAlumUrl': 'URL album không hợp lệ',
     'sticker_loadAlumSuccess': 'Tải album sticker thành công',

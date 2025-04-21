@@ -4,7 +4,7 @@ import 'package:easy_date/utils/widgets/image.dart';
 part 'horizontal_list_view.dart';
 part 'vertical_list_view.dart';
 
-Widget _buildUserAvatar(String imgAvt, RxBool isOnline) {
+Widget buildUserAvatar(String imgAvt, RxBool isOnline) {
   return Obx(
     () => Badge(
       isLabelVisible: isOnline.value,

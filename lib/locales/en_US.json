@@ -98,7 +98,14 @@
     "blockUser": "Block user",
     "userInfoNotFound": "User information not found",
     "blockUserSuccess": "User blocked successfully",
-    "blockUserConfirmMessage": "Are you sure you want to block this user?"
+    "blockUserConfirmMessage": "Are you sure you want to block this user?",
+    "online":"Online",
+    "secondeAgo":"seconds ago",
+    "minuteAgo":"minutes ago",
+    "hourAgo":"hours ago",
+    "dayAgo":"days ago",
+    "monthAgo":"months ago",
+    "yearAgo": "years ago"
   },
   "sticker": {
     "stickerPageTitle": "Stickers",

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_date/assets.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/utils/widgets/logo_loading.dart';

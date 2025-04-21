@@ -98,7 +98,15 @@
         "blockUser": "Chặn người dùng",
         "userInfoNotFound": "Không có thông tin người dùng hiện tại",
         "blockUserSuccess": "Chặn người dùng thành công",
-        "blockUserConfirmMessage": "Bạn có chắc chắn muốn chặn người này không?"
+        "blockUserConfirmMessage": "Bạn có chắc chắn muốn chặn người này không?",
+        "online":"Hoạt động",
+        "secondeAgo":"giây trước",
+        "minuteAgo":"phút trước",
+        "hourAgo":"giờ trước",
+        "dayAgo":"ngày trước",
+        "monthAgo":"tháng trước",
+        "yearAgo":"năm trước"
+
     },
     "sticker": {
         "stickerPageTitle": "Stickers",

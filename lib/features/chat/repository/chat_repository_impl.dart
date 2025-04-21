@@ -158,9 +158,9 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Future<String?> getDeviceReceiverToken(String uid) async {
     final token = await firebaseMessage.getToken();
-    await firestore.collection(FirebaseCollection.users).doc(uid).update({
-      'token': token,
-    });
+    // await firestore.collection(FirebaseCollection.users).doc(uid).update({
+    //   'token': token,
+    // });
     logger.d(token);
     final docSnapshot =
         await firestore.collection(FirebaseCollection.users).doc(uid).get();
