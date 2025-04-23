@@ -92,7 +92,7 @@
   },
   "chat": {
     "inputQuestionHint": "Enter your question",
-    "suggestAI": "Hi, I'm Gemini, a Google AI model. How can I help you today?",
+    "suggestAI": "Hi, I'm Dating AI, a Quang AI model. How can I help you today?",
     "textFieldHint": "Words from the heart...",
     "emptyChat": "Start a conversation now!",
     "blockUser": "Block user",

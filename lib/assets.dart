@@ -114,6 +114,10 @@ class Assets {
   static const String ASSETS_IMAGES_GEMINI_TEXT_PNG =
       'assets/images/gemini_text.png';
 
+  /// {@macro assets_generator.ASSETS_IMAGES_GPT_CHAT_BOT_PNG.preview}
+  static const String ASSETS_IMAGES_GPT_CHAT_BOT_PNG =
+      'assets/images/gpt_chat_bot.png';
+
   /// {@macro assets_generator.ASSETS_IMAGES_HEART_PNG.preview}
   static const String ASSETS_IMAGES_HEART_PNG = 'assets/images/heart.png';
 

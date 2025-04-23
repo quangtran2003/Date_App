@@ -92,7 +92,7 @@
     },
     "chat": {
         "inputQuestionHint": "Nhập câu hỏi của bạn",
-        "suggestAI":"Chào bạn, tôi là Gemini, một mô hình AI của Google. Tôi có thể giúp gì bạn hôm nay?",
+        "suggestAI":"Chào bạn, tôi là Dating AI, một mô hình AI của Quang. Tôi có thể giúp gì bạn hôm nay?",
         "textFieldHint": "Lời từ trái tim...",
         "emptyChat": "Bắt đầu cuộc trò chuyện nào!",
         "blockUser": "Chặn người dùng",

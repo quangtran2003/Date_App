@@ -192,6 +192,7 @@ flutter:
     - assets/images/duck.jpg
     - assets/images/gemini_icon.png
     - assets/images/gemini_text.png
+    - assets/images/gpt_chat_bot.png
     - assets/images/heart.png
     - assets/images/love .png
     - assets/images/love_anmation_icon.gif

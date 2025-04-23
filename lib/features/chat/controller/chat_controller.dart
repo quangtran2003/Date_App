@@ -191,10 +191,7 @@ class ChatController extends BaseRefreshGetxController {
 
     // Step 2: Get server auth token
     final serverAuthToken = await FCM.getToken();
-    if (serverAuthToken.isEmpty) return;
-
-    logger.d('AuthToken: $serverAuthToken');
-
+    
     // Step 3: Prepare notification data
     final notificationPayload = getNotifModel(
       isSticker,

@@ -18,22 +18,24 @@ class ChatBotPage extends BaseGetWidget<ChatBotController> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.scrollToBottom();
     });
-    return Obx(
-      () => SafeArea(
-        child: Column(
-          children: [
-            _buildLablePage(),
-            Expanded(
-              child: Column(
-                children: [
-                  _buildListMessage(controller),
-                  AppDimens.vm16,
-                  _buildTextFieldAndIconSend(controller),
-                  AppDimens.vm16,
-                ],
-              ).paddingSymmetric(horizontal: AppDimens.paddingSmall),
-            ),
-          ],
+    return Scaffold(
+      body: Obx(
+        () => SafeArea(
+          child: Column(
+            children: [
+              _buildLablePage(),
+              Expanded(
+                child: Column(
+                  children: [
+                    _buildListMessage(controller),
+                    AppDimens.vm16,
+                    _buildTextFieldAndIconSend(controller),
+                    AppDimens.vm16,
+                  ],
+                ).paddingSymmetric(horizontal: AppDimens.paddingSmall),
+              ),
+            ],
+          ),
         ),
       ),
     );

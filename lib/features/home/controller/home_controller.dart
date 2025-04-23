@@ -3,7 +3,6 @@ import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/chat_bot/controller/chat_bot_controller.dart';
 import 'package:easy_date/features/chat_bot/ui/chat_bot_page.dart';
 import 'package:easy_date/features/home/home_src.dart';
-import 'package:easy_date/utils/widgets/bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,19 +78,9 @@ class HomeController extends BaseGetxController {
   }
 
   void gotoChatBot() {
-    Get.bottomSheet(
-      isScrollControlled: true,
-      SDSBottomSheet(
-        noAppBar: true,
-        isMiniSize: true,
-        isHeightMin: false,
-        miniSizeHeight: Get.height * 0.7,
-        title: 'GEMINI',
-        paddingPage: AppDimens.paddingZero,
-        padding: AppDimens.paddingZero,
-        body: const ChatBotPage(),
-      ),
-    ).then(
+    Get.to(
+      const ChatBotPage(),
+    )?.then(
       (value) => Get.find<ChatBotController>().messageList.forEach(
         (element) {
           element.hasAnimated = false;

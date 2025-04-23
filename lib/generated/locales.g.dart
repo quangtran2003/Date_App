@@ -243,7 +243,7 @@ class Locales {
     'profile_block_list': 'Blocked list',
     'chat_inputQuestionHint': 'Enter your question',
     'chat_suggestAI':
-        'Hi, I\'m Gemini, a Google AI model. How can I help you today?',
+        'Hi, I\'m Dating AI, a Quang AI model. How can I help you today?',
     'chat_textFieldHint': 'Words from the heart...',
     'chat_emptyChat': 'Start a conversation now!',
     'chat_blockUser': 'Block user',
@@ -387,7 +387,7 @@ class Locales {
     'profile_block_list': 'Danh sách đã chặn',
     'chat_inputQuestionHint': 'Nhập câu hỏi của bạn',
     'chat_suggestAI':
-        'Chào bạn, tôi là Gemini, một mô hình AI của Google. Tôi có thể giúp gì bạn hôm nay?',
+        'Chào bạn, tôi là Dating AI, một mô hình AI của Quang. Tôi có thể giúp gì bạn hôm nay?',
     'chat_textFieldHint': 'Lời từ trái tim...',
     'chat_emptyChat': 'Bắt đầu cuộc trò chuyện nào!',
     'chat_blockUser': 'Chặn người dùng',

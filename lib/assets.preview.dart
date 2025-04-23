@@ -108,6 +108,10 @@
 /// ![](d:\gitrepository\date_app\assets/images/gemini_text.png)
 /// {@endtemplate}
 
+/// {@template assets_generator.ASSETS_IMAGES_GPT_CHAT_BOT_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gpt_chat_bot.png)
+/// {@endtemplate}
+
 /// {@template assets_generator.ASSETS_IMAGES_HEART_PNG.preview}
 /// ![](d:\gitrepository\date_app\assets/images/heart.png)
 /// {@endtemplate}

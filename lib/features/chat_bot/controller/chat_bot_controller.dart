@@ -26,13 +26,12 @@ class ChatBotController extends BaseGetxController {
       model: 'gemini-1.5-flash-latest',
       apiKey: apiKey,
     );
-    messageList
-      ..assignAll([firstMessage])
-      ..listen((_) async {
-        if (scrollController.hasClients) {
-          scrollToBottom();
-        }
-      });
+    messageList.assignAll([firstMessage]);
+    // ..listen((_) async {
+    //   if (scrollController.hasClients) {
+    //     scrollToBottom();
+    //   }
+    // });
   }
 
   Future<void> pickImage({

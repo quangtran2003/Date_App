@@ -40,7 +40,7 @@ Widget _buildListMessage(ChatBotController controller) {
                   ),
                 ),
               ).paddingOnly(
-                top: AppDimens.defaultPadding,
+                top: AppDimens.paddingVerySmall,
                 right: message.isMe
                     ? AppDimens.paddingZero
                     : AppDimens.paddingHuge,
@@ -80,13 +80,11 @@ Widget _buildLablePage() {
         width: AppDimens.btnLarge,
         fit: BoxFit.cover,
       ),
-      Image.asset(
-        Assets.ASSETS_IMAGES_GEMINI_TEXT_PNG,
-        height: AppDimens.btnLarge,
-        width: AppDimens.btnLarge,
+      UtilWidget.buildText(
+        "Dating AI",
+        fontSize: AppDimens.sizeIconDefault,
       ),
       const Spacer(),
-      const CloseButton()
     ],
   );
 }
@@ -115,10 +113,6 @@ Widget _buildResponseView(Message message) {
             animatedTexts: [
               TyperAnimatedText(
                 message.text.value.tr,
-                textStyle: TextStyle(
-                  fontSize: AppDimens.fontSmall(),
-                  color: AppColors.black,
-                ),
               ),
             ],
             totalRepeatCount: 1,
@@ -127,7 +121,6 @@ Widget _buildResponseView(Message message) {
           )
         : UtilWidget.buildText(
             message.text.value.tr,
-            textColor: AppColors.black,
             maxLine: 20,
             fontSize: AppDimens.fontSmall(),
           ),
