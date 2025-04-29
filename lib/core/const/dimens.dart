@@ -48,7 +48,7 @@ class AppDimens {
   static const double paddingVerySmall = 8.0;
   static const double padding10 = 10.0;
   static const double paddingSmall = 12.0;
-  static const double defaultPadding = 16.0;
+  static const double paddingDefault = 16.0;
   static const double paddingMedium = 20.0;
   static const double padding24 = 24.0;
   static const double paddingHuge = 32.0;

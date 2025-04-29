@@ -20,7 +20,7 @@ class UtilWidget {
   static const Widget sizedBoxPaddingHuge =
       SizedBox(height: AppDimens.paddingHuge);
   static const Widget sizedBoxPadding =
-      SizedBox(height: AppDimens.defaultPadding);
+      SizedBox(height: AppDimens.paddingDefault);
   static const Widget sizedWidth5 = SizedBox(width: 5);
   static const Widget sizedWidth10 = SizedBox(width: 10);
   static const Widget sizedWidth8 = SizedBox(width: 8);
@@ -167,7 +167,7 @@ class UtilWidget {
   }
 
   static Widget buildShimmerLoading() {
-    const padding = AppDimens.defaultPadding;
+    const padding = AppDimens.paddingDefault;
     return Container(
       width: double.infinity,
       padding:
@@ -724,7 +724,7 @@ class UtilWidget {
       child: DropdownButtonHideUnderlineCustom(
         child: Padding(
           padding:
-              const EdgeInsets.symmetric(horizontal: AppDimens.defaultPadding),
+              const EdgeInsets.symmetric(horizontal: AppDimens.paddingDefault),
           child: DropdownButtonCustom<T>(
             dropdownColor: Colors.white,
             isExpanded: true,
@@ -822,7 +822,7 @@ class UtilWidget {
     required Widget child,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppDimens.defaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingDefault),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -861,7 +861,7 @@ class UtilWidget {
             width: AppDimens.sizeIconMedium,
             height: AppDimens.sizeIconMedium,
           ).paddingOnly(
-            right: AppDimens.defaultPadding,
+            right: AppDimens.paddingDefault,
           ),
           Expanded(
             child: UtilWidget.buildText(
@@ -886,10 +886,10 @@ class UtilWidget {
         width: AppDimens.sizeIconLarge,
         decoration: const BoxDecoration(
           borderRadius:
-              BorderRadius.all(Radius.circular(AppDimens.defaultPadding)),
+              BorderRadius.all(Radius.circular(AppDimens.paddingDefault)),
           color: AppColors.grayLight6,
         ),
-      ).paddingSymmetric(vertical: AppDimens.defaultPadding),
+      ).paddingSymmetric(vertical: AppDimens.paddingDefault),
     );
   }
 

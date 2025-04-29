@@ -84,7 +84,6 @@ class HomeController extends BaseGetxController {
       (value) => Get.find<ChatBotController>().messageList.forEach(
         (element) {
           element.hasAnimated = false;
-          element.images.clear();
         },
       ),
     );

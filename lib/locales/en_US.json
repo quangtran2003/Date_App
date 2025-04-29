@@ -153,6 +153,8 @@
     "sexualOrientationRequired": "Interested gender is required"
   },
   "matchUser": {
-    "dataIsEmpty": "No more data"
+    "dataIsEmpty": "No more data",
+    "address": "Address: ",
+    "gender": "Gender: "
   }
 }

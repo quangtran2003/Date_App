@@ -16,7 +16,7 @@ class MatchUserController extends BaseGetxController {
 
   final MatchUserRepository matchUserRepository;
 
-  RxDouble ratioIconLeft = (1.0).obs;
+  RxDouble ratioIconLeft = 1.0.obs;
 
   RxDouble ratioIconRight = 1.0.obs;
 

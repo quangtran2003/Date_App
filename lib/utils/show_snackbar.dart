@@ -18,7 +18,7 @@ void showSnackBar(
           width: Get.width,
           padding: const EdgeInsets.symmetric(
             vertical: AppDimens.paddingSmallest,
-            horizontal: AppDimens.defaultPadding,
+            horizontal: AppDimens.paddingDefault,
           ),
           child: Row(
             children: [

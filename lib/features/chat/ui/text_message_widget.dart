@@ -69,7 +69,7 @@ class TextMessageWidget extends StatelessWidget {
                     maxLine: 20,
                   ).paddingSymmetric(
                     vertical: AppDimens.paddingSmall,
-                    horizontal: AppDimens.defaultPadding,
+                    horizontal: AppDimens.paddingDefault,
                   ),
                 ),
               ),

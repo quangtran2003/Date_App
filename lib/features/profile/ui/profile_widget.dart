@@ -12,19 +12,36 @@ extension ProfileWidget on ProfilePage {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Obx(
-            () => InkWell(
-              onTap: controller.selectAvatar,
-              customBorder: const CircleBorder(),
-              child: SDSImageNetwork(
-                SDSImageNetworkModel(
-                  borderRadius: BorderRadius.circular(AppDimens.radius90),
-                  width: AppDimens.sizeImageBig * 2,
-                  height: AppDimens.sizeImageBig * 2,
-                  imgUrl: controller.user.value?.imgAvt,
-                  fit: BoxFit.cover,
-                ),
-              ),
+          SizedBox(
+            width: AppDimens.sizeImageBig * 2,
+            height: AppDimens.sizeImageBig * 2,
+            child: Obx(
+              () => controller.isUploading.value
+                  ? const Center(
+                      child: SizedBox(
+                        height: AppDimens.sizeIcon,
+                        width: AppDimens.sizeIcon,
+                        child: CircularProgressIndicator(
+                          color: AppColors.dsGray3,
+                          strokeWidth: 2,
+                        ),
+                      ),
+                    )
+                  : InkWell(
+                      onTap: controller.selectAvatar,
+                      customBorder: const CircleBorder(),
+                      child: SDSImageNetwork(
+                        SDSImageNetworkModel(
+                          widthLoadding: AppDimens.sizeIcon,
+                          borderRadius:
+                              BorderRadius.circular(AppDimens.radius90),
+                          width: AppDimens.sizeImageBig * 2,
+                          height: AppDimens.sizeImageBig * 2,
+                          imgUrl: controller.user.value?.imgAvt,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
             ),
           ),
           AppDimens.vm8,

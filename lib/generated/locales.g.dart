@@ -156,6 +156,8 @@ class LocaleKeys {
   static const profileDetail_sexualOrientationRequired =
       'profileDetail_sexualOrientationRequired';
   static const matchUser_dataIsEmpty = 'matchUser_dataIsEmpty';
+  static const matchUser_address = 'matchUser_address';
+  static const matchUser_gender = 'matchUser_gender';
 }
 
 class Locales {
@@ -301,6 +303,8 @@ class Locales {
     'profileDetail_selectBirthday': 'Select year of birth',
     'profileDetail_sexualOrientationRequired': 'Interested gender is required',
     'matchUser_dataIsEmpty': 'No more data',
+    'matchUser_address': 'Address: ',
+    'matchUser_gender': 'Gender: ',
   };
   static const vi_VN = {
     'app_appName': 'Easy Date',
@@ -447,5 +451,7 @@ class Locales {
     'profileDetail_sexualOrientationRequired':
         'Giới tính hướng tới là bắt buộc.',
     'matchUser_dataIsEmpty': 'Dữ liệu đã hết',
+    'matchUser_address': 'Địa chỉ: ',
+    'matchUser_gender': 'Giới tính: ',
   };
 }

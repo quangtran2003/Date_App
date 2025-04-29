@@ -1,6 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_date/core/core_src.dart';
+import 'package:easy_date/generated/locales.g.dart';
 import 'package:easy_date/utils/utils_src.dart';
+import 'package:easy_date/utils/widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class InfoUserMatchView extends StatelessWidget {
@@ -14,50 +15,39 @@ class InfoUserMatchView extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Container(
-        color: Colors.white,
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAvatar(),
-                  _buildInfo().paddingSymmetric(horizontal: 16),
-                  ...List.generate(infoUserMatchModel.urlImgDesc.length,
-                      (index) {
-                    return SizedBox(
-                      width: Get.width,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: CachedNetworkImage(
-                          imageUrl: infoUserMatchModel.urlImgDesc[index],
-                          placeholder: (context, url) => Container(
-                            alignment: Alignment.center,
-                            child: const SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Center(child: UtilWidget.buildLoading),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                          fit: BoxFit.cover, // Để hình ảnh phủ toàn bộ
-                        ),
-                      ).paddingSymmetric(horizontal: 16, vertical: 10),
-                    );
-                  })
-                ],
-              ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildAvatar(),
+                _buildInfo(),
+                ..._buildImagesDescription()
+              ],
             ),
-            _buildMenu().paddingOnly(top: 20),
-          ],
-        ),
+          ),
+          _buildMenu(),
+        ],
       ),
     );
   }
 
-  Align _buildMenu() {
+  List<Widget> _buildImagesDescription() {
+    return List.generate(infoUserMatchModel.urlImgDesc.length, (index) {
+      return SDSImageNetwork(
+        SDSImageNetworkModel(
+          width: Get.width,
+          height: Get.height / 2,
+          borderRadius: BorderRadius.circular(AppDimens.radius16),
+          imgUrl: infoUserMatchModel.urlImgDesc[index],
+          fit: BoxFit.cover,
+        ),
+      ).paddingAll(AppDimens.paddingDefault);
+    });
+  }
+
+  Widget _buildMenu() {
     return Align(
       alignment: Alignment.topLeft,
       child: Row(
@@ -75,16 +65,16 @@ class InfoUserMatchView extends StatelessWidget {
             fit: FlexFit.tight,
             child: SizedBox(),
           ),
-          _buildIcon(Icons.more_horiz),
+          // /_buildIcon(Icons.more_horiz),
           const SizedBox(
             width: 20,
           ),
         ],
       ),
-    );
+    ).paddingOnly(top: AppDimens.paddingMedium);
   }
 
-  Container _buildIcon(IconData iconData) {
+  Widget _buildIcon(IconData iconData) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -111,12 +101,12 @@ class InfoUserMatchView extends StatelessWidget {
           style: AppTextStyle.font20Bo,
         ),
         UtilWidget.buildText(
-          "${AppStr.address} ${infoUserMatchModel.place}",
+          "${LocaleKeys.matchUser_address.tr} ${infoUserMatchModel.place}",
           style: AppTextStyle.font14Re,
           maxLine: 2,
         ),
         UtilWidget.buildText(
-          "${AppStr.sex} ${SexEnum.fromValue(infoUserMatchModel.gender)?.label ?? ''}",
+          "${LocaleKeys.matchUser_gender.tr} ${SexEnum.fromValue(infoUserMatchModel.gender)?.label ?? ''}",
           style: AppTextStyle.font14Re,
         ),
         if (infoUserMatchModel.bio.isNotEmpty)
@@ -126,23 +116,18 @@ class InfoUserMatchView extends StatelessWidget {
             maxLine: 5,
           ),
       ],
-    );
+    ).paddingSymmetric(horizontal: AppDimens.paddingDefault);
   }
 
-  SizedBox _buildAvatar() {
-    return SizedBox(
-      width: Get.width,
-      child: SizedBox(
+  Widget _buildAvatar() {
+    return SDSImageNetwork(
+      SDSImageNetworkModel(
         width: Get.width,
-        height: Get.height / 1.9,
-        child: CachedNetworkImage(
-          imageUrl: infoUserMatchModel.imgAvt,
-          placeholder: (context, url) =>
-              const Center(child: UtilWidget.buildLoading),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-          fit: BoxFit.cover, // Để hình ảnh phủ toàn bộ
-        ),
+        height: Get.height / 2,
+        borderRadius: BorderRadius.circular(AppDimens.radius16),
+        imgUrl: infoUserMatchModel.imgAvt,
+        fit: BoxFit.cover,
       ),
-    );
+    ).paddingSymmetric(horizontal: AppDimens.paddingDefault);
   }
 }

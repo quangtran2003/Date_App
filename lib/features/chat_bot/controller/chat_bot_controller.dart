@@ -7,7 +7,8 @@ import 'package:image_picker/image_picker.dart';
 
 class ChatBotController extends BaseGetxController {
   late final GenerativeModel model;
-  final RxList<File?> imageFiles = RxList<File?>();
+  //final RxList<File?> imageFiles = RxList<File?>();
+  final RxList<String> imagePaths = RxList<String>();
   final TextEditingController textCtrl = TextEditingController();
   final scrollController = ScrollController();
   final RxList<Message> messageList = RxList<Message>();
@@ -27,11 +28,6 @@ class ChatBotController extends BaseGetxController {
       apiKey: apiKey,
     );
     messageList.assignAll([firstMessage]);
-    // ..listen((_) async {
-    //   if (scrollController.hasClients) {
-    //     scrollToBottom();
-    //   }
-    // });
   }
 
   Future<void> pickImage({
@@ -48,25 +44,22 @@ class ChatBotController extends BaseGetxController {
       imageQuality: quality,
     );
     if (pickedFile != null) {
-      imageFiles.add(
-        File(pickedFile.path),
-      );
+      imagePaths.add(pickedFile.path);
     }
   }
 
   Future<String> getResponseMessage(Message message) async {
     // Đọc các file ảnh thành byte array
     final imageBytes = await Future.wait(
-      message.images
-          .map((file) async => file != null ? await file.readAsBytes() : null),
+      message.images.map((file) async => await File(file).readAsBytes()),
     );
 
     final content = [
       Content.multi([
         TextPart(message.text.value),
-        ...imageBytes.where((bytes) => bytes != null).map(
-              (bytes) => DataPart('image/jpeg', bytes!),
-            ),
+        ...imageBytes.map(
+          (bytes) => DataPart('image/jpeg', bytes),
+        )
       ]),
     ];
     try {
@@ -95,12 +88,12 @@ class ChatBotController extends BaseGetxController {
     final message = Message(
       id: DateTime.now().millisecondsSinceEpoch,
       text: question,
-      images: List.from(imageFiles),
+      images: List.from(imagePaths),
       isMe: true,
     );
     messageList.add(message);
     textCtrl.clear();
-    imageFiles.clear();
+    imagePaths.clear();
 
     final messageResponse = Message(
       id: DateTime.now().millisecondsSinceEpoch,

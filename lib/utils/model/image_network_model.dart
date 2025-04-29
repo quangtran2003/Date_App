@@ -10,6 +10,7 @@ class SDSImageNetworkModel {
   final Widget? errorWidget;
   final BorderRadiusGeometry? borderRadius;
   final BoxFit fit;
+  final double widthLoadding;
 
   SDSImageNetworkModel({
     this.imgUrl,
@@ -19,5 +20,6 @@ class SDSImageNetworkModel {
     this.errorWidget,
     this.borderRadius,
     this.fit = BoxFit.fill,
+    this.widthLoadding = AppDimens.sizeIconDefault,
   });
 }

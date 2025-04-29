@@ -56,6 +56,7 @@ class FCM extends BaseFirebaseRepository {
   static _foregroundHandler() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('foreground!');
+      if (Get.currentRoute == AppRouteEnum.chat.path) return;
       _showCustomNotif(message);
     });
   }

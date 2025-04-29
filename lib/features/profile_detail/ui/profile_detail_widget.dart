@@ -328,7 +328,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImageList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -347,7 +347,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
                 scrollDirection: Axis.horizontal,
                 itemCount: controller.listImgUpload.length + 1,
                 itemBuilder: (context, index) {
-                  if (index == 0) {
+                  if (index == controller.listImgUpload.length) {
                     return Visibility(
                       visible: controller.listImgUpload.length < 3,
                       child: InkWell(
@@ -370,10 +370,10 @@ extension ProfileDetailWidget on ProfileDetailPage {
                       ),
                     );
                   }
-                  final item = controller.listImgUpload[index - 1];
+                  final item = controller.listImgUpload[index];
                   return InkWell(
                     onTap: () =>
-                        controller.uploadImage(index - 1, isUpdateImg: true),
+                        controller.uploadImage(index, isUpdateImg: true),
                     child: Container(
                       height: 150,
                       width: Get.width / 4,
@@ -390,7 +390,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
                         ),
                       ),
                       child: IconButton(
-                        onPressed: () => controller.onDeleteImage(index - 1),
+                        onPressed: () => controller.onDeleteImage(index),
                         style: IconButton.styleFrom(
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           backgroundColor: AppColors.black.withOpacity(0.7),

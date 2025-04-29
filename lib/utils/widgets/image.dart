@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_date/features/feature_src.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SDSImageNetwork extends StatelessWidget {
   final SDSImageNetworkModel sdsImageNetworkModel;
@@ -36,13 +37,17 @@ class SDSImageNetwork extends StatelessWidget {
         height: sdsImageNetworkModel.height,
         progressIndicatorBuilder: (context, url, progress) {
           return Center(
-            child: SizedBox(
-              height: AppDimens.sizeIconDefault,
-              width: AppDimens.sizeIconDefault,
-              child: CircularProgressIndicator(
-                color: AppColors.dsGray3,
-                strokeWidth: 2,
-                value: progress.progress,
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey,
+              highlightColor: Colors.grey.withOpacity(0.5),
+              child: SizedBox(
+                height: sdsImageNetworkModel.widthLoadding,
+                width: sdsImageNetworkModel.widthLoadding,
+                child: CircularProgressIndicator(
+                  color: AppColors.dsGray3,
+                  strokeWidth: 2,
+                  value: progress.progress,
+                ),
               ),
             ),
           );

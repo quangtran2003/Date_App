@@ -111,37 +111,14 @@ Shimmer _buildShimmerCard() {
     baseColor: Colors.grey,
     highlightColor: Colors.grey.withOpacity(0.5),
     child: Container(
-      height: double.infinity,
-      width: double.infinity,
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.4),
           borderRadius: BorderRadius.circular(AppDimens.radius20)),
-      child: const Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              alignment: Alignment.topRight,
-              children: [
-                SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: Center(
-                    child: Icon(
-                      Icons.favorite_outlined,
-                      color: Colors.black,
-                      size: 120,
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.favorite_outlined,
-                  color: Colors.black,
-                  size: 70,
-                ),
-              ],
-            ),
-          ],
+      child: Center(
+        child: SizedBox(
+          height: AppDimens.btnLarge,
+          width: AppDimens.btnLarge,
+          child: Image.asset(Assets.ASSETS_IMAGES_APP_ICON_PNG),
         ),
       ),
     ),

@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
 
 class Message {
   final int id;
   final Rx<String> text = ''.obs;
-  final List<File?> images;
+  final List<String> images;
   bool hasAnimated;
   final RxBool isTyping = false.obs;
   final bool isMe;

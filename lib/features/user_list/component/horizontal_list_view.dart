@@ -24,7 +24,7 @@ class HorizontalListView extends BaseGetWidget<UserListController>
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(
-        horizontal: AppDimens.defaultPadding,
+        horizontal: AppDimens.paddingDefault,
       ),
       itemCount: controller.userList.length,
       itemBuilder: _buildTile,

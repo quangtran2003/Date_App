@@ -154,6 +154,8 @@
         "sexualOrientationRequired": "Giới tính hướng tới là bắt buộc."
     },
     "matchUser": {
-        "dataIsEmpty": "Dữ liệu đã hết"
+        "dataIsEmpty": "Dữ liệu đã hết",
+        "address": "Địa chỉ: ",
+        "gender": "Giới tính: "
     }
 }

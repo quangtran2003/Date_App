@@ -22,7 +22,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
     for (final img in oldImages.items) {
       if (storage.ref(img.fullPath).fullPath.endsWith(avatarPostfix)) {
         await img.delete();
-        break;
       }
     }
 

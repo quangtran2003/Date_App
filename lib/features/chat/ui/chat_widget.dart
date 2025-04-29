@@ -173,8 +173,8 @@ extension ChatWidget on ChatPage {
               return AppDimens.vm16;
             },
             padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.defaultPadding,
-              vertical: AppDimens.defaultPadding,
+              horizontal: AppDimens.paddingDefault,
+              vertical: AppDimens.paddingDefault,
             ),
           ),
         );

@@ -29,7 +29,7 @@ class UsersSuggestRepositoryImpl extends UsersSuggestRepository {
     final documentSnapshot = await firestore
         .collection(FirebaseCollection.users)
         .where("status", isEqualTo: 1)
-        .where("uid", isNotEqualTo: userLogin?.uid)
+        .where("uid", isNotEqualTo: firebaseAuth.currentUser?.uid)
         .where("sexualOrientation", whereIn: listSex)
         .limit(1)
         .orderBy("uid", descending: true)

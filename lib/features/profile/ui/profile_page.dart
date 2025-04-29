@@ -1,12 +1,7 @@
-import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/biometric/ui/biometric_setting/biometric_setting.dart';
-import 'package:easy_date/utils/utils_src.dart';
+import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/utils/widgets/image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-
-import '../../../generated/locales.g.dart';
-import '../profile_src.dart';
 
 part 'profile_widget.dart';
 

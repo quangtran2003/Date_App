@@ -35,7 +35,7 @@ Widget _buildListMessage(ChatBotController controller) {
                           : _buildResponseView(message)
                     ],
                   ).paddingSymmetric(
-                    horizontal: AppDimens.defaultPadding,
+                    horizontal: AppDimens.paddingDefault,
                     vertical: AppDimens.paddingVerySmall,
                   ),
                 ),
@@ -98,7 +98,7 @@ Widget _buildListImageQuestion(Message message, ChatBotController controller) {
       (index) => _buildImageItem(
         controller: controller,
         haveDeleteIcon: false,
-        path: message.images[index]?.path ?? '',
+        path: message.images[index],
         index: index,
       ),
     ),
@@ -108,7 +108,7 @@ Widget _buildListImageQuestion(Message message, ChatBotController controller) {
 Widget _buildResponseView(Message message) {
   return Visibility(
     visible: message.text.value.isNotEmpty,
-    child: message.hasAnimated
+    child: message.hasAnimated && message.text.value.length < 100
         ? AnimatedTextKit(
             animatedTexts: [
               TyperAnimatedText(
@@ -162,7 +162,7 @@ Widget _buildTextFieldAndIconSend(ChatBotController controller) {
 Widget _buildIconBotton(ChatBotController controller) {
   return InkWell(
     onTap: () {
-      if (controller.textCtrl.text.isEmpty && controller.imageFiles.isEmpty) {
+      if (controller.textCtrl.text.isEmpty && controller.imagePaths.isEmpty) {
         return;
       }
       controller.sendQuestion();
@@ -218,18 +218,18 @@ Widget _buildSuffixIcon(ChatBotController controller) {
 
 Widget _buildListQuestionImage(ChatBotController controller) {
   return Visibility(
-    visible: controller.imageFiles.isNotEmpty,
+    visible: controller.imagePaths.isNotEmpty,
     child: Container(
       alignment: Alignment.centerLeft,
       height: AppDimens.btnLarge,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: controller.imageFiles.length,
+        itemCount: controller.imagePaths.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return _buildImageItem(
             controller: controller,
-            path: controller.imageFiles[index]!.path,
+            path: controller.imagePaths[index],
             index: index,
           ).paddingOnly(right: AppDimens.paddingVerySmall);
         },
@@ -259,7 +259,7 @@ Widget _buildImageItem({
       Visibility(
         visible: haveDeleteIcon,
         child: InkWell(
-          onTap: () => controller.imageFiles.removeAt(index),
+          onTap: () => controller.imagePaths.removeAt(index),
           child: const Icon(
             Icons.close,
             size: AppDimens.btnSmall,

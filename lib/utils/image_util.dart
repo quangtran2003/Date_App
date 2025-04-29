@@ -1,6 +1,7 @@
 import 'dart:typed_data';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:image/image.dart' as img;
+import 'package:image_picker/image_picker.dart';
 
 abstract final class ImageUtil {
   static final _imagePicker = ImagePicker();
@@ -8,7 +9,12 @@ abstract final class ImageUtil {
   static Future<String?> pickImage({
     ImageSource source = ImageSource.gallery,
   }) async {
-    final file = await _imagePicker.pickImage(source: source);
+    final file = await _imagePicker.pickImage(
+      source: source,
+      maxWidth: 1000,
+      maxHeight: 1000,
+      imageQuality: 100,
+    );
     if (file != null) {
       return file.path;
     }
