@@ -168,8 +168,20 @@ AppBar _buildAppBar() {
     scrolledUnderElevation: 0,
     title: InkWell(
       onTap: () {
-        Get.toNamed(AppRouteEnum.pair.path);
-        // /LocalNotif.showNotif(id: 1, body: 'qưqw', title: 'qưeqweq');
+        //LocalNotif.showNotif(id: 1, body: 'qưqw', title: 'qưeqweq');
+        LocalNotif.showNotif(
+          id: 1001,
+          title: "Cuộc gọi đến từ Minh",
+          body: "Nhấn để tham gia cuộc gọi video",
+          notificationDetails: LocalNotif.incomingCallDetails(),
+          payload: jsonEncode({
+            'type': 'video_call',
+            'uidUser': 'abc123',
+            'nameUser': 'Minh',
+            'imgUser': 'https://example.com/avatar.png',
+            'pageName': '/callPage', // Trang mở khi chọn Accept
+          }),
+        );
       },
       child: UtilWidget.buildText(
         LocaleKeys.app_appName.tr,

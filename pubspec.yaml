@@ -203,5 +203,6 @@ flutter:
     - assets/images/typing-dark.gif
     - assets/images/typing_light.gif
     - assets/keys/service_account.json
+    - assets/sound/phone_ring.mp3
 
   # assets end

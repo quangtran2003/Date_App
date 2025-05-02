@@ -151,4 +151,7 @@ class Assets {
 
   static const String ASSETS_KEYS_SERVICE_ACCOUNT_JSON =
       'assets/keys/service_account.json';
+
+  static const String ASSETS_SOUND_PHONE_RING_MP3 =
+      'assets/sound/phone_ring.mp3';
 }

@@ -38,9 +38,19 @@ class LocalNotif {
   static Future<void> init() async {
     const androidSettings =
         AndroidInitializationSettings("@mipmap/ic_launcher");
-    const iosSettings = DarwinInitializationSettings();
+    final iosSettings = DarwinInitializationSettings(
+      notificationCategories: [
+        DarwinNotificationCategory(
+          'callCategory',
+          actions: [
+            DarwinNotificationAction.plain('ACCEPT_CALL', 'Chấp nhận'),
+            DarwinNotificationAction.plain('DECLINE_CALL', 'Từ chối'),
+          ],
+        )
+      ],
+    );
 
-    const initializationSettings = InitializationSettings(
+    final initializationSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
     );
@@ -124,6 +134,48 @@ class LocalNotif {
         ticker: 'ticker',
       ),
       iOS: DarwinNotificationDetails(),
+    );
+  }
+
+  static NotificationDetails incomingCallDetails() {
+    return const NotificationDetails(
+      android: AndroidNotificationDetails(
+        icon: '@mipmap/ic_launcher',
+        sound: RawResourceAndroidNotificationSound('phone_ring'),
+        playSound: true,
+        autoCancel: false,
+        enableVibration: true,
+        ongoing: true,
+        timeoutAfter: 10000,
+        'channelId',
+        'Incoming Calls',
+        channelDescription: 'Incoming video calls',
+        importance: Importance.max,
+        priority: Priority.high,
+        fullScreenIntent: true, // Làm thông báo nổi như cuộc gọi thật
+        ticker: 'Incoming call',
+        category: AndroidNotificationCategory.call, // Android call style
+        actions: <AndroidNotificationAction>[
+          AndroidNotificationAction(
+            'ACCEPT_CALL', // ID duy nhất
+            'Chấp nhận',
+            showsUserInterface: true,
+            cancelNotification: true,
+          ),
+          AndroidNotificationAction(
+            'DECLINE_CALL',
+            'Từ chối',
+            showsUserInterface: false,
+            cancelNotification: true,
+          ),
+        ],
+      ),
+      iOS: DarwinNotificationDetails(
+        presentSound: true,
+        presentAlert: true,
+        categoryIdentifier:
+            'callCategory', // iOS cần thêm phần định nghĩa category
+      ),
     );
   }
 
