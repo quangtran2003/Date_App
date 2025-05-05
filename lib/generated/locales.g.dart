@@ -58,6 +58,7 @@ class LocaleKeys {
   static const home_dating = 'home_dating';
   static const home_notData = 'home_notData';
   static const home_home = 'home_home';
+  static const home_theme = 'home_theme';
   static const biometric_finger = 'biometric_finger';
   static const biometric_faceId = 'biometric_faceId';
   static const biometric_biometric = 'biometric_biometric';
@@ -208,6 +209,7 @@ class Locales {
     'home_dating': 'Dating',
     'home_notData': 'No data!',
     'home_home': 'Home',
+    'home_theme': 'Theme',
     'biometric_finger': 'Fingerprint security',
     'biometric_faceId': 'Face ID security',
     'biometric_biometric': 'Biometrics',
@@ -354,6 +356,7 @@ class Locales {
     'home_dating': 'Hẹn hò',
     'home_notData': 'Không có dữ liệu!',
     'home_home': 'Trang chủ',
+    'home_theme': 'Chủ đề',
     'biometric_finger': 'Bảo mật vân tay',
     'biometric_faceId': 'Bảo mật khuôn mặt',
     'biometric_biometric': 'Sinh trắc học',

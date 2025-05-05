@@ -142,11 +142,18 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
   Future<void> _initSettingStorage() async {
     await SettingStorage.init();
-    // Load saved language
     final language = SettingStorage.language;
     if (language != null) {
       Get.updateLocale(language.locale);
     }
+    final theme = SettingStorage.themeMode;
+    Get.changeThemeMode(
+      theme == null
+          ? ThemeMode.system
+          : SettingStorage.themeMode == AppTheme.light
+              ? ThemeMode.light
+              : ThemeMode.dark,
+    );
   }
 
   @override
@@ -154,6 +161,9 @@ class AppState extends State<App> with WidgetsBindingObserver {
     return GestureDetector(
       onTap: KeyBoard.hide,
       child: GetMaterialApp(
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         locale: const Locale('vi', 'VN'),
         translationsKeys: AppTranslation.translations,
@@ -167,7 +177,6 @@ class AppState extends State<App> with WidgetsBindingObserver {
         title: AppStr.appName.tr,
         getPages: AppRouter.routes,
         initialBinding: GlobalBinding(appConfig: widget.config),
-        themeMode: ThemeMode.light,
         initialRoute: AppRouteEnum.splash.path,
         builder: BotToastInit(),
         navigatorObservers: [

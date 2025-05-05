@@ -48,7 +48,8 @@
         "paired": "Đã ghép đôi",
         "dating": "Hẹn hò",
         "notData": "Không có dữ liệu!",
-        "home": "Trang chủ"
+        "home": "Trang chủ",
+        "theme":"Chủ đề"
     },
     "biometric": {
         "finger":"Bảo mật vân tay",

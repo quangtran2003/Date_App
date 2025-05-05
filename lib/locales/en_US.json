@@ -48,7 +48,9 @@
     "paired": "Paired",
     "dating": "Dating",
     "notData": "No data!",
-    "home": "Home"
+    "home": "Home",
+    "theme":"Theme"
+
   },
   "biometric": {
     "finger": "Fingerprint security",

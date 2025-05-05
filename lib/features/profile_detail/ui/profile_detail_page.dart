@@ -17,8 +17,8 @@ class ProfileDetailPage extends BaseGetWidget<ProfileDetailController> {
     return Scaffold(
       appBar: _buildAppbar(),
       body: buildLoadingOverlay(
-        () => Form(
-          key: controller.formKey,
+        () => Form(   
+          key: controller.formKey, 
           child: ListView(
             padding: const EdgeInsets.all(AppDimens.paddingDefault),
             children: [

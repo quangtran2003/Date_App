@@ -65,7 +65,7 @@ Widget _buildBodyPopup(LoginController controller) {
     children: [
       UtilWidget.buildText(
         LocaleKeys.biometric_inputPassToVerify.tr,
-        style: Get.textTheme.bodyLarge?.copyWith(color: AppColors.dsGray1),
+        style: Get.textTheme.bodyLarge?.copyWith(),
         textAlign: TextAlign.center,
       ),
       _buildInputPasswordBiometric(controller),
@@ -163,8 +163,8 @@ Widget _buildRegisterButton(LoginController controller) {
       child: UtilWidget.buildText(
         LocaleKeys.login_register.tr,
         style: AppTextStyle.font16Semi.copyWith(
-          color: AppColors.grayLight2,
           decoration: TextDecoration.underline,
+          color: AppColors.isDarkMode ? AppColors.white : AppColors.black,
         ),
       ),
     ),

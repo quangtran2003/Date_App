@@ -6,9 +6,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
       scrolledUnderElevation: 0,
       title: UtilWidget.buildAppBarTitle(
         LocaleKeys.profileDetail_datingProfile.tr,
-        textColor: AppColors.black,
       ),
-      backgroundColor: AppColors.white,
       leading: Visibility(
         visible:
             controller.currentUser.value?.status == StatusEnum.active.value,
@@ -103,7 +101,6 @@ extension ProfileDetailWidget on ProfileDetailPage {
           LocaleKeys.profileDetail_info.tr,
           fontSize: AppDimens.fontBiggest(),
           fontWeight: FontWeight.bold,
-          textColor: AppColors.black,
         ),
         _buildItemLock(
           title: LocaleKeys.profileDetail_email.tr,
@@ -157,7 +154,6 @@ extension ProfileDetailWidget on ProfileDetailPage {
           title.tr,
           fontSize: AppDimens.fontMedium(),
           fontWeight: FontWeight.bold,
-          textColor: AppColors.black,
         ),
         InkWell(
           onTap: onTap,
@@ -165,7 +161,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
             padding: const EdgeInsets.all(AppDimens.paddingSmall),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: AppColors.inputQuickTicket,
+              color: AppColors.darkPrimaryColor,
             ),
             child: Row(
               children: [
@@ -174,13 +170,11 @@ extension ProfileDetailWidget on ProfileDetailPage {
                     text,
                     fontWeight: FontWeight.bold,
                     fontSize: AppDimens.fontMedium(),
-                    textColor: AppColors.black,
                   ),
                 ),
                 Icon(
                   iconData,
                   size: AppDimens.sizeIcon,
-                  color: AppColors.dsGray2,
                 ),
               ],
             ),
@@ -242,7 +236,6 @@ extension ProfileDetailWidget on ProfileDetailPage {
               LocaleKeys.profileDetail_gender.tr,
               fontSize: AppDimens.fontMedium(),
               fontWeight: FontWeight.bold,
-              textColor: AppColors.black,
             ),
             UtilWidget.buildText(
               '*',
@@ -280,7 +273,6 @@ extension ProfileDetailWidget on ProfileDetailPage {
               LocaleKeys.profileDetail_sexualOrientation.tr,
               fontSize: AppDimens.fontMedium(),
               fontWeight: FontWeight.bold,
-              textColor: AppColors.black,
             ),
             UtilWidget.buildText(
               '*',
@@ -336,7 +328,6 @@ extension ProfileDetailWidget on ProfileDetailPage {
           LocaleKeys.profileDetail_imageSuggest.tr,
           fontSize: AppDimens.fontBiggest(),
           fontWeight: FontWeight.bold,
-          textColor: AppColors.black,
         ),
         AppDimens.vm12,
         Obx(
@@ -359,11 +350,12 @@ extension ProfileDetailWidget on ProfileDetailPage {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: AppColors.dsGray4,
+                            color: AppColors.isDarkMode
+                                ? AppColors.darkPrimaryColor
+                                : AppColors.dsGray4,
                           ),
                           child: const Icon(
                             Icons.add_a_photo_sharp,
-                            color: AppColors.black,
                             size: 28,
                           ),
                         ),

@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:easy_date/features/feature_src.dart';
 
 class AppColors {
+  static bool get isDarkMode => Get.isDarkMode;
+  static final systemColor = Theme.of(Get.context!).scaffoldBackgroundColor;
   // for Light Theme
   static const lightPrimaryColor = Colors.green;
   static const lightAccentColor = Color(0xFFf0eff2);

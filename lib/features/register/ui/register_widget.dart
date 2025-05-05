@@ -94,7 +94,7 @@ Widget _buildLoginButton(RegisterController controller) {
     child: UtilWidget.buildText(
       LocaleKeys.login_login.tr,
       style: AppTextStyle.font16Semi.copyWith(
-        color: AppColors.grayLight2,
+        color: AppColors.isDarkMode ? AppColors.white : AppColors.black,
         decoration: TextDecoration.underline,
       ),
     ),

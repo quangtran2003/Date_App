@@ -20,7 +20,6 @@ class HomePage extends GetView<HomeController> {
           }
         },
         child: Scaffold(
-          appBar: AppBar(toolbarHeight: 0),
           body: _buildBody(),
           bottomNavigationBar: _buildBottomNavigationBar(),
           floatingActionButton: _buildFloatingAction(),
@@ -89,7 +88,7 @@ class HomePage extends GetView<HomeController> {
         child: BottomAppBar(
           // With material3, to set color for BottomAppBar,
           // we need to set color with both color and surfaceTintColor attributes
-          color: Colors.white,
+          // color: Colors.white,
           surfaceTintColor: Colors.white,
           shape: const CircularNotchedRectangle(),
           padding: EdgeInsets.zero,
@@ -106,9 +105,8 @@ class HomePage extends GetView<HomeController> {
               ),
               _buildNavItem(
                 index: 1,
-                unselectedIconPath:
-                    Assets.ASSETS_ICONS_IC_ADD_USER_UNSELECTED_SVG,
-                selectedIconPath: Assets.ASSETS_ICONS_IC_ADD_USER_SELECTED_SVG,
+                unselectedIconPath: Assets.ASSETS_ICONS_IC_CHAT_UNSELECTED_SVG,
+                selectedIconPath: Assets.ASSETS_ICONS_IC_CHAT_SELECTED_SVG,
                 title: LocaleKeys.home_pairing.tr,
                 onTap: controller.selectPage,
               ),

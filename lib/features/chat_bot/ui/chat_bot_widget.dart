@@ -66,7 +66,13 @@ BoxDecoration _buildBoxDecoration(bool isMe) {
       topLeft: const Radius.circular(AppDimens.radius20),
       topRight: const Radius.circular(AppDimens.radius20),
     ),
-    color: isMe ? AppColors.grayLight7 : AppColors.bgText,
+    color: isMe
+        ? AppColors.isDarkMode
+            ? AppColors.darkPrimaryColor
+            : AppColors.grayLight7
+        : AppColors.isDarkMode
+            ? AppColors.darkAccentColor
+            : AppColors.bgText,
   );
 }
 
@@ -258,12 +264,18 @@ Widget _buildImageItem({
       ),
       Visibility(
         visible: haveDeleteIcon,
-        child: InkWell(
-          onTap: () => controller.imagePaths.removeAt(index),
-          child: const Icon(
-            Icons.close,
-            size: AppDimens.btnSmall,
-            color: AppColors.white,
+        child: Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.dsGray2,
+          ),
+          child: InkWell(
+            onTap: () => controller.imagePaths.removeAt(index),
+            child: const Icon(
+              Icons.close,
+              size: AppDimens.btnSmall,
+              color: AppColors.white,
+            ),
           ),
         ),
       )
