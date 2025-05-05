@@ -8,11 +8,9 @@ extension BiometricWidget on BiometricSetting {
         controller.biometric.value.title,
         style: AppTextStyle.font18Bo,
       ),
-      leading: ImageWidgets.imageSvg(
-        controller.biometric.value.iconSvg,
-        height: AppDimens.sizeIcon28,
-        width: AppDimens.sizeIcon28,
-      ),
+      leading: controller.biometric.value == Biometric.fingerprint
+          ? const Icon(Icons.fingerprint)
+          : const Icon(Icons.face),
       trailing: CupertinoSwitch(
         trackColor: AppColors.grayLight5,
         activeColor: AppColors.primaryLight2,
@@ -34,7 +32,7 @@ extension BiometricWidget on BiometricSetting {
       children: [
         UtilWidget.buildText(
           LocaleKeys.biometric_inputPassToVerify.tr,
-          style: Get.textTheme.bodyLarge?.copyWith(color: AppColors.dsGray1),
+          style: Get.textTheme.bodyLarge?.copyWith(),
           textAlign: TextAlign.center,
         ),
         _buildInputPasswordBiometric(controller),

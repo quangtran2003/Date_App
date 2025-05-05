@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
-
 abstract final class AppTextStyle {
   const AppTextStyle._();
 
   static const _defaultFont = TextStyle(
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
-    color: AppColors.grayLight2,
+    // color: AppColors.grayLight6,
     fontFamily: 'NunitoSans',
   );
 

@@ -6,9 +6,6 @@ extension ChatWidget on ChatPage {
     return AppBar(
       leadingWidth: 24,
       scrolledUnderElevation: 0,
-      shape: const Border(
-        bottom: BorderSide(color: AppColors.grayLight6, width: 1),
-      ),
       title: InkWell(
         borderRadius: BorderRadius.circular(AppDimens.radius8),
         onTap: () {
@@ -183,91 +180,79 @@ extension ChatWidget on ChatPage {
   }
 
   Widget _buildInput() {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: AppColors.grayLight6,
-            width: 1.0,
+    return TextField(
+      controller: controller.messageTextCtrl,
+      onChanged: (value) {
+        if (value.isNotEmpty && controller.showSendButton.value == false) {
+          controller.showSendButton.value = true;
+        } else if (value.isEmpty) {
+          controller.showSendButton.value = false;
+        }
+      },
+      onEditingComplete: () {
+        controller.sendMessage();
+      },
+      textInputAction: TextInputAction.send,
+      decoration: InputDecoration(
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        filled: true,
+        fillColor: AppColors.isDarkMode ? AppColors.black : AppColors.white,
+        hintText: LocaleKeys.chat_textFieldHint.tr,
+        hintStyle: AppTextStyle.font16Re.copyWith(),
+        prefixIcon: InkWell(
+          onTap: () async {
+            final sticker = await Get.toNamed(AppRouteEnum.sticker.path);
+            if (sticker != null && sticker is Sticker) {
+              controller.sendSticker(sticker);
+            }
+          },
+          child: const Icon(
+            Icons.sentiment_satisfied_alt,
+            size: AppDimens.sizeIconSpinner,
+            color: Colors.grey,
           ),
         ),
-      ),
-      child: TextField(
-        controller: controller.messageTextCtrl,
-        onChanged: (value) {
-          if (value.isNotEmpty && controller.showSendButton.value == false) {
-            controller.showSendButton.value = true;
-          } else if (value.isEmpty) {
-            controller.showSendButton.value = false;
-          }
-        },
-        onEditingComplete: () {
-          controller.sendMessage();
-        },
-        textInputAction: TextInputAction.send,
-        decoration: InputDecoration(
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          fillColor: Colors.white,
-          filled: true,
-          hintText: LocaleKeys.chat_textFieldHint.tr,
-          hintStyle: AppTextStyle.font16Re.copyWith(
-            color: AppColors.grayLight6,
-          ),
-          prefixIcon: InkWell(
-            onTap: () async {
-              final sticker = await Get.toNamed(AppRouteEnum.sticker.path);
-              if (sticker != null && sticker is Sticker) {
-                controller.sendSticker(sticker);
-              }
-            },
-            child: const Icon(
-              Icons.sentiment_satisfied_alt,
-              size: AppDimens.sizeIconSpinner,
-              color: Colors.grey,
-            ),
-          ),
-          suffixIcon: Obx(
-            () {
-              return AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return ScaleTransition(scale: animation, child: child);
-                },
-                child: !controller.showSendButton.value
-                    ? InkWell(
-                        key: const ValueKey(0),
-                        onTap: () {
-                          controller.sendMessage(customMessage: heartText);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppDimens.paddingVerySmall),
-                          child: Icon(
-                            CupertinoIcons.heart_fill,
-                            size: AppDimens.sizeIcon28,
-                            color: Colors.red,
-                          ),
-                        ),
-                      )
-                    : InkWell(
-                        key: const ValueKey(1),
-                        onTap: () {
-                          controller.sendMessage();
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppDimens.paddingVerySmall),
-                          child: Icon(
-                            Icons.send,
-                            size: AppDimens.sizeIcon28,
-                            color: AppColors.colorBlueAccent,
-                          ),
+        suffixIcon: Obx(
+          () {
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+              child: !controller.showSendButton.value
+                  ? InkWell(
+                      key: const ValueKey(0),
+                      onTap: () {
+                        controller.sendMessage(customMessage: heartText);
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppDimens.paddingVerySmall),
+                        child: Icon(
+                          CupertinoIcons.heart_fill,
+                          size: AppDimens.sizeIcon28,
+                          color: Colors.red,
                         ),
                       ),
-              );
-            },
-          ),
+                    )
+                  : InkWell(
+                      key: const ValueKey(1),
+                      onTap: () {
+                        controller.sendMessage();
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppDimens.paddingVerySmall),
+                        child: Icon(
+                          Icons.send,
+                          size: AppDimens.sizeIcon28,
+                          color: AppColors.colorBlueAccent,
+                        ),
+                      ),
+                    ),
+            );
+          },
         ),
       ),
     );

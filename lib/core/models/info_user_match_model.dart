@@ -131,7 +131,7 @@ class User {
       token: json["token"] ?? '',
       lastOnline: json["lastOnline"] is Timestamp
           ? json["lastOnline"] as Timestamp
-          : Timestamp.now(),
+          : null,
     )..isOnline.value = json["isOnline"] ?? false;
   }
 

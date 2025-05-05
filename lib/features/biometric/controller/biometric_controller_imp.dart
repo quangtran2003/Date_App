@@ -30,13 +30,6 @@ class BiometricController extends BaseGetxController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    passwordController.dispose();
-    passwordFocus.dispose();
-    super.onClose();
-  }
-
   final LocalAuthentication auth = LocalAuthentication();
 
   Future<void> checkBiometric() async {

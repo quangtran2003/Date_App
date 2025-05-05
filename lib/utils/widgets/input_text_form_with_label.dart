@@ -25,10 +25,7 @@ class BuildInputTextWithLabel extends StatelessWidget {
             children: [
               UtilWidget.buildText(
                 label ?? '',
-                style: textStyle ??
-                    AppTextStyle.font16Bo.copyWith(
-                      color: AppColors.grayLight1,
-                    ),
+                style: textStyle ?? AppTextStyle.font16Bo.copyWith(),
               ),
               Visibility(
                 visible: isRequired,
