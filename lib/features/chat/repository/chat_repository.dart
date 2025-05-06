@@ -3,7 +3,7 @@ import 'package:easy_date/features/feature_src.dart';
 
 abstract class ChatRepository extends BaseFirebaseRepository {
   String get userId;
-
+  String getChatRoomId(String senderId, String receiverId);
   Stream<List<ChatMessage>> getNewMessageStream({
     required String receiverId,
     DocumentSnapshot<Object?>? firstDoc,
@@ -12,7 +12,7 @@ abstract class ChatRepository extends BaseFirebaseRepository {
   Future<void> createMessage({
     required String receiverId,
     required String message,
-    required MessageType type,
+    required MessageTypeEnum type,
   });
 
   Future<(List<ChatMessage>, DocumentSnapshot?, DocumentSnapshot?)>

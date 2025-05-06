@@ -141,12 +141,15 @@ class MatchUserController extends BaseGetxController {
   ) async {
     String uidAcc = matchUserRepository.firebaseAuth.currentUser!.uid;
     User user = User(
-        imgAvt: infoUserMatchModel.imgAvt,
-        createTime: Timestamp.now(),
-        name: infoUserMatchModel.name,
-        updateTime: Timestamp.now(),
-        status: PairingStatusEnum.skip,
-        uid: infoUserMatchModel.uid);
+      imgAvt: infoUserMatchModel.imgAvt,
+      createTime: Timestamp.now(),
+      name: infoUserMatchModel.name,
+      updateTime: Timestamp.now(),
+      status: PairingStatusEnum.skip,
+      uid: infoUserMatchModel.uid,
+      token: infoUserMatchModel.token,
+      lastOnline: infoUserMatchModel.lastOnline,
+    );
     try {
       await matchUserRepository.matchUser(uidAcc, user, infoUserMatchModel.uid);
     } catch (e, s) {
@@ -167,6 +170,8 @@ class MatchUserController extends BaseGetxController {
         updateTime: Timestamp.now(),
         status: PairingStatusEnum.request,
         uid: infoUserMatch.uid,
+        token: userModel.token,
+        lastOnline: userModel.lastOnline,
       );
 
       // Người B nhận yêu cầu từ tài khoản này
@@ -177,6 +182,8 @@ class MatchUserController extends BaseGetxController {
         updateTime: Timestamp.now(),
         status: PairingStatusEnum.waiting,
         uid: userModel.uid,
+        token: userModel.token,
+        lastOnline: userModel.lastOnline,
       );
 
       try {

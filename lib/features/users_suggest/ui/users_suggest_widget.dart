@@ -43,7 +43,9 @@ Widget _buildInfoCard(UsersSuggestController controller) {
       vertical: AppDimens.paddingSmall,
     ),
     decoration: BoxDecoration(
-      color: AppColors.isDarkMode ? AppColors.darkAccentColor : AppColors.white,
+      color: AppColors.isDarkMode
+          ? AppColors.darkAccentColor
+          : AppColors.grayLight8,
       borderRadius: const BorderRadius.vertical(
         bottom: Radius.circular(AppDimens.radius20),
       ),
@@ -108,13 +110,13 @@ _buildImage(UsersSuggestController controller) {
   );
 }
 
-Shimmer _buildShimmerCard() {
+Widget _buildShimmerCard() {
   return Shimmer.fromColors(
     baseColor: Colors.grey,
-    highlightColor: Colors.grey.withOpacity(0.5),
+    highlightColor: Colors.grey.withValues(alpha: 0.5),
     child: Container(
       decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.4),
+          color: Colors.white.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(AppDimens.radius20)),
       child: Center(
         child: SizedBox(
@@ -130,31 +132,26 @@ Shimmer _buildShimmerCard() {
 Widget _buildListChoiceChips(UsersSuggestController controller) {
   return SizedBox(
     height: AppDimens.sizeIconLarge,
-    child: ListView(
-      scrollDirection: Axis.horizontal,
+    child: Row(
+      spacing: AppDimens.paddingVerySmall,
       children: [
-        UtilWidget.buildChoiceChip(
-          isSelected: true,
-          title: LocaleKeys.home_likedYou.tr,
-          onChanged: (_) => Get.toNamed(
+        _buildChoiceChip(
+          LocaleKeys.home_likedYou.tr,
+          () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.waiting,
           ),
         ),
-        AppDimens.hm8,
-        UtilWidget.buildChoiceChip(
-          isSelected: true,
-          title: LocaleKeys.user_waitingList.tr,
-          onChanged: (_) => Get.toNamed(
+        _buildChoiceChip(
+          LocaleKeys.user_waitingList.tr,
+          () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.request,
           ),
         ),
-        AppDimens.hm8,
-        UtilWidget.buildChoiceChip(
-          isSelected: true,
-          title: LocaleKeys.user_blockList.tr,
-          onChanged: (_) => Get.toNamed(
+        _buildChoiceChip(
+          LocaleKeys.user_blockList.tr,
+          () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.block,
           ),
@@ -162,6 +159,28 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
       ],
     ),
   ).paddingSymmetric(vertical: AppDimens.paddingSmall);
+}
+
+Widget _buildChoiceChip(String text, Function()? onTap) {
+  return Expanded(
+    child: InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.isDarkMode
+              ? AppColors.darkAccentColor
+              : AppColors.grayLight8,
+          borderRadius: BorderRadius.circular(AppDimens.radius12),
+        ),
+        child: Center(
+          child: UtilWidget.buildText(
+            text,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 AppBar _buildAppBar() {

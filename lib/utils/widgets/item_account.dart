@@ -131,7 +131,7 @@ class ItemUtils {
           ),
         ),
         CupertinoSwitch(
-          activeColor: activeColor ?? AppColors.lightPrimaryColor,
+          activeTrackColor: activeColor ?? AppColors.lightPrimaryColor,
           value: value ?? false,
           onChanged: onChanged,
         ),

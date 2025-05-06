@@ -15,16 +15,22 @@ void _handleNotificationResponse(NotificationResponse notificationResponse) {
   final payloadJson = notificationResponse.payload;
   if (payloadJson == null) return;
 
-  final payload = jsonDecode(payloadJson) as Map;
+  final Map<String, dynamic> payload = jsonDecode(payloadJson);
+  log('Action ID: ${notificationResponse.actionId}');
+  final dataNoti = PushNotificationData.fromJson(payload);
   try {
-    if (payload.containsKey('pageName') && payload.containsKey('uidUser')) {
+    //nếu có cuộc gọi, cuộc gọi bị từ chối
+    if (notificationResponse.actionId == 'DECLINE_CALL') {
+      log("User declined the call");
+    } else if (dataNoti.pageName != null && dataNoti.uidUser != null) {
       Get.toNamed(
-        payload['pageName'],
-        arguments: UserChatArgument(
-          uid: payload['uidUser'],
-          name: payload['nameUser'] ?? '',
-          avatar: payload['imgUser'] ?? '',
-        ),
+        dataNoti.pageName!,
+        arguments:  UserChatArgument(
+                uid: dataNoti.uidUser!,
+                name: dataNoti.nameUser ?? '',
+                avatar: dataNoti.imgUser ?? '',
+                callID: dataNoti.callId,
+              ),
       );
     }
   } catch (e) {
@@ -83,30 +89,6 @@ class LocalNotif {
         _handleNotificationResponse(notificationResponse);
       },
     );
-
-    // await _notifPlugin
-    //     .resolvePlatformSpecificImplementation<
-    //         AndroidFlutterLocalNotificationsPlugin>()
-    //     ?.requestNotificationsPermission();
-
-    // const androidSettings =
-    //     AndroidInitializationSettings('@mipmap/ic_launcher');
-    // const iosSettings = DarwinInitializationSettings();
-
-    // const initializationSettings = InitializationSettings(
-    //   android: androidSettings,
-    //   iOS: iosSettings,
-    // );
-
-    // await _notifPlugin.initialize(
-    //   initializationSettings,
-    //   onDidReceiveBackgroundNotificationResponse:
-    //       _onDidReceiveBackgroundNotificationResponse,
-    //   onDidReceiveNotificationResponse: (notificationResponse) {
-    //     log('foreground: ${notificationResponse.id}');
-    //     _handleNotificationResponse(notificationResponse);
-    //   },
-    // );
   }
 
   // handle notif from terminate state
@@ -157,7 +139,7 @@ class LocalNotif {
         category: AndroidNotificationCategory.call, // Android call style
         actions: <AndroidNotificationAction>[
           AndroidNotificationAction(
-            'ACCEPT_CALL', // ID duy nhất
+            'ACCEPT_CALL',
             'Chấp nhận',
             showsUserInterface: true,
             cancelNotification: true,

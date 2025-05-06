@@ -6,7 +6,6 @@ export 'package:fluttertoast/fluttertoast.dart';
 export 'package:get/get.dart' hide Response, MultipartFile, FormData;
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
-export 'package:jiffy/jiffy.dart';
 export 'package:package_info_plus/package_info_plus.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:pull_to_refresh/pull_to_refresh.dart';

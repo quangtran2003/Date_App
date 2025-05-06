@@ -1,4 +1,3 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,6 @@ class ShowPopup {
     _numDialog++;
     await Get.dialog(
       NavigatorPopHandler(
-        onPop: () => onBackPress(isActiveBack),
         child: dialog,
       ),
       barrierDismissible: barrierDismissible,
@@ -57,7 +55,7 @@ class ShowPopup {
         child: TextButton(
           onPressed: null,
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
           ),
           child: Text(
             text,
@@ -247,17 +245,6 @@ class ShowPopup {
         ),
       ),
       isActiveBack,
-    );
-  }
-
-  static Future<void> openAppSetting() async {
-    await showDialogConfirm(
-      'Hỗ trợ',
-      confirm: () {
-        Get.back();
-        AppSettings.openAppSettings();
-      },
-      actionTitle: BaseWidgetStr.openSettings,
     );
   }
 

@@ -24,21 +24,18 @@ void _handleMessage(RemoteMessage message) {
 }
 
 void _showCustomNotif(RemoteMessage message) {
-  // if (message.notification != null) {
-  //   LocalNotif.showNotif(
-  //     id: message.hashCode,
-  //     title: message.notification!.title,
-  //     body: message.notification!.body,
-  //     payload: jsonEncode(message.data),
-  //   );
-  // }
+  final dataNoti = PushNotificationData.fromJson(message.data);
+  final isTypeCall =
+      int.parse(dataNoti.type ?? '') == MessageTypeEnum.call.firebaseValue;
+  if (Get.currentRoute == AppRouteEnum.chat.path && !isTypeCall) return;
 
-  if (message.data.containsKey('notif_title')) {
+  if (dataNoti.notifTitle != null) {
     LocalNotif.showNotif(
-      id: message.hashCode,
-      title: message.data['notif_title'],
-      body: message.data['notif_body'],
+      id: dataNoti.hashCode,
+      title: dataNoti.notifTitle,
+      body: dataNoti.notifBody,
       payload: jsonEncode(message.data),
+      notificationDetails: isTypeCall ? LocalNotif.incomingCallDetails() : null,
     );
   }
 }
@@ -56,7 +53,6 @@ class FCM extends BaseFirebaseRepository {
   static _foregroundHandler() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('foreground!');
-      if (Get.currentRoute == AppRouteEnum.chat.path) return;
       _showCustomNotif(message);
     });
   }

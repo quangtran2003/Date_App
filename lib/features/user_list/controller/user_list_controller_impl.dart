@@ -56,6 +56,8 @@ class UserListControllerImpl extends UserListController {
           createTime: currentUser.createTime,
           updateTime: currentUser.updateTime,
           status: MatchEnum.accept.value,
+          token: currentUser.token,
+          lastOnline: currentUser.lastOnline,
         ).toJson(),
       });
       final params = {'username': user.value.name};

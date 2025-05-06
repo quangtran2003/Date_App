@@ -45,6 +45,20 @@ extension ChatWidget on ChatPage {
       ),
       actions: [
         IconButton(
+          onPressed: () async {
+            Get.toNamed(
+              AppRouteEnum.video_call.path,
+              arguments: CallPageArguments(
+                uid: controller.receiverUser.uid,
+                userName: controller.receiverUser.name,
+                callID: controller.getRoomId,
+              ),
+            );
+            await controller.sendCall();
+          },
+          icon: const Icon(Icons.call),
+        ),
+        IconButton(
           onPressed: () {
             Get.bottomSheet(
               UtilWidget.buildBottomSheetFigma(
@@ -101,7 +115,7 @@ extension ChatWidget on ChatPage {
         ),
         child: Column(
           children: [
-            Expanded(child: _buildMessages()),
+            _buildMessages(),
             _buildInput(),
           ],
         ),
@@ -110,72 +124,82 @@ extension ChatWidget on ChatPage {
   }
 
   Widget _buildMessages() {
-    return Obx(
-      () {
-        if (controller.isShowLoading.value) {
-          return const Center(child: LogoLoading());
-        }
+    return Expanded(
+      child: Obx(
+        () {
+          if (controller.isShowLoading.value) {
+            return const Center(child: LogoLoading());
+          }
 
-        if (controller.oldMessages.isEmpty && controller.newMessages.isEmpty) {
-          return Center(
-            child: UtilWidget.buildText(
-              LocaleKeys.chat_emptyChat.tr,
-              style: AppTextStyle.font16Re.copyWith(
-                color: AppColors.grayLight6,
+          if (controller.oldMessages.isEmpty &&
+              controller.newMessages.isEmpty) {
+            return Center(
+              child: UtilWidget.buildText(
+                LocaleKeys.chat_emptyChat.tr,
+                style: AppTextStyle.font16Re.copyWith(
+                  color: AppColors.grayLight6,
+                ),
+              ),
+            );
+          }
+
+          final messages = [
+            ...controller.newMessages.reversed,
+            ...controller.oldMessages
+          ];
+
+          return UtilWidget.buildSmartRefresher(
+            refreshController: controller.refreshController,
+            onRefresh: controller.onRefresh,
+            onLoadMore: controller.onLoadMore,
+            enablePullUp: true,
+            // enablePullDown: true,
+            child: ListView.separated(
+              controller: controller.chatScrollController,
+              reverse: true,
+              itemBuilder: (context, index) {
+                final chatMessage = messages[index];
+
+                bool showDate = false;
+                if (index == messages.length - 1) {
+                  showDate = true;
+                } else {
+                  final previousMessage = messages[index + 1];
+                  showDate =
+                      chatMessage.createDate != previousMessage.createDate;
+                }
+
+                switch (chatMessage.type) {
+                  case MessageTypeEnum.text:
+                    return TextMessageWidget(
+                      showDate: showDate,
+                      message: chatMessage,
+                    );
+                  case MessageTypeEnum.sticker:
+                    return StickerMessageWidget(
+                      showDate: showDate,
+                      message: chatMessage,
+                    );
+                  case MessageTypeEnum.call:
+                  case MessageTypeEnum.videoCall:
+                    return CallMessageWidget(
+                      showDate: showDate,
+                      message: chatMessage,
+                    );
+                }
+              },
+              itemCount: messages.length,
+              separatorBuilder: (context, index) {
+                return AppDimens.vm16;
+              },
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.paddingDefault,
+                vertical: AppDimens.paddingDefault,
               ),
             ),
           );
-        }
-
-        final messages = [
-          ...controller.newMessages.reversed,
-          ...controller.oldMessages
-        ];
-
-        return UtilWidget.buildSmartRefresher(
-          refreshController: controller.refreshController,
-          onRefresh: controller.onRefresh,
-          onLoadMore: controller.onLoadMore,
-          enablePullUp: true,
-          // enablePullDown: true,
-          child: ListView.separated(
-            controller: controller.chatScrollController,
-            reverse: true,
-            itemBuilder: (context, index) {
-              final chatMessage = messages[index];
-
-              bool showDate = false;
-              if (index == messages.length - 1) {
-                showDate = true;
-              } else {
-                final previousMessage = messages[index + 1];
-                showDate = chatMessage.createDate != previousMessage.createDate;
-              }
-
-              switch (chatMessage.type) {
-                case MessageType.text:
-                  return TextMessageWidget(
-                    showDate: showDate,
-                    message: chatMessage,
-                  );
-                case MessageType.sticker:
-                  return StickerMessageWidget(
-                    showDate: showDate,
-                    message: chatMessage,
-                  );
-              }
-            },
-            itemCount: messages.length,
-            separatorBuilder: (context, index) {
-              return AppDimens.vm16;
-            },
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.paddingDefault,
-              vertical: AppDimens.paddingDefault,
-            ),
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 
@@ -194,6 +218,7 @@ extension ChatWidget on ChatPage {
       },
       textInputAction: TextInputAction.send,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(AppDimens.paddingDefault),
         enabledBorder: InputBorder.none,
         focusedBorder: InputBorder.none,
         filled: true,
@@ -209,7 +234,6 @@ extension ChatWidget on ChatPage {
           },
           child: const Icon(
             Icons.sentiment_satisfied_alt,
-            size: AppDimens.sizeIconSpinner,
             color: Colors.grey,
           ),
         ),
@@ -228,7 +252,8 @@ extension ChatWidget on ChatPage {
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppDimens.paddingVerySmall),
+                          horizontal: AppDimens.paddingVerySmall,
+                        ),
                         child: Icon(
                           CupertinoIcons.heart_fill,
                           size: AppDimens.sizeIcon28,
@@ -243,7 +268,8 @@ extension ChatWidget on ChatPage {
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppDimens.paddingVerySmall),
+                          horizontal: AppDimens.paddingVerySmall,
+                        ),
                         child: Icon(
                           Icons.send,
                           size: AppDimens.sizeIcon28,

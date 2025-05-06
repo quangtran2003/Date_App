@@ -14,21 +14,23 @@ class ProfileDetailPage extends BaseGetWidget<ProfileDetailController> {
 
   @override
   Widget buildWidgets(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppbar(),
-      body: buildLoadingOverlay(
-        () => Form(   
-          key: controller.formKey, 
-          child: ListView(
-            padding: const EdgeInsets.all(AppDimens.paddingDefault),
-            children: [
-              _buildAvatar(),
-              AppDimens.vm12,
-              _buildInfo(),
-              AppDimens.vm12,
-              _buildImageList(),
-              AppDimens.vm12,
-            ],
+    return SDSSafeArea(
+      child: Scaffold(
+        appBar: _buildAppbar(),
+        body: buildLoadingOverlay(
+          () => Form(
+            key: controller.formKey,
+            child: ListView(
+              padding: const EdgeInsets.all(AppDimens.paddingDefault),
+              children: [
+                _buildAvatar(),
+                AppDimens.vm12,
+                _buildInfo(),
+                AppDimens.vm12,
+                _buildImageList(),
+                AppDimens.vm12,
+              ],
+            ),
           ),
         ),
       ),

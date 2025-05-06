@@ -107,7 +107,8 @@
     "hourAgo":"hours ago",
     "dayAgo":"days ago",
     "monthAgo":"months ago",
-    "yearAgo": "years ago"
+    "yearAgo": "years ago",
+    "sendedASticker":"Sended a sticker"
   },
   "sticker": {
     "stickerPageTitle": "Stickers",
@@ -158,5 +159,11 @@
     "dataIsEmpty": "No more data",
     "address": "Address: ",
     "gender": "Gender: "
+  },
+  "notification": {
+    "tapToJoinVideoCall": "Tap to join video call",
+    "videoCallFrom": "The video call from ",
+    "easyDateUser": "Easy Date User",
+    "callIdNull":"Call id is null, please try again later!"
   }
 }

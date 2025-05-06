@@ -7,11 +7,13 @@ class UserChatArgument {
   final String avatar;
   final Timestamp? lastOnline;
   final RxBool isOnline = false.obs;
+  final String? callID;
 
   UserChatArgument({
     required this.uid,
     required this.name,
     required this.avatar,
+    this.callID,
     this.lastOnline,
   });
 }

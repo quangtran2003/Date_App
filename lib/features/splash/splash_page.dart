@@ -9,10 +9,12 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child:
-            const LogoLoading().paddingOnly(bottom: AppDimens.paddingVerySmall),
+    return SDSSafeArea(
+      child: Scaffold(
+        body: Center(
+          child: const LogoLoading()
+              .paddingOnly(bottom: AppDimens.paddingVerySmall),
+        ),
       ),
     );
   }

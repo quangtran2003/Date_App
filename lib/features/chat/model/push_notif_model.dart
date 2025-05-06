@@ -33,15 +33,18 @@ class PushNotificationData {
   final String? nameUser;
   final String? imgUser;
   final String? pageName;
+  final String? callId;
+  final String? type;
 
-  PushNotificationData({
-    this.notifTitle,
-    this.notifBody,
-    this.uidUser,
-    this.nameUser,
-    this.imgUser,
-    this.pageName,
-  });
+  PushNotificationData(
+      {this.notifTitle,
+      this.notifBody,
+      this.uidUser,
+      this.nameUser,
+      this.imgUser,
+      this.pageName,
+      this.type,
+      this.callId});
 
   factory PushNotificationData.fromJson(Map<String, dynamic> json) {
     return PushNotificationData(
@@ -51,17 +54,21 @@ class PushNotificationData {
       nameUser: json['nameUser'] as String?,
       imgUser: json['imgUser'] as String?,
       pageName: json['pageName'] as String?,
+      type: json['type'] as String?,
+      callId: json['callId'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'notif_title': notifTitle,
-      'notif_body': notifBody,
-      'uidUser': uidUser,
-      'nameUser': nameUser,
-      'imgUser': imgUser,
-      'pageName': pageName,
+      'notif_title': notifTitle ?? '',
+      'notif_body': notifBody ?? '',
+      'uidUser': uidUser ?? '',
+      'nameUser': nameUser ?? '',
+      'imgUser': imgUser ?? '',
+      'pageName': pageName ?? '',
+      'type': type ?? '',
+      'callId': callId ?? ''
     };
   }
 }

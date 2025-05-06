@@ -125,7 +125,9 @@ class ProfileDetailController extends BaseGetxController {
       }
 
       if (!(formKey.currentState?.validate() ?? false) ||
-          isSexualRequired.value) return;
+          isSexualRequired.value) {
+        return;
+      }
 
       showLoadingOverlay();
       final String imgAvt = await updateImageAvt();

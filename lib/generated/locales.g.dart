@@ -109,6 +109,7 @@ class LocaleKeys {
   static const chat_dayAgo = 'chat_dayAgo';
   static const chat_monthAgo = 'chat_monthAgo';
   static const chat_yearAgo = 'chat_yearAgo';
+  static const chat_sendedASticker = 'chat_sendedASticker';
   static const sticker_stickerPageTitle = 'sticker_stickerPageTitle';
   static const sticker_invalidAlumUrl = 'sticker_invalidAlumUrl';
   static const sticker_loadAlumSuccess = 'sticker_loadAlumSuccess';
@@ -159,6 +160,11 @@ class LocaleKeys {
   static const matchUser_dataIsEmpty = 'matchUser_dataIsEmpty';
   static const matchUser_address = 'matchUser_address';
   static const matchUser_gender = 'matchUser_gender';
+  static const notification_tapToJoinVideoCall =
+      'notification_tapToJoinVideoCall';
+  static const notification_videoCallFrom = 'notification_videoCallFrom';
+  static const notification_easyDateUser = 'notification_easyDateUser';
+  static const notification_callIdNull = 'notification_callIdNull';
 }
 
 class Locales {
@@ -261,6 +267,7 @@ class Locales {
     'chat_dayAgo': 'days ago',
     'chat_monthAgo': 'months ago',
     'chat_yearAgo': 'years ago',
+    'chat_sendedASticker': 'Sended a sticker',
     'sticker_stickerPageTitle': 'Stickers',
     'sticker_invalidAlumUrl': 'Invalid album URL',
     'sticker_loadAlumSuccess': 'Sticker album loaded successfully',
@@ -307,6 +314,10 @@ class Locales {
     'matchUser_dataIsEmpty': 'No more data',
     'matchUser_address': 'Address: ',
     'matchUser_gender': 'Gender: ',
+    'notification_tapToJoinVideoCall': 'Tap to join video call',
+    'notification_videoCallFrom': 'The video call from ',
+    'notification_easyDateUser': 'Easy Date User',
+    'notification_callIdNull': 'Call id is null, please try again later!',
   };
   static const vi_VN = {
     'app_appName': 'Easy Date',
@@ -409,6 +420,7 @@ class Locales {
     'chat_dayAgo': 'ngày trước',
     'chat_monthAgo': 'tháng trước',
     'chat_yearAgo': 'năm trước',
+    'chat_sendedASticker': 'Đã gửi một nhãn dán',
     'sticker_stickerPageTitle': 'Stickers',
     'sticker_invalidAlumUrl': 'URL album không hợp lệ',
     'sticker_loadAlumSuccess': 'Tải album sticker thành công',
@@ -456,5 +468,9 @@ class Locales {
     'matchUser_dataIsEmpty': 'Dữ liệu đã hết',
     'matchUser_address': 'Địa chỉ: ',
     'matchUser_gender': 'Giới tính: ',
+    'notification_tapToJoinVideoCall': 'Nhấn để tham gia cuộc gọi',
+    'notification_videoCallFrom': 'Cuộc gọi đến từ ',
+    'notification_easyDateUser': 'Người dùng easy date',
+    'notification_callIdNull': 'Id của cuộc gọi null, vui lòng thử lại sau!',
   };
 }

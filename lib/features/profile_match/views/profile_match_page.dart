@@ -7,11 +7,13 @@ class ProfileMatchPage extends BaseGetWidget<ProfileMatchController> {
 
   @override
   Widget buildWidgets(BuildContext context) {
-    return Scaffold(
-      body: baseShowLoading(
-        () => controller.infoUserMatchModel == null
-            ? const BaseListEmpty()
-            : InfoUserMatchView(controller.infoUserMatchModel!),
+    return SDSSafeArea(
+      child: Scaffold(
+        body: baseShowLoading(
+          () => controller.infoUserMatchModel == null
+              ? const BaseListEmpty()
+              : InfoUserMatchView(controller.infoUserMatchModel!),
+        ),
       ),
     );
   }

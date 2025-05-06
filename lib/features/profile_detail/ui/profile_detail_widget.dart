@@ -69,7 +69,7 @@ extension ProfileDetailWidget on ProfileDetailPage {
                   shape: BoxShape.circle,
                   color: AppColors.white,
                   border: Border.all(
-                    color: AppColors.primaryLight2.withOpacity(0.1),
+                    color: AppColors.primaryLight2.withValues(alpha: 0.1),
                     width: 2,
                   ),
                   image: !controller.avatarPath.isNullOrEmpty
@@ -385,7 +385,8 @@ extension ProfileDetailWidget on ProfileDetailPage {
                         onPressed: () => controller.onDeleteImage(index),
                         style: IconButton.styleFrom(
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          backgroundColor: AppColors.black.withOpacity(0.7),
+                          backgroundColor:
+                              AppColors.black.withValues(alpha: 0.7),
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(

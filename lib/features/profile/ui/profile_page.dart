@@ -10,39 +10,41 @@ class ProfilePage extends BaseGetWidget<ProfileController> {
 
   @override
   Widget buildWidgets(BuildContext context) {
-    return Scaffold(
-      body: baseShowLoading(
-        () => SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildProfile(),
-                const Divider(
-                  color: AppColors.dsGray4,
-                  height: 0.5,
-                ),
-                _buildListItem(
-                  title: LocaleKeys.profile_profile.tr,
-                  iconData: Icons.account_circle,
-                  onTap: controller.openProfileDetail,
-                ),
-                _buildListItem(
-                  title: LocaleKeys.profile_block_list.tr,
-                  iconData: Icons.playlist_remove,
-                  onTap: controller.openBlockList,
-                ),
-                const BiometricSetting(),
-                _buildLanguage(controller),
-                _buildTheme(controller),
-                _buildListItem(
-                  title: LocaleKeys.profile_logout.tr,
-                  iconData: Icons.output,
-                  onTap: controller.signOut,
-                ),
-              ],
-            ).paddingSymmetric(horizontal: AppDimens.paddingSmall),
+    return SDSSafeArea(
+      child: Scaffold(
+        body: baseShowLoading(
+          () => SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildProfile(),
+                  const Divider(
+                    color: AppColors.dsGray4,
+                    height: 0.5,
+                  ),
+                  _buildListItem(
+                    title: LocaleKeys.profile_profile.tr,
+                    iconData: Icons.account_circle,
+                    onTap: controller.openProfileDetail,
+                  ),
+                  _buildListItem(
+                    title: LocaleKeys.profile_block_list.tr,
+                    iconData: Icons.playlist_remove,
+                    onTap: controller.openBlockList,
+                  ),
+                  const BiometricSetting(),
+                  _buildLanguage(controller),
+                  _buildTheme(controller),
+                  _buildListItem(
+                    title: LocaleKeys.profile_logout.tr,
+                    iconData: Icons.output,
+                    onTap: controller.signOut,
+                  ),
+                ],
+              ).paddingSymmetric(horizontal: AppDimens.paddingSmall),
+            ),
           ),
         ),
       ),

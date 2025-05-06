@@ -18,10 +18,12 @@ class MatchUserPage extends BaseGetWidget<MatchUserController> {
 
   @override
   Widget buildWidgets(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
-      body: baseShowLoading(
-        () => _body(controller),
+    return SDSSafeArea(
+      child: Scaffold(
+        appBar: AppBar(toolbarHeight: 0),
+        body: baseShowLoading(
+          () => _body(controller),
+        ),
       ),
     );
   }

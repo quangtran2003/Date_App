@@ -82,7 +82,6 @@ class EasyListViewState extends State<EasyListView> {
       case ItemType.dividerData:
         return _buildDividerWithData(index, index - headerCount);
       case ItemType.data:
-      default:
         return widget.itemBuilder(context, index - headerCount);
     }
   }

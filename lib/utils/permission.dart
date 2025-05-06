@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:permission_handler/permission_handler.dart';
-import 'package:share_plus/share_plus.dart';
 
 import 'utils_src.dart';
 
@@ -48,10 +47,10 @@ Future<String> saveFile(String fileName, Uint8List bytes) async {
 }
 
 Future<void> shareFile(String fileName, Uint8List bytes) async {
-  String path = await saveFile(fileName, bytes);
+  //String path = await saveFile(fileName, bytes);
   // await Share.shareFiles([path]);
 
-  await Share.shareXFiles(
-    [XFile(path)],
-  );
+  // await Share.shareXFiles(
+  //   [XFile(path)],
+  // );
 }

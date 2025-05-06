@@ -37,6 +37,9 @@ class ChatController extends BaseRefreshGetxController {
   final oldMessages = <ChatMessage>[].obs;
   final newMessages = <ChatMessage>[].obs;
 
+  String get getRoomId =>
+      chatRepository.getChatRoomId(currentUser.value!.uid, receiverUser.uid);
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -62,11 +65,11 @@ class ChatController extends BaseRefreshGetxController {
         return;
       }
       if (canShowHeartOverlay &&
-          lastMessage.type == MessageType.text &&
+          lastMessage.type == MessageTypeEnum.text &&
           lastMessage.content == heartText) {
         canShowHeartOverlay = false;
         heartFly();
-        if (await Vibration.hasVibrator() ?? false) {
+        if (await Vibration.hasVibrator()) {
           Vibration.vibrate(duration: 20);
         }
         await Future.delayed(heartAnimationDuration);
@@ -153,9 +156,12 @@ class ChatController extends BaseRefreshGetxController {
         chatRepository.createMessage(
           receiverId: receiverUser.uid,
           message: message,
-          type: MessageType.text,
+          type: MessageTypeEnum.text,
         ),
-        pushNotif(message),
+        pushNotif(
+          message,
+          type: MessageTypeEnum.text,
+        ),
       ]);
 
       _scrollToBottom();
@@ -169,10 +175,32 @@ class ChatController extends BaseRefreshGetxController {
       await chatRepository.createMessage(
         receiverId: receiverUser.uid,
         message: sticker.link,
-        type: MessageType.sticker,
+        type: MessageTypeEnum.sticker,
       );
 
-      await pushNotif(sticker.link, isSticker: true);
+      await pushNotif(
+        LocaleKeys.chat_sendedASticker.tr,
+        type: MessageTypeEnum.sticker,
+      );
+
+      _scrollToBottom();
+    } catch (e) {
+      handleException(e);
+    }
+  }
+
+  Future<void> sendCall() async {
+    try {
+      await chatRepository.createMessage(
+        receiverId: receiverUser.uid,
+        message: 'đã thực hiện 1 cuộc gọi',
+        type: MessageTypeEnum.call,
+      );
+
+      await pushNotif(
+        LocaleKeys.notification_tapToJoinVideoCall.tr,
+        type: MessageTypeEnum.call,
+      );
 
       _scrollToBottom();
     } catch (e) {
@@ -182,25 +210,26 @@ class ChatController extends BaseRefreshGetxController {
 
   Future<void> pushNotif(
     String message, {
-    bool isSticker = false,
+    required MessageTypeEnum type,
   }) async {
     try {
       // Step 1: Get receiver's FCM token
       final receiverToken =
-          await chatRepository.getDeviceReceiverToken(receiverUser.uid);
-      //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
-      // await chatRepository.firebaseMessage.getToken();
+          //  await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+          //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
+          await chatRepository.firebaseMessage.getToken();
       logger.d(receiverToken);
       if (receiverToken == null) return;
 
       // Step 2: Get server auth token
       final serverAuthToken = await FCM.getToken();
       logger.d(serverAuthToken);
+
       // Step 3: Prepare notification data
       final notificationPayload = getNotifModel(
-        isSticker,
-        message,
-        receiverToken,
+        type: type,
+        message: message,
+        receiverToken: receiverToken,
       );
 
       // Step 4: Push to server
@@ -213,18 +242,22 @@ class ChatController extends BaseRefreshGetxController {
     }
   }
 
-  PushNotificationMessage getNotifModel(
-    bool isSticker,
-    String message,
-    String receiverToken,
-  ) {
+  PushNotificationMessage getNotifModel({
+    required MessageTypeEnum type,
+    required String message,
+    required String receiverToken,
+  }) {
+    final callId = type == MessageTypeEnum.call ? getRoomId : null;
     final data = PushNotificationData(
-      pageName: AppRouteEnum.chat.path,
+      callId: callId,
+      pageName: type.getPageName,
       uidUser: receiverUser.uid,
       nameUser: receiverUser.name,
       imgUser: receiverUser.avatar,
-      notifTitle: currentUser.value?.name ?? 'Người dùng Easy Date',
-      notifBody: isSticker ? 'Đã gửi một nhãn dán!' : message,
+      notifTitle:
+          currentUser.value?.name ?? LocaleKeys.notification_easyDateUser.tr,
+      notifBody: message,
+      type: type.firebaseValue.toString(),
     );
     return PushNotificationMessage(
       data: data,

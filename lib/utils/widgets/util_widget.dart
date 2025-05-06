@@ -421,7 +421,6 @@ class UtilWidget {
       // barrierDismissible: true,
       theme: ThemeData(
         primaryColor: AppColors.white,
-        dialogBackgroundColor: AppColors.dateTimeColor,
         primarySwatch: Colors.deepOrange,
         disabledColor: AppColors.dsGray3,
         focusColor: AppColors.lightPrimaryColor,
@@ -430,6 +429,8 @@ class UtilWidget {
               Get.textTheme.bodyLarge!.copyWith(color: AppColors.dsGray3),
           bodyMedium: Get.textTheme.bodyLarge,
         ),
+        dialogTheme:
+            const DialogThemeData(backgroundColor: AppColors.dateTimeColor),
       ),
       styleDatePicker: MaterialRoundedDatePickerStyle(
         paddingMonthHeader: const EdgeInsets.all(15),
@@ -584,7 +585,7 @@ class UtilWidget {
             ? null
             : [
                 BoxShadow(
-                  color: AppColors.colorConfirm.withOpacity(0.3),
+                  color: AppColors.colorConfirm.withValues(alpha: 0.3),
                   blurRadius: 23.3,
                   offset: const Offset(1, 1),
                 ),

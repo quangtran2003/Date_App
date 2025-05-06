@@ -15,10 +15,10 @@ class UsersSuggestPage extends GetView<UsersSuggestController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: SafeArea(
-        child: Column(
+    return SDSSafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildListChoiceChips(controller),

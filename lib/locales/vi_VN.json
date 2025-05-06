@@ -106,8 +106,8 @@
         "hourAgo":"giờ trước",
         "dayAgo":"ngày trước",
         "monthAgo":"tháng trước",
-        "yearAgo":"năm trước"
-
+        "yearAgo":"năm trước",
+        "sendedASticker":"Đã gửi một nhãn dán"
     },
     "sticker": {
         "stickerPageTitle": "Stickers",
@@ -158,5 +158,11 @@
         "dataIsEmpty": "Dữ liệu đã hết",
         "address": "Địa chỉ: ",
         "gender": "Giới tính: "
+    },
+    "notification": {
+        "tapToJoinVideoCall": "Nhấn để tham gia cuộc gọi",
+        "videoCallFrom": "Cuộc gọi đến từ ",
+        "easyDateUser": "Người dùng easy date",
+        "callIdNull":"Id của cuộc gọi null, vui lòng thử lại sau!"
     }
 }

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/utils/date_utils.dart';
 
-import 'message_type.dart';
+import '../../../core/enum/message_type.dart';
 
 class ChatMessage {
   final bool isMe;
   final String content;
   final String senderId;
-  final MessageType type;
+  final MessageTypeEnum type;
   final Timestamp createTime;
 
   // Local variables
@@ -18,7 +18,7 @@ class ChatMessage {
   ChatMessage({
     required this.senderId,
     required this.content,
-    this.type = MessageType.text,
+    this.type = MessageTypeEnum.text,
     required this.createTime,
     this.isMe = false,
     required this.createDate,
@@ -37,7 +37,7 @@ class ChatMessage {
       senderId: senderId,
       content: json["content"],
       isMe: userId == senderId,
-      type: MessageType.fromInt(json["type"] ?? 0),
+      type: MessageTypeEnum.fromInt(json["type"] ?? 0),
       createTime: createTime,
       createDate: createTimeDate,
       createTimeHHmma: createTimeHHmm,
@@ -61,7 +61,7 @@ class ChatMessage {
     return ChatMessage(
       senderId: data["senderId"] ?? "",
       content: data["content"] ?? "",
-      type: MessageType.fromInt(data["type"] ?? 0),
+      type: MessageTypeEnum.fromInt(data["type"] ?? 0),
       createTime: createTime,
       createDate: DateTime(
         createTimeDate.year,

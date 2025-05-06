@@ -129,7 +129,9 @@ class BaseConnectAPI {
   dynamic showDialogError(dynamic e) {
     if (e.response?.data != null &&
         e.response.data is Map &&
-        e.response.data["Data"] != null) return e.response.data;
+        e.response.data["Data"] != null) {
+      return e.response.data;
+    }
     onErrorCallBack(e);
   }
 

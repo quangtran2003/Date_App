@@ -982,3 +982,6 @@ DerivedData/
 .fvm/"assets/keys/service_account.json" 
 .fvm/assets/keys/service_account.json
 #"assets/keys/service_account.json" 
+
+# FVM Version Cache
+.fvm/

@@ -99,7 +99,7 @@ class VerticalListView extends BaseGetWidget<UserListController> {
     }
 
     String getLastMessage() {
-      lastContent = lastMessage?.type == MessageType.text
+      lastContent = lastMessage?.type == MessageTypeEnum.text
           ? lastContent
           : LocaleKeys.user_chatSticker.tr;
       return lastMessage?.isMe == false

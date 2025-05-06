@@ -72,7 +72,7 @@ BoxDecoration _buildBoxDecoration(bool isMe) {
             : AppColors.grayLight7
         : AppColors.isDarkMode
             ? AppColors.darkAccentColor
-            : AppColors.bgText,
+            : AppColors.grayLight8,
   );
 }
 

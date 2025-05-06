@@ -12,8 +12,8 @@ extension BiometricWidget on BiometricSetting {
           ? const Icon(Icons.fingerprint)
           : const Icon(Icons.face),
       trailing: CupertinoSwitch(
-        trackColor: AppColors.grayLight5,
-        activeColor: AppColors.primaryLight2,
+        inactiveTrackColor: AppColors.grayLight5,
+        activeTrackColor: AppColors.primaryLight2,
         value: controller.hasBiometric.value,
         onChanged: (_) {
           ShowPopup.showDialogConfirmWidget(

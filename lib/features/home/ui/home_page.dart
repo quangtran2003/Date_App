@@ -12,17 +12,19 @@ class HomePage extends GetView<HomeController> {
     return Obx(
       () => PopScope(
         canPop: controller.canPop.value,
-        onPopInvoked: (didPop) async {
+        onPopInvokedWithResult: (didPop, _) async {
           if (didPop) return;
           final shouldPop = await controller.onWillPop();
           if (!shouldPop) {
             controller.canPop.value = false;
           }
         },
-        child: Scaffold(
-          body: _buildBody(),
-          bottomNavigationBar: _buildBottomNavigationBar(),
-          floatingActionButton: _buildFloatingAction(),
+        child: SDSSafeArea(
+          child: Scaffold(
+            body: _buildBody(),
+            bottomNavigationBar: _buildBottomNavigationBar(),
+            floatingActionButton: _buildFloatingAction(),
+          ),
         ),
       ),
     );
@@ -67,18 +69,11 @@ class HomePage extends GetView<HomeController> {
 
   Widget _buildBottomNavigationBar() {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(AppDimens.radius30),
           topRight: Radius.circular(AppDimens.radius30),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.grayLight1.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, -3),
-          ),
-        ],
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
@@ -89,7 +84,7 @@ class HomePage extends GetView<HomeController> {
           // With material3, to set color for BottomAppBar,
           // we need to set color with both color and surfaceTintColor attributes
           // color: Colors.white,
-          surfaceTintColor: Colors.white,
+          surfaceTintColor: AppColors.grayLight8,
           shape: const CircularNotchedRectangle(),
           padding: EdgeInsets.zero,
           height: AppDimens.bottomAppBarHeight,
@@ -189,7 +184,7 @@ class HomePage extends GetView<HomeController> {
             : [
                 BoxShadow(
                   color: isSelected
-                      ? AppColors.primaryLight2.withOpacity(0.25)
+                      ? AppColors.primaryLight2.withValues(alpha: 0.25)
                       : Colors.transparent,
                   blurRadius: 7.7,
                   offset: const Offset(1, 4),

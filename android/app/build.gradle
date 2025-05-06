@@ -28,8 +28,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "vn.softdreams.easy_date"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    compileSdkVersion 35
+    ndkVersion "23.1.7779620" 
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -78,6 +78,7 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }

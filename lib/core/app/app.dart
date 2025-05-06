@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_date/core/config_noti/fcm.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,14 +81,13 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
     _loadApp(context).whenComplete(() {
       if (mounted) {
-        //final user = FirebaseAuth.instance.currentUser;
-        Get.offAllNamed(AppRouteEnum.login.path);
-
-        // if (user != null && user.emailVerified) {
-        //   Get.offAllNamed(AppRouteEnum.home.path);
-        // } else {
-        //   Get.offAllNamed(AppRouteEnum.login.path);
-        // }
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null && user.emailVerified) {
+          Get.offAllNamed(AppRouteEnum.home.path);
+        } else {
+          Get.offAllNamed(AppRouteEnum.login.path);
+        }
+        //Get.offAllNamed(AppRouteEnum.login.path);
       }
     });
   }
