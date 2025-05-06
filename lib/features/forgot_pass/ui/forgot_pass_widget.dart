@@ -18,6 +18,7 @@ Widget _buildLoginButton() {
     child: UtilWidget.buildText(
       textAlign: TextAlign.end,
       LocaleKeys.login_backToLogin.tr,
+      textColor: AppColors.isDarkMode ? AppColors.white : AppColors.black,
     ),
   );
 }

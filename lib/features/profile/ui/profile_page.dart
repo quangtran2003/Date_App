@@ -35,6 +35,7 @@ class ProfilePage extends BaseGetWidget<ProfileController> {
                 ),
                 const BiometricSetting(),
                 _buildLanguage(controller),
+                _buildTheme(controller),
                 _buildListItem(
                   title: LocaleKeys.profile_logout.tr,
                   iconData: Icons.output,

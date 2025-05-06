@@ -61,7 +61,7 @@ class UtilWidget {
       title,
       textAlign: textAlignCenter ? TextAlign.center : TextAlign.left,
       style: AppTextStyle.font18Ex.copyWith(
-        color: textColor ?? AppColors.grayLight1,
+        color: textColor,
       ),
       maxLines: 2,
     );
@@ -559,7 +559,7 @@ class UtilWidget {
       textAlign: textAlign ?? TextAlign.start,
       style: style ??
           AppTextStyle.font12Re.copyWith(
-            color: textColor ?? AppColors.grayLight2,
+            color: textColor,
             fontWeight: fontWeight,
             overflow: TextOverflow.ellipsis,
             fontSize: fontSize ?? AppDimens.fontSmall(),
@@ -823,9 +823,9 @@ class UtilWidget {
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingDefault),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: AppColors.isDarkMode ? AppColors.systemColor : AppColors.white,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(AppDimens.radius30),
           topRight: Radius.circular(AppDimens.radius30),
         ),
@@ -860,15 +860,15 @@ class UtilWidget {
             svgPath,
             width: AppDimens.sizeIconMedium,
             height: AppDimens.sizeIconMedium,
+            // ignore: deprecated_member_use
+            color: AppColors.isDarkMode ? AppColors.white : AppColors.black,
           ).paddingOnly(
             right: AppDimens.paddingDefault,
           ),
           Expanded(
             child: UtilWidget.buildText(
               title,
-              style: AppTextStyle.font16Semi.copyWith(
-                color: AppColors.grayLight1,
-              ),
+              style: AppTextStyle.font16Semi.copyWith(),
               textAlign: TextAlign.start,
             ),
           ),

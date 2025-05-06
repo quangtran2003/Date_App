@@ -5,7 +5,12 @@ class ProfileController extends BaseGetxController {
 
   late final user = Get.find<HomeController>().currentUser;
 
-  final languageController = ValueNotifier<bool>(false);
+  final languageController = ValueNotifier<bool>(
+    SettingStorage.language != LanguageEnum.english,
+  );
+  final themeController = ValueNotifier<bool>(
+    SettingStorage.themeMode != AppTheme.dark,
+  );
 
   final RxBool hasBiometric = (AppStorage.getBiometric ?? false).obs;
 
@@ -30,7 +35,11 @@ class ProfileController extends BaseGetxController {
     ShowPopup.showDialogConfirm(
       LocaleKeys.profile_titelLogout.tr,
       actionTitle: LocaleKeys.profile_yes.tr,
-      confirm: () {
+      confirm: () async {
+        profileRepository.updateUserOnlineStatus(
+          isOnline: false,
+          uid: user.value?.uid ?? '',
+        );
         profileRepository.logout();
         Get.offAllNamed(AppRouteEnum.login.path);
       },
@@ -40,6 +49,13 @@ class ProfileController extends BaseGetxController {
   Future<void> changeLanguage(LanguageEnum language) async {
     Get.updateLocale(language.locale);
     await SettingStorage.saveLanguage(language);
+  }
+
+  Future<void> changeTheme(AppTheme theme) async {
+    Get.changeThemeMode(
+      theme == AppTheme.light ? ThemeMode.light : ThemeMode.dark,
+    );
+    await SettingStorage.saveThemeMode(theme);
   }
 
   Future<void> selectAvatar() async {

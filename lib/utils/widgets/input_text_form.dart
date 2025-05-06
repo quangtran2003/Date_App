@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/const/const_src.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import '../utils_src.dart';
 
 class BuildInputText extends StatefulWidget {
@@ -80,7 +79,7 @@ class BuildInputTextState extends State<BuildInputText> {
               _showPassword.value
                   ? Icons.visibility_off_outlined
                   : Icons.remove_red_eye_outlined,
-              color: widget.inputTextFormModel.suffixColor ?? AppColors.dsGray1,
+              color: widget.inputTextFormModel.suffixColor,
             ),
           )
         : Visibility(
@@ -130,7 +129,7 @@ class BuildInputTextState extends State<BuildInputText> {
         },
         textInputAction: widget.inputTextFormModel.iconNextTextInputAction,
         style: TextStyle(
-          color: widget.inputTextFormModel.textColor ?? AppColors.dsGray1,
+          color: widget.inputTextFormModel.textColor,
           fontSize:
               widget.inputTextFormModel.hintTextSize ?? AppDimens.fontSmall(),
         ),
@@ -158,7 +157,8 @@ class BuildInputTextState extends State<BuildInputText> {
         decoration: InputDecoration(
           counterText: widget.inputTextFormModel.isShowCounterText ? null : '',
           filled: true,
-          fillColor: widget.inputTextFormModel.fillColor ?? Colors.white,
+          fillColor: widget.inputTextFormModel.fillColor ??
+              (AppColors.isDarkMode ? null : Colors.white),
           hintStyle: AppTextStyle.font14Re.copyWith(
             color:
                 widget.inputTextFormModel.hintTextColor ?? AppColors.grayLight4,
@@ -207,9 +207,7 @@ class BuildInputTextState extends State<BuildInputText> {
           enabledBorder: widget.inputTextFormModel.enabledBorder ??
               OutlineInputBorder(
                 borderRadius: BorderRadius.circular(AppDimens.radius6),
-                borderSide: const BorderSide(
-                  color: AppColors.grayLight7,
-                ),
+                borderSide: const BorderSide(color: AppColors.transparent),
               ),
           disabledBorder: widget.inputTextFormModel.disabledBorder,
           focusedErrorBorder: widget.inputTextFormModel.focusedErrorBorder ??

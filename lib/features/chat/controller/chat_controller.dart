@@ -184,26 +184,33 @@ class ChatController extends BaseRefreshGetxController {
     String message, {
     bool isSticker = false,
   }) async {
-    // Step 1: Get receiver's FCM token
-    final receiverToken =
-        await chatRepository.getDeviceReceiverToken(receiverUser.uid);
-    if (receiverToken == null) return;
+    try {
+      // Step 1: Get receiver's FCM token
+      final receiverToken =
+          await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+      //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
+      // await chatRepository.firebaseMessage.getToken();
+      logger.d(receiverToken);
+      if (receiverToken == null) return;
 
-    // Step 2: Get server auth token
-    final serverAuthToken = await FCM.getToken();
-    
-    // Step 3: Prepare notification data
-    final notificationPayload = getNotifModel(
-      isSticker,
-      message,
-      receiverToken,
-    );
+      // Step 2: Get server auth token
+      final serverAuthToken = await FCM.getToken();
+      logger.d(serverAuthToken);
+      // Step 3: Prepare notification data
+      final notificationPayload = getNotifModel(
+        isSticker,
+        message,
+        receiverToken,
+      );
 
-    // Step 4: Push to server
-    await chatRepository.pushNoti(
-      notiModel: notificationPayload,
-      authToken: serverAuthToken,
-    );
+      // Step 4: Push to server
+      await chatRepository.pushNoti(
+        notiModel: notificationPayload,
+        authToken: serverAuthToken,
+      );
+    } catch (e) {
+      logger.d(e);
+    }
   }
 
   PushNotificationMessage getNotifModel(

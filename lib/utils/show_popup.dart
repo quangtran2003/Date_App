@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../core/const/const_src.dart';
 import 'utils_src.dart';
 
@@ -62,7 +63,7 @@ class ShowPopup {
             text,
             style: TextStyle(
               fontSize: AppDimens.fontBig(),
-              color: colorText ?? AppColors.dsGray1,
+              color: colorText,
             ),
             textScaler: TextScaler.noScaling,
             maxLines: 1,
@@ -195,8 +196,8 @@ class ShowPopup {
                   textScaleFactor: 1,
                   maxLines: 1,
                   style: TextStyle(
-                      fontSize: AppDimens.fontBiggest(),
-                      color: AppColors.dsGray1),
+                    fontSize: AppDimens.fontBiggest(),
+                  ),
                 ),
               ),
               Container(
@@ -205,8 +206,7 @@ class ShowPopup {
                 child: SingleChildScrollView(
                   child: Text(
                     content,
-                    style: Get.textTheme.bodyLarge
-                        ?.copyWith(color: AppColors.dsGray1),
+                    style: Get.textTheme.bodyLarge?.copyWith(),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     textScaler: TextScaler.noScaling,
@@ -336,8 +336,8 @@ class ShowPopup {
                   textScaleFactor: 1,
                   maxLines: 1,
                   style: TextStyle(
-                      fontSize: AppDimens.fontBiggest(),
-                      color: AppColors.dsGray1),
+                    fontSize: AppDimens.fontBiggest(),
+                  ),
                 ),
               ),
               buildBody,

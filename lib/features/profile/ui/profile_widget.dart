@@ -52,7 +52,7 @@ extension ProfileWidget on ProfilePage {
                 controller.user.value?.name ?? "",
                 fontSize: AppDimens.fontSize24(),
                 fontWeight: FontWeight.bold,
-                textColor: AppColors.dsGray1,
+                style: AppTextStyle.font18Semi.copyWith(),
               ),
               AppDimens.hm4,
               const Icon(
@@ -65,9 +65,7 @@ extension ProfileWidget on ProfilePage {
           AppDimens.vm4,
           UtilWidget.buildText(
             controller.user.value?.email ?? "",
-            style: AppTextStyle.font16Semi.copyWith(
-              color: AppColors.dsGray2,
-            ),
+            style: AppTextStyle.font16Semi.copyWith(),
           ),
         ],
       ),
@@ -127,16 +125,45 @@ extension ProfileWidget on ProfilePage {
         height: 32,
         width: 52,
         controller: controller.languageController,
-        thumb: const Icon(
-          Icons.flag_circle_sharp,
-          color: AppColors.white,
-          size: AppDimens.sizeIcon,
-        ),
-        initialValue: SettingStorage.language == LanguageEnum.vietnamese ||
-            SettingStorage.language == null,
+        initialValue: SettingStorage.language != LanguageEnum.english,
         onChanged: (value) {
           controller.changeLanguage(
               value ? LanguageEnum.vietnamese : LanguageEnum.english);
+        },
+      ).paddingAll(AppDimens.paddingSmallest),
+    );
+  }
+
+  Widget _buildTheme(ProfileController controller) {
+    return ListTile(
+      leading: const Icon(
+        Icons.palette_outlined,
+        size: AppDimens.sizeIconSpinner,
+      ),
+      title: UtilWidget.buildText(
+        LocaleKeys.home_theme.tr,
+        style: AppTextStyle.font18Bo,
+      ),
+      contentPadding: EdgeInsets.zero,
+      trailing: AdvancedSwitch(
+        activeColor: AppColors.primaryLight2,
+        inactiveColor: AppColors.black,
+        activeChild: const Icon(
+          Icons.wb_sunny_outlined,
+          color: AppColors.white,
+          size: AppDimens.sizeIcon,
+        ),
+        inactiveChild: const Icon(
+          Icons.mode_night_outlined,
+          color: AppColors.dsGray3,
+          size: AppDimens.sizeIcon,
+        ),
+        height: 32,
+        width: 52,
+        controller: controller.themeController,
+        initialValue: SettingStorage.themeMode != AppTheme.dark,
+        onChanged: (value) {
+          controller.changeTheme(value ? AppTheme.light : AppTheme.dark);
         },
       ).paddingAll(AppDimens.paddingSmallest),
     );

@@ -42,9 +42,9 @@ Widget _buildInfoCard(UsersSuggestController controller) {
       horizontal: AppDimens.paddingMedium,
       vertical: AppDimens.paddingSmall,
     ),
-    decoration: const BoxDecoration(
-      color: AppColors.white,
-      borderRadius: BorderRadius.vertical(
+    decoration: BoxDecoration(
+      color: AppColors.isDarkMode ? AppColors.darkAccentColor : AppColors.white,
+      borderRadius: const BorderRadius.vertical(
         bottom: Radius.circular(AppDimens.radius20),
       ),
     ),
@@ -68,10 +68,12 @@ Widget _buildInfoCard(UsersSuggestController controller) {
               width: AppDimens.sizeIcon,
             ),
             AppDimens.hm8,
-            UtilWidget.buildText(controller.userSuggest.value?.place ?? '',
-                style: AppTextStyle.font16Re.copyWith(),
-                fontSize: AppDimens.fontBig(),
-                maxLine: 1),
+            UtilWidget.buildText(
+              controller.userSuggest.value?.place ?? '',
+              style: AppTextStyle.font16Re.copyWith(),
+              fontSize: AppDimens.fontBig(),
+              maxLine: 1,
+            ),
           ],
         ),
       ],
