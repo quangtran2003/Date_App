@@ -48,13 +48,15 @@ extension ChatWidget on ChatPage {
           onPressed: () async {
             Get.toNamed(
               AppRouteEnum.video_call.path,
-              arguments: CallPageArguments(
-                uid: controller.receiverUser.uid,
-                userName: controller.receiverUser.name,
+              arguments: UserChatArgument(
+                avatar: '',
+                uid: controller.currentUser.value?.uid ?? '',
+                name: controller.currentUser.value?.name ?? '',
                 callID: controller.getRoomId,
               ),
             );
             await controller.sendCall();
+            logger.d(controller.getRoomId);
           },
           icon: const Icon(Icons.call),
         ),

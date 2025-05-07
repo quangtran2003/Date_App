@@ -70,20 +70,6 @@ class MatchUserRepositoryImp extends MatchUserRepository {
     return listInfoUserMatch;
   }
 
-  // @override
-  // Future<List<InfoUserMatchModel>> fetchNextPage(
-  //     InfoUserMatchModel userLogin) async {
-  //   await checkNetwork();
-  //   List<InfoUserMatchModel> listInfoUserMatch = [];
-  //   if (lastDocument == null) {
-  //     listInfoUserMatch = await _fetchPage(userLogin);
-  //   } else {
-  //     listInfoUserMatch = await _fetchPage(userLogin, startAfter: lastDocument);
-  //   }
-  //
-  //   return listInfoUserMatch;
-  // }
-
   // Get data cần match
   @override
   Future<List<InfoUserMatchModel>> getDataMatch(

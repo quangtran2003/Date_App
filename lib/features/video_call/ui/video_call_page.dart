@@ -20,5 +20,5 @@ class CallPage extends StatelessWidget {
             callID: args.callID!,
             config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
           );
-  }
+  } 
 }

@@ -215,9 +215,9 @@ class ChatController extends BaseRefreshGetxController {
     try {
       // Step 1: Get receiver's FCM token
       final receiverToken =
-          //  await chatRepository.getDeviceReceiverToken(receiverUser.uid);
-          //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
-          await chatRepository.firebaseMessage.getToken();
+          await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+      //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
+      //await chatRepository.firebaseMessage.getToken();
       logger.d(receiverToken);
       if (receiverToken == null) return;
 

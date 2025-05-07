@@ -23,14 +23,15 @@ void _handleNotificationResponse(NotificationResponse notificationResponse) {
     if (notificationResponse.actionId == 'DECLINE_CALL') {
       log("User declined the call");
     } else if (dataNoti.pageName != null && dataNoti.uidUser != null) {
+      logger.d(dataNoti.callId);
       Get.toNamed(
         dataNoti.pageName!,
-        arguments:  UserChatArgument(
-                uid: dataNoti.uidUser!,
-                name: dataNoti.nameUser ?? '',
-                avatar: dataNoti.imgUser ?? '',
-                callID: dataNoti.callId,
-              ),
+        arguments: UserChatArgument(
+          uid: dataNoti.uidUser!,
+          name: dataNoti.nameUser ?? '',
+          avatar: dataNoti.imgUser ?? '',
+          callID: dataNoti.callId,
+        ),
       );
     }
   } catch (e) {

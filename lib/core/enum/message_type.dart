@@ -28,7 +28,7 @@ enum MessageTypeEnum {
         return AppRouteEnum.chat.path;
       case call:
       case videoCall:
-        return AppRouteEnum.home.path;
+        return AppRouteEnum.video_call.path;
     }
   }
 
