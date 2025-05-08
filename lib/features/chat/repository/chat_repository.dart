@@ -31,5 +31,7 @@ abstract class ChatRepository extends BaseFirebaseRepository {
     required PushNotificationMessage notiModel,
     required String authToken,
   });
+
   Future<String?> getDeviceReceiverToken(String uid);
+
 }

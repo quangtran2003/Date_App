@@ -3,7 +3,7 @@ import 'package:easy_date/features/match_user/binding/match_user_binding.dart';
 import 'package:easy_date/features/match_user/match_user_src.dart';
 import 'package:easy_date/features/profile_match/profile_match_src.dart';
 import 'package:easy_date/features/sticker/binding/sticker_binding.dart';
-import 'package:easy_date/features/video_call/ui/video_call_page.dart';
+import 'package:easy_date/features/video_call/video_call_src.dart';
 
 import '../features/feature_src.dart';
 
@@ -71,6 +71,7 @@ class AppRouter {
     GetPage(
       name: AppRouteEnum.video_call.path,
       page: () => const CallPage(),
+      binding: VideoCallBinding(),
     ),
   ];
 }

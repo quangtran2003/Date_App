@@ -22,7 +22,6 @@ abstract class BaseFirebaseRepository extends BaseRepository {
     required bool isOnline,
     required String uid,
   }) async {
-    logger.d(FieldValue.serverTimestamp());
     firestore.collection(FirebaseCollection.users).doc(uid).update({
       'isOnline': isOnline,
       'lastOnline': FieldValue.serverTimestamp(),

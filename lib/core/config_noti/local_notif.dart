@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -11,7 +12,8 @@ void _onDidReceiveBackgroundNotificationResponse(
   _handleNotificationResponse(notificationResponse);
 }
 
-void _handleNotificationResponse(NotificationResponse notificationResponse) {
+void _handleNotificationResponse(
+    NotificationResponse notificationResponse) async {
   final payloadJson = notificationResponse.payload;
   if (payloadJson == null) return;
 
@@ -21,9 +23,13 @@ void _handleNotificationResponse(NotificationResponse notificationResponse) {
   try {
     //nếu có cuộc gọi, cuộc gọi bị từ chối
     if (notificationResponse.actionId == 'DECLINE_CALL') {
-      log("User declined the call");
+      FirebaseFirestore.instance
+          .collection(FirebaseCollection.calls)
+          .doc(dataNoti.callId)
+          .update({
+        'status': StatusCallEnum.rejected.value,
+      });
     } else if (dataNoti.pageName != null && dataNoti.uidUser != null) {
-      logger.d(dataNoti.callId);
       Get.toNamed(
         dataNoti.pageName!,
         arguments: UserChatArgument(

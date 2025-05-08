@@ -16,15 +16,19 @@ class ChatController extends BaseRefreshGetxController {
   final ChatRepository chatRepository;
 
   final currentUser = Get.find<HomeController>().currentUser;
+
   final receiverUser = Get.arguments as UserChatArgument;
 
   final messageTextCtrl = TextEditingController();
+
   final chatScrollController = ScrollController();
 
   final showSendButton = false.obs;
 
   bool canShowHeartOverlay = true;
+
   final heartOverlayController = HeartOverlayController();
+
   StreamSubscription<List<ChatMessage>>? lastMessageSub;
 
   ChatController({
@@ -37,8 +41,10 @@ class ChatController extends BaseRefreshGetxController {
   final oldMessages = <ChatMessage>[].obs;
   final newMessages = <ChatMessage>[].obs;
 
-  String get getRoomId =>
-      chatRepository.getChatRoomId(currentUser.value!.uid, receiverUser.uid);
+  String get getRoomId => chatRepository.getChatRoomId(
+        currentUser.value!.uid,
+        receiverUser.uid,
+      );
 
   @override
   Future<void> onInit() async {
@@ -54,7 +60,6 @@ class ChatController extends BaseRefreshGetxController {
         firstDoc: firstMessageDoc,
       ),
     );
-
     hideLoading();
   }
 

@@ -148,26 +148,12 @@ class ChatRepositoryImpl extends ChatRepository {
     required PushNotificationMessage notiModel,
     required String authToken,
   }) async {
-    final response = await Dio().post(
+    await baseSendRequest(
       ApiUrl.urlPushNoti,
-      data: notiModel.toJson(),
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $authToken',
-          'Content-Type': 'application/json',
-        },
-        validateStatus: (status) => true, // Tạm để debug toàn bộ response
-      ),
+      RequestMethod.POST,
+      jsonMap: notiModel.toJson(),
+      authBearerToken: authToken,
     );
-
-    logger.d('Response: ${response.statusCode} ${response.data}');
-
-    // await baseSendRequest(
-    //   ApiUrl.urlPushNoti,
-    //   RequestMethod.POST,
-    //   jsonMap: notiModel.toJson(),
-    //   authBearerToken: authToken,
-    // );
   }
 
   @override
@@ -181,4 +167,5 @@ class ChatRepositoryImpl extends ChatRepository {
       return null;
     }
   }
+
 }

@@ -56,7 +56,8 @@ extension ChatWidget on ChatPage {
               ),
             );
             await controller.sendCall();
-            logger.d(controller.getRoomId);
+            // await 5.seconds.delay();
+            // Get.back();
           },
           icon: const Icon(Icons.call),
         ),
