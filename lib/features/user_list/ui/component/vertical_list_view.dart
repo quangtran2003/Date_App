@@ -129,9 +129,9 @@ class VerticalListView extends BaseGetWidget<UserListController> {
       onTap: () => Get.toNamed(
         AppRouteEnum.chat.path,
         arguments: UserChatArgument(
-          uid: userId2,
-          name: user2.name,
-          avatar: user2.imgAvt,
+          idReceiver: userId2,
+          nameReceiver: user2.name,
+          imgAvtReceiver: user2.imgAvt,
           lastOnline: user2.lastOnline,
         )..isOnline.value = user2.isOnline.value,
       ),

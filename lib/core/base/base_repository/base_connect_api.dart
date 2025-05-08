@@ -1,4 +1,3 @@
-import 'package:dio_log/utils/dio_log_util.dart';
 
 import '../../../utils/utils_src.dart';
 import '../../const/const_src.dart';
@@ -12,7 +11,7 @@ class BaseConnectAPI {
   static Dio getBaseDio() {
     Dio dio = Dio();
 
-    DioLog.initAdapter(dio: dio);
+    //DioLog.initAdapter(dio: dio);
     dio.options = buildDefaultOptions();
 
     // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =

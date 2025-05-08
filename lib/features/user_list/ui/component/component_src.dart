@@ -9,16 +9,24 @@ Widget buildUserAvatar(String imgAvt, RxBool isOnline) {
     () => Stack(
       alignment: Alignment.bottomRight,
       children: [
-        ClipOval(
-          child: SDSImageNetwork(
-            SDSImageNetworkModel(
-              borderRadius: BorderRadius.circular(AppDimens.radius90),
-              width: AppDimens.btnDefaultFigma,
-              height: AppDimens.btnDefaultFigma,
-              imgUrl: imgAvt,
-              fit: BoxFit.cover,
-            ),
-          ),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            double size = constraints.maxHeight < AppDimens.btnDefaultFigma
+                ? constraints.maxHeight
+                : AppDimens.btnDefaultFigma;
+
+            return ClipOval(
+              child: SDSImageNetwork(
+                SDSImageNetworkModel(
+                  borderRadius: BorderRadius.circular(AppDimens.radius90),
+                  width: size,
+                  height: size,
+                  imgUrl: imgAvt,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
         ),
         Visibility(
           visible: isOnline.value,

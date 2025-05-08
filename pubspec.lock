@@ -422,15 +422,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.8.0+1"
-  dio_log:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: master
-      resolved-ref: "9ae326aca00021551080b49cacb9bb9d7484e247"
-      url: "https://github.com/MinhTung263/dio_log.git"
-    source: git
-    version: "2.0.4"
   dio_web_adapter:
     dependency: transitive
     description:

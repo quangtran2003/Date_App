@@ -29,33 +29,37 @@ class PushNotificationMessage {
 class PushNotificationData {
   final String? notifTitle;
   final String? notifBody;
-  final String? uidUser;
-  final String? nameUser;
-  final String? imgUser;
+  final String? idReceiver;
+  final String? nameReceiver;
+  final String? imgAvtReceiver;
+  final String? idSender;
   final String? pageName;
   final String? callId;
   final String? type;
 
-  PushNotificationData(
-      {this.notifTitle,
-      this.notifBody,
-      this.uidUser,
-      this.nameUser,
-      this.imgUser,
-      this.pageName,
-      this.type,
-      this.callId});
+  PushNotificationData({
+    this.notifTitle,
+    this.notifBody,
+    this.idReceiver,
+    this.nameReceiver,
+    this.imgAvtReceiver,
+    this.pageName,
+    this.type,
+    this.callId,
+    this.idSender,
+  });
 
   factory PushNotificationData.fromJson(Map<String, dynamic> json) {
     return PushNotificationData(
       notifTitle: json['notif_title'] as String?,
       notifBody: json['notif_body'] as String?,
-      uidUser: json['uidUser'] as String?,
-      nameUser: json['nameUser'] as String?,
-      imgUser: json['imgUser'] as String?,
+      idReceiver: json['idReceiver'] as String?,
+      nameReceiver: json['nameReceiver'] as String?,
+      imgAvtReceiver: json['imgAvtReceiver'] as String?,
       pageName: json['pageName'] as String?,
       type: json['type'] as String?,
       callId: json['callId'] as String?,
+      idSender: json['idSender'] as String?,
     );
   }
 
@@ -63,12 +67,13 @@ class PushNotificationData {
     return {
       'notif_title': notifTitle ?? '',
       'notif_body': notifBody ?? '',
-      'uidUser': uidUser ?? '',
-      'nameUser': nameUser ?? '',
-      'imgUser': imgUser ?? '',
+      'idReceiver': idReceiver ?? '',
+      'nameReceiver': nameReceiver ?? '',
+      'imgAvtReceiver': imgAvtReceiver ?? '',
       'pageName': pageName ?? '',
       'type': type ?? '',
-      'callId': callId ?? ''
+      'callId': callId ?? '',
+      'idSender': idSender ?? '',
     };
   }
 }

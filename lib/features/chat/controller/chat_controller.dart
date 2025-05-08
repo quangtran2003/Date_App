@@ -43,7 +43,7 @@ class ChatController extends BaseRefreshGetxController {
 
   String get getRoomId => chatRepository.getChatRoomId(
         currentUser.value!.uid,
-        receiverUser.uid,
+        receiverUser.idReceiver,
       );
 
   @override
@@ -56,7 +56,7 @@ class ChatController extends BaseRefreshGetxController {
 
     newMessages.bindStream(
       chatRepository.getNewMessageStream(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         firstDoc: firstMessageDoc,
       ),
     );
@@ -124,7 +124,7 @@ class ChatController extends BaseRefreshGetxController {
     try {
       final (messages, newLastDoc, newFirstDoc) =
           await chatRepository.getOldMessages(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         lastDoc: lastMessageDoc,
       );
 
@@ -159,7 +159,7 @@ class ChatController extends BaseRefreshGetxController {
 
       await Future.wait([
         chatRepository.createMessage(
-          receiverId: receiverUser.uid,
+          receiverId: receiverUser.idReceiver,
           message: message,
           type: MessageTypeEnum.text,
         ),
@@ -178,7 +178,7 @@ class ChatController extends BaseRefreshGetxController {
   Future<void> sendSticker(Sticker sticker) async {
     try {
       await chatRepository.createMessage(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         message: sticker.link,
         type: MessageTypeEnum.sticker,
       );
@@ -197,7 +197,7 @@ class ChatController extends BaseRefreshGetxController {
   Future<void> sendCall() async {
     try {
       await chatRepository.createMessage(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         message: 'đã thực hiện 1 cuộc gọi',
         type: MessageTypeEnum.call,
       );
@@ -220,7 +220,7 @@ class ChatController extends BaseRefreshGetxController {
     try {
       // Step 1: Get receiver's FCM token
       final receiverToken =
-          await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+          await chatRepository.getDeviceReceiverToken(receiverUser.idReceiver);
       //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
       //await chatRepository.firebaseMessage.getToken();
       logger.d(receiverToken);
@@ -256,9 +256,10 @@ class ChatController extends BaseRefreshGetxController {
     final data = PushNotificationData(
       callId: callId,
       pageName: type.getPageName,
-      uidUser: receiverUser.uid,
-      nameUser: receiverUser.name,
-      imgUser: receiverUser.avatar,
+      idReceiver: receiverUser.idReceiver,
+      nameReceiver: receiverUser.nameReceiver,
+      imgAvtReceiver: receiverUser.imgAvtReceiver,
+      idSender: currentUser.value?.uid,
       notifTitle:
           currentUser.value?.name ?? LocaleKeys.notification_easyDateUser.tr,
       notifBody: message,
@@ -269,25 +270,6 @@ class ChatController extends BaseRefreshGetxController {
       token: receiverToken,
     );
   }
-  //   PushNotificationModel getNotifModel(
-  //   bool isSticker,
-  //   String message,
-  //   String receiverToken,
-  // ) {
-  //   return PushNotificationModel(
-  //     data: Data(
-  //       pageName: AppRouteEnum.chat.path,
-  //       uidUser: receiverUser.uid,
-  //       nameUser: receiverUser.name,
-  //       imgUser: receiverUser.avatar,
-  //     ),
-  //     notification: NotificationContent(
-  //       title: currentUser.value?.name ?? 'Người dùng Easy Date',
-  //       body: isSticker ? 'Đã gửi một nhãn dán!' : message,
-  //     ),
-  //     token: receiverToken,
-  //   );
-  // }
 
   Future<void> blockUser() async {
     if (currentUser.value == null) {
@@ -307,9 +289,9 @@ class ChatController extends BaseRefreshGetxController {
 
       // user đối tác, bị user hiện tại block
       final otherUser = BlockUserRequest(
-        uid: receiverUser.uid,
-        imgAvt: receiverUser.avatar,
-        name: receiverUser.name,
+        uid: receiverUser.idReceiver,
+        imgAvt: receiverUser.imgAvtReceiver,
+        name: receiverUser.nameReceiver,
         status: PairingStatusEnum.block, // BLOCK
       );
 

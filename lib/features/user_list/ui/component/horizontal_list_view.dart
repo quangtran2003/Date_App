@@ -52,9 +52,9 @@ class HorizontalListView extends BaseGetWidget<UserListController>
         Get.toNamed(
           AppRouteEnum.chat.path,
           arguments: UserChatArgument(
-            uid: user.key,
-            name: user.value.name,
-            avatar: user.value.imgAvt,
+            idReceiver: user.key,
+            nameReceiver: user.value.name,
+            imgAvtReceiver: user.value.imgAvt,
             lastOnline: user.value.lastOnline,
           )..isOnline.value = user.value.isOnline.value,
         );
@@ -66,7 +66,7 @@ class HorizontalListView extends BaseGetWidget<UserListController>
   Widget _buildUser(User user) {
     return Column(
       children: [
-        buildUserAvatar(user.imgAvt, user.isOnline),
+        Expanded(child: buildUserAvatar(user.imgAvt, user.isOnline)),
         UtilWidget.buildText(
           user.name.length <= 8 ? user.name : '${user.name.substring(0, 8)}...',
           fontSize: AppDimens.fontSmall(),

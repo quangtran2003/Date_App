@@ -35,4 +35,14 @@ class VideoCallRepositoryImpl extends VideoCallRepository {
       return CallInfo.fromJson(data);
     });
   }
+
+  @override
+  Future<void> acceptCall(String callerId) async {
+    await FirebaseFirestore.instance
+        .collection(FirebaseCollection.calls)
+        .doc(callerId)
+        .update({
+      'status': StatusCallEnum.accepted.value,
+    });
+  }
 }

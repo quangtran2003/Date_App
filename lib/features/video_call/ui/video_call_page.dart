@@ -18,8 +18,10 @@ class CallPage extends BaseGetWidget<VideoCallController> {
               ZegoUIKitPrebuiltCall(
                 appID: AppId,
                 appSign: AppSign,
-                userID: controller.args.uid,
-                userName: controller.args.name,
+                userID: controller.args.statusCall == StatusCallEnum.init.value
+                    ? controller.args.idReceiver
+                    : controller.args.idSender ?? '',
+                userName: controller.args.nameReceiver,
                 callID: controller.args.callID!,
                 onDispose: () => FirebaseFirestore.instance
                     .collection(FirebaseCollection.calls)

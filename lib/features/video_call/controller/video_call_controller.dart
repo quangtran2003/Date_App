@@ -3,8 +3,8 @@ import 'package:easy_date/features/video_call/model/call_info.dart';
 import 'package:easy_date/features/video_call/repository/video_call_repository.dart';
 
 class VideoCallController extends BaseGetxController {
-  final VideoCallRepository chatRepository;
-  VideoCallController(this.chatRepository);
+  final VideoCallRepository videoCallRepository;
+  VideoCallController(this.videoCallRepository);
   ChatController? get chatCtrl =>
       Get.isRegistered<ChatController>() ? Get.find<ChatController>() : null;
 
@@ -14,13 +14,9 @@ class VideoCallController extends BaseGetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await chatRepository.startCall(
-      callId: args.callID ?? '',
-      callerId: chatRepository.firebaseAuth.currentUser?.uid ?? '',
-      receiverId: args.uid,
-    );
+    args.statusCall == StatusCallEnum.init.value ? initCall() : acceptCall();
     callInfo.bindStream(
-      chatRepository.getCallStream(args.callID ?? ''),
+      videoCallRepository.getCallStream(args.callID ?? ''),
     );
     ever(callInfo, (CallInfo? info) {
       if (info != null && info.status == StatusCallEnum.rejected.value) {
@@ -31,5 +27,43 @@ class VideoCallController extends BaseGetxController {
         );
       }
     });
+  }
+
+  Future<void> initCall() async {
+    await videoCallRepository.startCall(
+      callId: args.callID ?? '',
+      callerId: args.idSender ?? '',
+      receiverId: args.idReceiver,
+    );
+    await checkDeclinedCall();
+  }
+
+  Future<void> acceptCall() async {
+    await videoCallRepository.acceptCall(args.callID ?? '');
+    checkDeclinedCall(secondDelay: 5);
+  }
+
+  Future<void> checkDeclinedCall({int secondDelay = 10}) async {
+    // Đợi 10 giây, sau đó kiểm tra trạng thái
+    Future.delayed(
+      Duration(seconds: secondDelay),
+      () async {
+        final doc = await videoCallRepository.firestore
+            .collection(FirebaseCollection.calls)
+            .doc(args.callID ?? '')
+            .get();
+
+        if (doc.exists &&
+            doc.data()?['status'] == StatusCallEnum.init.value &&
+            videoCallRepository.firebaseAuth.currentUser?.uid !=
+                args.idReceiver) {
+          showSnackBar(
+            'Người nhận không nhấc máy!',
+            isSuccess: false,
+          );
+          Get.back();
+        }
+      },
+    );
   }
 }

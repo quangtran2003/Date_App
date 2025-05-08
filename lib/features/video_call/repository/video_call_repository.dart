@@ -8,5 +8,7 @@ abstract class VideoCallRepository extends BaseFirebaseRepository {
     required String callId,
   });
 
+  Future<void> acceptCall(String callerId);
+
   Stream<CallInfo?> getCallStream(String callerId);
 }

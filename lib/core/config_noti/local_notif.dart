@@ -5,6 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+const String DECLINE_CALL = "DECLINE_CALL";
+const String ACCEPT_CALL = "ACCEPT_CALL";
+const String CHANNEL_ID = 'channelId';
+
 void _onDidReceiveBackgroundNotificationResponse(
   NotificationResponse notificationResponse,
 ) {
@@ -12,36 +16,59 @@ void _onDidReceiveBackgroundNotificationResponse(
   _handleNotificationResponse(notificationResponse);
 }
 
+void _onDidReceiveForegroundNotificationResponse(
+  NotificationResponse notificationResponse,
+) {
+  log('foreground: ${notificationResponse.id}');
+  _handleNotificationResponse(notificationResponse);
+}
+
 void _handleNotificationResponse(
     NotificationResponse notificationResponse) async {
   final payloadJson = notificationResponse.payload;
-  if (payloadJson == null) return;
+  if (payloadJson == null) {
+    log('No payload found in notification response');
+    return;
+  }
 
-  final Map<String, dynamic> payload = jsonDecode(payloadJson);
-  log('Action ID: ${notificationResponse.actionId}');
-  final dataNoti = PushNotificationData.fromJson(payload);
   try {
-    //nếu có cuộc gọi, cuộc gọi bị từ chối
-    if (notificationResponse.actionId == 'DECLINE_CALL') {
-      FirebaseFirestore.instance
+    final Map<String, dynamic> payload = jsonDecode(payloadJson);
+    log('Action ID: ${notificationResponse.actionId}, Notification ID: ${notificationResponse.id}');
+    final dataNoti = PushNotificationData.fromJson(payload);
+
+    if (notificationResponse.actionId == DECLINE_CALL) {
+      // Cancel the notification using the correct notification ID
+      if (notificationResponse.id != null) {
+        await LocalNotif._notifPlugin.cancel(notificationResponse.id!);
+        log('Notification with ID ${notificationResponse.id} canceled');
+      } else {
+        log('Error: Notification ID is null');
+      }
+
+      // Update Firebase with the rejected status
+      await FirebaseFirestore.instance
           .collection(FirebaseCollection.calls)
           .doc(dataNoti.callId)
           .update({
         'status': StatusCallEnum.rejected.value,
       });
-    } else if (dataNoti.pageName != null && dataNoti.uidUser != null) {
+      log('Firebase updated: call ${dataNoti.callId} status set to rejected');
+    } else if (dataNoti.pageName != null && dataNoti.idReceiver != null) {
       Get.toNamed(
         dataNoti.pageName!,
         arguments: UserChatArgument(
-          uid: dataNoti.uidUser!,
-          name: dataNoti.nameUser ?? '',
-          avatar: dataNoti.imgUser ?? '',
+          idReceiver: dataNoti.idSender ?? '',
+          idSender: dataNoti.idReceiver ?? '',
+          nameReceiver: dataNoti.nameReceiver ?? '',
+          imgAvtReceiver: dataNoti.imgAvtReceiver ?? '',
           callID: dataNoti.callId,
+          statusCall: StatusCallEnum.accepted.value,
         ),
       );
+      log('Navigated to ${dataNoti.pageName} with call ID ${dataNoti.callId}');
     }
   } catch (e) {
-    log(e.toString());
+    log('Error handling notification response: $e');
   }
 }
 
@@ -56,8 +83,8 @@ class LocalNotif {
         DarwinNotificationCategory(
           'callCategory',
           actions: [
-            DarwinNotificationAction.plain('ACCEPT_CALL', 'Chấp nhận'),
-            DarwinNotificationAction.plain('DECLINE_CALL', 'Từ chối'),
+            DarwinNotificationAction.plain(ACCEPT_CALL, 'Chấp nhận'),
+            DarwinNotificationAction.plain(DECLINE_CALL, 'Từ chối'),
           ],
         )
       ],
@@ -70,7 +97,7 @@ class LocalNotif {
 
     // 👉 Tạo channel trước
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'channelId', // Đảm bảo giống với ID bạn dùng trong NotificationDetails
+      CHANNEL_ID, // Đảm bảo giống với ID bạn dùng trong NotificationDetails
       'High Importance Notifications',
       description: 'This channel is used for important notifications.',
       importance: Importance.max,
@@ -91,10 +118,8 @@ class LocalNotif {
       initializationSettings,
       onDidReceiveBackgroundNotificationResponse:
           _onDidReceiveBackgroundNotificationResponse,
-      onDidReceiveNotificationResponse: (notificationResponse) {
-        log('foreground: ${notificationResponse.id}');
-        _handleNotificationResponse(notificationResponse);
-      },
+      onDidReceiveNotificationResponse:
+          _onDidReceiveForegroundNotificationResponse,
     );
   }
 
@@ -115,7 +140,7 @@ class LocalNotif {
   static NotificationDetails _defaultNotifDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
-        'channelId',
+        CHANNEL_ID,
         'channelName',
         channelDescription: '',
         importance: Importance.max,
@@ -129,6 +154,8 @@ class LocalNotif {
   static NotificationDetails incomingCallDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
+        CHANNEL_ID,
+        'Incoming Calls',
         icon: '@mipmap/ic_launcher',
         sound: RawResourceAndroidNotificationSound('phone_ring'),
         playSound: true,
@@ -136,8 +163,6 @@ class LocalNotif {
         enableVibration: true,
         ongoing: true,
         timeoutAfter: 10000,
-        'channelId',
-        'Incoming Calls',
         channelDescription: 'Incoming video calls',
         importance: Importance.max,
         priority: Priority.high,
@@ -146,15 +171,15 @@ class LocalNotif {
         category: AndroidNotificationCategory.call, // Android call style
         actions: <AndroidNotificationAction>[
           AndroidNotificationAction(
-            'ACCEPT_CALL',
+            ACCEPT_CALL,
             'Chấp nhận',
             showsUserInterface: true,
             cancelNotification: true,
           ),
           AndroidNotificationAction(
-            'DECLINE_CALL',
+            DECLINE_CALL,
             'Từ chối',
-            showsUserInterface: false,
+            showsUserInterface: true,
             cancelNotification: true,
           ),
         ],

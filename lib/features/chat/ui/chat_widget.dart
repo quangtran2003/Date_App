@@ -11,7 +11,7 @@ extension ChatWidget on ChatPage {
         onTap: () {
           Get.toNamed(
             AppRouteEnum.profile_match.path,
-            arguments: receiver.uid,
+            arguments: receiver.idReceiver,
           );
         },
         child: Row(
@@ -19,7 +19,7 @@ extension ChatWidget on ChatPage {
           mainAxisSize: MainAxisSize.min,
           children: [
             buildUserAvatar(
-              receiver.avatar,
+              receiver.imgAvtReceiver,
               receiver.isOnline,
             ),
             AppDimens.hm8,
@@ -28,7 +28,7 @@ extension ChatWidget on ChatPage {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UtilWidget.buildText(
-                    receiver.name,
+                    receiver.nameReceiver,
                     style: AppTextStyle.font16Bo,
                   ),
                   UtilWidget.buildText(
@@ -49,9 +49,9 @@ extension ChatWidget on ChatPage {
             Get.toNamed(
               AppRouteEnum.video_call.path,
               arguments: UserChatArgument(
-                avatar: '',
-                uid: controller.currentUser.value?.uid ?? '',
-                name: controller.currentUser.value?.name ?? '',
+                imgAvtReceiver: '',
+                idReceiver: controller.currentUser.value?.uid ?? '',
+                nameReceiver: controller.currentUser.value?.name ?? '',
                 callID: controller.getRoomId,
               ),
             );
