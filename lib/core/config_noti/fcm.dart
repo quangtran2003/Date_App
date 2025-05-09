@@ -25,8 +25,10 @@ void _handleMessage(RemoteMessage message) {
 
 void _showCustomNotif(RemoteMessage message) {
   final dataNoti = PushNotificationData.fromJson(message.data);
-  final isTypeCall =
-      int.parse(dataNoti.type ?? '') == MessageTypeEnum.call.firebaseValue;
+
+  final isTypeCall = MessageTypeEnum.isTypeCall(dataNoti.type ?? '');
+
+  //nếu ở màn chat, có thông báo tin nhắn sẽ không hiển thị
   if (Get.currentRoute == AppRouteEnum.chat.path && !isTypeCall) return;
 
   if (dataNoti.notifTitle != null) {

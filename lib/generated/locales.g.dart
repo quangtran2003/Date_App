@@ -164,7 +164,13 @@ class LocaleKeys {
       'notification_tapToJoinVideoCall';
   static const notification_videoCallFrom = 'notification_videoCallFrom';
   static const notification_easyDateUser = 'notification_easyDateUser';
-  static const notification_callIdNull = 'notification_callIdNull';
+  static const call_callDecline = 'call_callDecline';
+  static const call_callIdNull = 'call_callIdNull';
+  static const call_called = 'call_called';
+  static const call_audio = 'call_audio';
+  static const call_video = 'call_video';
+  static const call_callAgain = 'call_callAgain';
+  static const call_you = 'call_you';
 }
 
 class Locales {
@@ -317,7 +323,13 @@ class Locales {
     'notification_tapToJoinVideoCall': 'Tap to join video call',
     'notification_videoCallFrom': 'The video call from ',
     'notification_easyDateUser': 'Easy Date User',
-    'notification_callIdNull': 'Call id is null, please try again later!',
+    'call_callDecline': 'Receiver deline the calli',
+    'call_callIdNull': 'Call id null, please try again later!',
+    'call_called': '@user has made a call ',
+    'call_audio': 'audio',
+    'call_video': 'video',
+    'call_callAgain': 'Call again',
+    'call_you': 'You',
   };
   static const vi_VN = {
     'app_appName': 'Easy Date',
@@ -471,6 +483,12 @@ class Locales {
     'notification_tapToJoinVideoCall': 'Nhấn để tham gia cuộc gọi',
     'notification_videoCallFrom': 'Cuộc gọi đến từ ',
     'notification_easyDateUser': 'Người dùng easy date',
-    'notification_callIdNull': 'Id của cuộc gọi null, vui lòng thử lại sau!',
+    'call_callDecline': 'Người nhận từ chối cuộc gọi',
+    'call_callIdNull': 'Id của cuộc gọi null, vui lòng thử lại sau!',
+    'call_called': '@user đã thực hiện 1 cuộc gọi ',
+    'call_audio': 'thoại',
+    'call_video': 'video',
+    'call_callAgain': 'Gọi lại',
+    'call_you': 'Bạn',
   };
 }

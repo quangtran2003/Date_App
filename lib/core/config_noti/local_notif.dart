@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/features/feature_src.dart';
+import 'package:easy_date/features/video_call/model/call_args.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const String DECLINE_CALL = "DECLINE_CALL";
@@ -37,7 +38,6 @@ void _handleNotificationResponse(
     final dataNoti = PushNotificationData.fromJson(payload);
 
     if (notificationResponse.actionId == DECLINE_CALL) {
-      // Cancel the notification using the correct notification ID
       if (notificationResponse.id != null) {
         await LocalNotif._notifPlugin.cancel(notificationResponse.id!);
         log('Notification with ID ${notificationResponse.id} canceled');
@@ -45,7 +45,6 @@ void _handleNotificationResponse(
         log('Error: Notification ID is null');
       }
 
-      // Update Firebase with the rejected status
       await FirebaseFirestore.instance
           .collection(FirebaseCollection.calls)
           .doc(dataNoti.callId)
@@ -54,18 +53,28 @@ void _handleNotificationResponse(
       });
       log('Firebase updated: call ${dataNoti.callId} status set to rejected');
     } else if (dataNoti.pageName != null && dataNoti.idReceiver != null) {
-      Get.toNamed(
-        dataNoti.pageName!,
-        arguments: UserChatArgument(
-          idReceiver: dataNoti.idSender ?? '',
-          idSender: dataNoti.idReceiver ?? '',
-          nameReceiver: dataNoti.nameReceiver ?? '',
-          imgAvtReceiver: dataNoti.imgAvtReceiver ?? '',
-          callID: dataNoti.callId,
-          statusCall: StatusCallEnum.accepted.value,
-        ),
-      );
-      log('Navigated to ${dataNoti.pageName} with call ID ${dataNoti.callId}');
+      final isCall = MessageTypeEnum.isTypeCall(dataNoti.type);
+      isCall
+          ? Get.toNamed(
+              dataNoti.pageName!,
+              arguments: CallArgs(
+                typeCall:
+                    MessageTypeEnum.fromInt(int.parse(dataNoti.type ?? '')),
+                idCurrentUser: dataNoti.idReceiver ?? '',
+                nameCurrentUser: dataNoti.nameSender ?? '',
+                idOtherUser: dataNoti.idReceiver ?? '',
+                callID: dataNoti.callId,
+                statusCall: StatusCallEnum.accepted,
+              ),
+            )
+          : Get.toNamed(
+              dataNoti.pageName!,
+              arguments: UserChatArgument(
+                idReceiver: dataNoti.idSender ?? '',
+                nameReceiver: dataNoti.nameSender ?? '',
+                imgAvtReceiver: dataNoti.imgAvtSender ?? '',
+              ),
+            );
     }
   } catch (e) {
     log('Error handling notification response: $e');

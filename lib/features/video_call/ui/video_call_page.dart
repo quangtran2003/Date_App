@@ -9,25 +9,26 @@ class CallPage extends BaseGetWidget<VideoCallController> {
 
   @override
   Widget buildWidgets(BuildContext context) {
-    return controller.args.callID == null
+    final args = controller.args;
+    return args.callID == null
         ? Center(
-            child: UtilWidget.buildText(LocaleKeys.notification_callIdNull.tr),
+            child: UtilWidget.buildText(LocaleKeys.call_callIdNull.tr),
           )
         : Stack(
             children: [
               ZegoUIKitPrebuiltCall(
                 appID: AppId,
                 appSign: AppSign,
-                userID: controller.args.statusCall == StatusCallEnum.init.value
-                    ? controller.args.idReceiver
-                    : controller.args.idSender ?? '',
-                userName: controller.args.nameReceiver,
-                callID: controller.args.callID!,
+                userID: args.idCurrentUser,
+                userName: args.nameCurrentUser,
+                callID: args.callID!,
                 onDispose: () => FirebaseFirestore.instance
                     .collection(FirebaseCollection.calls)
-                    .doc(controller.args.callID!)
+                    .doc(args.callID!)
                     .delete(),
-                config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+                config: args.typeCall == MessageTypeEnum.audioCall
+                    ? ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
+                    : ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
               ),
             ],
           );

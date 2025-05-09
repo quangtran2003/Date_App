@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/core/config_noti/fcm.dart';
+import 'package:easy_date/features/video_call/model/call_args.dart';
 import 'package:heart_overlay/heart_overlay.dart';
 import 'package:vibration/vibration.dart';
 
@@ -194,17 +195,17 @@ class ChatController extends BaseRefreshGetxController {
     }
   }
 
-  Future<void> sendCall() async {
+  Future<void> sendCall(MessageTypeEnum type) async {
     try {
       await chatRepository.createMessage(
         receiverId: receiverUser.idReceiver,
-        message: 'đã thực hiện 1 cuộc gọi',
-        type: MessageTypeEnum.call,
+        message: '',
+        type: type,
       );
 
       await pushNotif(
         LocaleKeys.notification_tapToJoinVideoCall.tr,
-        type: MessageTypeEnum.call,
+        type: type,
       );
 
       _scrollToBottom();
@@ -252,18 +253,18 @@ class ChatController extends BaseRefreshGetxController {
     required String message,
     required String receiverToken,
   }) {
-    final callId = type == MessageTypeEnum.call ? getRoomId : null;
+    final callId = type == MessageTypeEnum.audioCall ? getRoomId : null;
     final data = PushNotificationData(
       callId: callId,
       pageName: type.getPageName,
+      nameSender: currentUser.value?.name,
+      imgAvtSender: currentUser.value?.imgAvt,
       idReceiver: receiverUser.idReceiver,
-      nameReceiver: receiverUser.nameReceiver,
-      imgAvtReceiver: receiverUser.imgAvtReceiver,
       idSender: currentUser.value?.uid,
       notifTitle:
           currentUser.value?.name ?? LocaleKeys.notification_easyDateUser.tr,
       notifBody: message,
-      type: type.firebaseValue.toString(),
+      type: type.value.toString(),
     );
     return PushNotificationMessage(
       data: data,
@@ -328,6 +329,19 @@ class ChatController extends BaseRefreshGetxController {
         offset: offset,
       );
     }
+  }
+
+  void gotoVideoCallPage(MessageTypeEnum typeMessageEnum) async {
+    Get.toNamed(
+      AppRouteEnum.video_call.path,
+      arguments: CallArgs(
+        idCurrentUser: currentUser.value?.uid ?? '',
+        nameCurrentUser: currentUser.value?.name ?? '',
+        callID: getRoomId,
+        typeCall: typeMessageEnum,
+      ),
+    );
+    await sendCall(typeMessageEnum);
   }
 
   @override

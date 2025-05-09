@@ -1,4 +1,5 @@
 import 'package:easy_date/features/feature_src.dart';
+import 'package:easy_date/features/video_call/model/call_args.dart';
 import 'package:easy_date/features/video_call/model/call_info.dart';
 import 'package:easy_date/features/video_call/repository/video_call_repository.dart';
 
@@ -9,12 +10,12 @@ class VideoCallController extends BaseGetxController {
       Get.isRegistered<ChatController>() ? Get.find<ChatController>() : null;
 
   final Rxn<CallInfo> callInfo = Rxn<CallInfo>();
-  final args = Get.arguments as UserChatArgument;
+  final args = Get.arguments as CallArgs;
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    args.statusCall == StatusCallEnum.init.value ? initCall() : acceptCall();
+    args.statusCall == StatusCallEnum.init ? initCall() : acceptCall();
     callInfo.bindStream(
       videoCallRepository.getCallStream(args.callID ?? ''),
     );
@@ -32,8 +33,8 @@ class VideoCallController extends BaseGetxController {
   Future<void> initCall() async {
     await videoCallRepository.startCall(
       callId: args.callID ?? '',
-      callerId: args.idSender ?? '',
-      receiverId: args.idReceiver,
+      callerId: args.idCurrentUser,
+      receiverId: args.idOtherUser ?? '',
     );
     await checkDeclinedCall();
   }
@@ -56,7 +57,7 @@ class VideoCallController extends BaseGetxController {
         if (doc.exists &&
             doc.data()?['status'] == StatusCallEnum.init.value &&
             videoCallRepository.firebaseAuth.currentUser?.uid !=
-                args.idReceiver) {
+                args.idOtherUser) {
           showSnackBar(
             'Người nhận không nhấc máy!',
             isSuccess: false,

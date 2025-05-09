@@ -45,21 +45,16 @@ extension ChatWidget on ChatPage {
       ),
       actions: [
         IconButton(
-          onPressed: () async {
-            Get.toNamed(
-              AppRouteEnum.video_call.path,
-              arguments: UserChatArgument(
-                imgAvtReceiver: '',
-                idReceiver: controller.currentUser.value?.uid ?? '',
-                nameReceiver: controller.currentUser.value?.name ?? '',
-                callID: controller.getRoomId,
-              ),
-            );
-            await controller.sendCall();
-            // await 5.seconds.delay();
-            // Get.back();
-          },
+          onPressed: () => controller.gotoVideoCallPage(
+            MessageTypeEnum.audioCall,
+          ),
           icon: const Icon(Icons.call),
+        ),
+        IconButton(
+          onPressed: () => controller.gotoVideoCallPage(
+            MessageTypeEnum.videoCall,
+          ),
+          icon: const Icon(Icons.videocam),
         ),
         IconButton(
           onPressed: () {
@@ -183,11 +178,15 @@ extension ChatWidget on ChatPage {
                       showDate: showDate,
                       message: chatMessage,
                     );
-                  case MessageTypeEnum.call:
+                  case MessageTypeEnum.audioCall:
                   case MessageTypeEnum.videoCall:
                     return CallMessageWidget(
                       showDate: showDate,
                       message: chatMessage,
+                      receiverName: controller.receiverUser.nameReceiver,
+                      onTap: () => controller.gotoVideoCallPage(
+                        chatMessage.type,
+                      ),
                     );
                 }
               },

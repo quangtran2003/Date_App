@@ -17,7 +17,7 @@ class ChatMessageRequest {
     return {
       'senderId': senderId,
       'content': content,
-      'type': type.firebaseValue,
+      'type': type.value,
       'createTime': FieldValue.serverTimestamp(),
     };
   }

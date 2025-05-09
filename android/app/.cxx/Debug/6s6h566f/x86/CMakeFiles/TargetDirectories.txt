@@ -1,2 +1,0 @@
-E:/GitRepos/Date_App/android/app/.cxx/Debug/6s6h566f/x86/CMakeFiles/edit_cache.dir
-E:/GitRepos/Date_App/android/app/.cxx/Debug/6s6h566f/x86/CMakeFiles/rebuild_cache.dir
