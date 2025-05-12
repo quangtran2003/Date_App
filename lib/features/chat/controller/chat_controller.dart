@@ -253,7 +253,10 @@ class ChatController extends BaseRefreshGetxController {
     required String message,
     required String receiverToken,
   }) {
-    final callId = type == MessageTypeEnum.audioCall ? getRoomId : null;
+    final callId =
+        type == MessageTypeEnum.audioCall || type == MessageTypeEnum.videoCall
+            ? getRoomId
+            : null;
     final data = PushNotificationData(
       callId: callId,
       pageName: type.getPageName,

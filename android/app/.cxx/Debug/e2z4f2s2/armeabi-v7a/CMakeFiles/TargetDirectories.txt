@@ -1,2 +1,0 @@
-D:/GitRepository/Date_App/android/app/.cxx/Debug/e2z4f2s2/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/GitRepository/Date_App/android/app/.cxx/Debug/e2z4f2s2/armeabi-v7a/CMakeFiles/rebuild_cache.dir

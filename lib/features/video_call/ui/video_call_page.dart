@@ -10,27 +10,25 @@ class CallPage extends BaseGetWidget<VideoCallController> {
   @override
   Widget buildWidgets(BuildContext context) {
     final args = controller.args;
-    return args.callID == null
-        ? Center(
-            child: UtilWidget.buildText(LocaleKeys.call_callIdNull.tr),
+    return args.callID.isNullOrEmpty
+        ? Scaffold(
+            body: Center(
+              child: UtilWidget.buildText(LocaleKeys.call_callIdNull.tr),
+            ),
           )
-        : Stack(
-            children: [
-              ZegoUIKitPrebuiltCall(
-                appID: AppId,
-                appSign: AppSign,
-                userID: args.idCurrentUser,
-                userName: args.nameCurrentUser,
-                callID: args.callID!,
-                onDispose: () => FirebaseFirestore.instance
-                    .collection(FirebaseCollection.calls)
-                    .doc(args.callID!)
-                    .delete(),
-                config: args.typeCall == MessageTypeEnum.audioCall
-                    ? ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
-                    : ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
-              ),
-            ],
-          );
+        : ZegoUIKitPrebuiltCall(
+          appID: AppId,
+          appSign: AppSign,
+          userID: args.idCurrentUser,
+          userName: args.nameCurrentUser,
+          callID: args.callID!,
+          onDispose: () => FirebaseFirestore.instance
+              .collection(FirebaseCollection.calls)
+              .doc(args.callID!)
+              .delete(),
+          config: args.typeCall == MessageTypeEnum.audioCall
+              ? ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
+              : ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+        );
   }
 }

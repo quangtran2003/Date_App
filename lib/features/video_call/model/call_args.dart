@@ -13,7 +13,7 @@ class CallArgs {
     required this.idCurrentUser,
     required this.nameCurrentUser,
     this.idOtherUser,
-    required this.callID,
+    this.callID,
     this.statusCall = StatusCallEnum.init,
     this.typeCall = MessageTypeEnum.audioCall,
   });

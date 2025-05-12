@@ -53,7 +53,8 @@ void _handleNotificationResponse(
       });
       log('Firebase updated: call ${dataNoti.callId} status set to rejected');
     } else if (dataNoti.pageName != null && dataNoti.idReceiver != null) {
-      final isCall = MessageTypeEnum.isTypeCall(dataNoti.type);
+      final isCall =
+          MessageTypeEnum.isTypeCall(dataNoti.type) && dataNoti.callId != null;
       isCall
           ? Get.toNamed(
               dataNoti.pageName!,

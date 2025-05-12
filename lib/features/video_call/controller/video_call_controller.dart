@@ -15,9 +15,10 @@ class VideoCallController extends BaseGetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    if (args.callID == null) return;
     args.statusCall == StatusCallEnum.init ? initCall() : acceptCall();
     callInfo.bindStream(
-      videoCallRepository.getCallStream(args.callID ?? ''),
+      videoCallRepository.getCallStream(args.callID!),
     );
     ever(callInfo, (CallInfo? info) {
       if (info != null && info.status == StatusCallEnum.rejected.value) {
