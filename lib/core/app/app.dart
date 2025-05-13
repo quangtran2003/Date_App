@@ -23,12 +23,13 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> with WidgetsBindingObserver {
+  bool isFromNotif = false;
   @override
   void initState() {
     super.initState();
 
     FCM.initialMessage();
-    LocalNotif.initialMessage();
+    LocalNotif.initialMessage().then((value) => isFromNotif = value);
     RendererBinding.instance.deferFirstFrame();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -80,14 +81,14 @@ class AppState extends State<App> with WidgetsBindingObserver {
     super.didChangeDependencies();
 
     _loadApp(context).whenComplete(() {
-      if (mounted) {
+      if (mounted && !isFromNotif) {
         final user = FirebaseAuth.instance.currentUser;
-        if (user != null && user.emailVerified) {
-          Get.offAllNamed(AppRouteEnum.home.path);
-        } else {
-          Get.offAllNamed(AppRouteEnum.login.path);
-        }
-        //Get.offAllNamed(AppRouteEnum.login.path);
+        // if (user != null && user.emailVerified) {
+        //   Get.offAllNamed(AppRouteEnum.home.path);
+        // } else {
+        //   Get.offAllNamed(AppRouteEnum.login.path);
+        // }
+        Get.offAllNamed(AppRouteEnum.login.path);
       }
     });
   }

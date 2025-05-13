@@ -25,7 +25,9 @@ void _onDidReceiveForegroundNotificationResponse(
 }
 
 void _handleNotificationResponse(
-    NotificationResponse notificationResponse) async {
+  NotificationResponse notificationResponse, {
+  bool isTerminateApp = false,
+}) async {
   final payloadJson = notificationResponse.payload;
   if (payloadJson == null) {
     log('No payload found in notification response');
@@ -55,6 +57,7 @@ void _handleNotificationResponse(
     } else if (dataNoti.pageName != null && dataNoti.idReceiver != null) {
       final isCall =
           MessageTypeEnum.isTypeCall(dataNoti.type) && dataNoti.callId != null;
+      if (isTerminateApp) await Get.offAllNamed(AppRouteEnum.home.path);
       isCall
           ? Get.toNamed(
               dataNoti.pageName!,
@@ -134,17 +137,19 @@ class LocalNotif {
   }
 
   // handle notif from terminate state
-  static initialMessage() async {
+  static Future<bool> initialMessage() async {
     final notifAppLaunchDetails =
         await _notifPlugin.getNotificationAppLaunchDetails();
-    if (notifAppLaunchDetails == null) return;
+    if (notifAppLaunchDetails == null) return false;
 
     final appOpenViaNotif = notifAppLaunchDetails.didNotificationLaunchApp;
     if (appOpenViaNotif) {
       final notifResponse = notifAppLaunchDetails.notificationResponse;
-      if (notifResponse == null) return;
-      _handleNotificationResponse(notifResponse);
+      if (notifResponse == null) return false;
+      _handleNotificationResponse(notifResponse, isTerminateApp: true);
+      return true;
     }
+    return false;
   }
 
   static NotificationDetails _defaultNotifDetails() {
