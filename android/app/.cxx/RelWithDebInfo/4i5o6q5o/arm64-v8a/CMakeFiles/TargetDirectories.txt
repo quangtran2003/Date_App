@@ -1,2 +1,0 @@
-E:/GitRepos/Date_App/android/app/.cxx/RelWithDebInfo/4i5o6q5o/arm64-v8a/CMakeFiles/edit_cache.dir
-E:/GitRepos/Date_App/android/app/.cxx/RelWithDebInfo/4i5o6q5o/arm64-v8a/CMakeFiles/rebuild_cache.dir

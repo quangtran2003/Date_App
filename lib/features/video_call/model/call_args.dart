@@ -8,6 +8,7 @@ class CallArgs {
   final String? callID;
   final StatusCallEnum statusCall;
   final MessageTypeEnum typeCall;
+  final bool isFromTerminatedState;
 
   CallArgs({
     required this.idCurrentUser,
@@ -16,5 +17,6 @@ class CallArgs {
     this.callID,
     this.statusCall = StatusCallEnum.init,
     this.typeCall = MessageTypeEnum.audioCall,
+    this.isFromTerminatedState = false,
   });
 }

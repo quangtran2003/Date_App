@@ -13,8 +13,6 @@ class ProfileDetailController extends BaseGetxController {
   String? avatarPath;
   final isUploadedAvatar = false.obs;
 
-  // final languageController = ValueNotifier<bool>(false);
-
   RxInt gender = 0.obs;
   RxBool isSexualFemale = false.obs;
   RxBool isSexualMale = false.obs;

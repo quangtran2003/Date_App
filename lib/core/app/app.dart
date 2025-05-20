@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_date/core/config_noti/fcm.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
+import 'package:easy_date/features/video_call/ui/ui_src.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -11,25 +12,31 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 class App extends StatefulWidget {
-  const App({
-    Key? key,
-    required this.config,
-  }) : super(key: key);
-
   final AppConfig config;
+  final String initialRoute;
+  final dynamic initialArguments;
+
+  const App({
+    super.key,
+    required this.config,
+    required this.initialRoute,
+    this.initialArguments,
+  });
 
   @override
   AppState createState() => AppState();
 }
 
 class AppState extends State<App> with WidgetsBindingObserver {
-  bool isFromNotif = false;
+  bool isFromNotifTerminate = false;
   @override
   void initState() {
     super.initState();
-
+    if (widget.initialRoute != AppRouteEnum.splash.path) return;
     FCM.initialMessage();
-    LocalNotif.initialMessage().then((value) => isFromNotif = value);
+    LocalNotif.initialMessage().then((value) {
+      isFromNotifTerminate = value ?? false;
+    });
     RendererBinding.instance.deferFirstFrame();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -45,21 +52,19 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (Get.isRegistered<HomeController>()) {
-      final homeRepo = Get.find<HomeController>().homeRepository;
+    if (Get.isRegistered<HomeRepository>()) {
+      final homeRepo = Get.find<HomeRepository>();
       final uid = homeRepo.firebaseAuth.currentUser?.uid;
-      if (state == AppLifecycleState.paused) {
-        _handleAppLifecycle(
-          uid: uid,
-          homeRepo: homeRepo,
-        );
-      } else if (state == AppLifecycleState.resumed) {
-        _handleAppLifecycle(
-          uid: uid,
-          homeRepo: homeRepo,
-          isOnline: true,
-        );
-      }
+      final isOfflineState = state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.hidden ||
+          state == AppLifecycleState.detached;
+
+      _handleAppLifecycle(
+        uid: uid,
+        homeRepo: homeRepo,
+        isOnline: !isOfflineState,
+      );
     }
   }
 
@@ -77,23 +82,39 @@ class AppState extends State<App> with WidgetsBindingObserver {
   }
 
   @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    _loadApp(context).whenComplete(() {
-      if (mounted && !isFromNotif) {
-        final user = FirebaseAuth.instance.currentUser;
-        // if (user != null && user.emailVerified) {
-        //   Get.offAllNamed(AppRouteEnum.home.path);
-        // } else {
-        //   Get.offAllNamed(AppRouteEnum.login.path);
-        // }
-        Get.offAllNamed(AppRouteEnum.login.path);
+    if (widget.initialRoute != AppRouteEnum.splash.path) return;
+    if (isFromNotifTerminate) {
+      // Nếu flag điều hướng cuộc gọi được set từ LocalNotif
+      if (LocalNotif.shouldNavigateToCallFromTerminate &&
+          LocalNotif.callArgsFromTerminate != null) {
+        Future.microtask(() {
+          Get.offAllNamed(
+            AppRouteEnum.video_call.path,
+            arguments: LocalNotif.callArgsFromTerminate!,
+          );
+        });
       }
-    });
+      return;
+    }
+
+    _loadApp().whenComplete(
+      () {
+        if (mounted) {
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null && user.emailVerified) {
+            Get.offAllNamed(AppRouteEnum.home.path);
+          } else {
+            Get.offAllNamed(AppRouteEnum.login.path);
+          }
+        }
+      },
+    );
   }
 
-  Future<void> _loadApp(BuildContext context) async {
+  Future<void> _loadApp() async {
     // Init Firebase
     await Firebase.initializeApp(options: widget.config.firebaseOptions);
 
@@ -172,14 +193,21 @@ class AppState extends State<App> with WidgetsBindingObserver {
           GlobalCupertinoLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-          DefaultCupertinoLocalizations.delegate
+          DefaultCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('vi', 'VN'), Locale('en', 'US')],
         title: AppStr.appName.tr,
         getPages: AppRouter.routes,
         initialBinding: GlobalBinding(appConfig: widget.config),
-        initialRoute: AppRouteEnum.splash.path,
+        initialRoute: widget.initialRoute,
         builder: BotToastInit(),
+        onGenerateRoute: (settings) {
+          return MaterialPageRoute(
+            builder: (_) => widget.initialRoute == AppRouteEnum.video_call.path
+                ? const CallPage()
+                : const SplashPage(),
+          );
+        },
         navigatorObservers: [
           BotToastNavigatorObserver(),
         ],

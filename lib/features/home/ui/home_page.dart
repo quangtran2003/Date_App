@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../assets.dart';
 
-class HomePage extends GetView<HomeController> {
+class HomePage extends BaseGetWidget<HomeController> {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidgets(BuildContext context) {
     return Obx(
       () => PopScope(
         canPop: controller.canPop.value,

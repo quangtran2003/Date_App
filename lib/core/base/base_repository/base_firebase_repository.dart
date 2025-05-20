@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/core/base/base_repository/base_repository.dart';
 import 'package:easy_date/core/const/firebase_collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -12,6 +13,7 @@ abstract class BaseFirebaseRepository extends BaseRepository {
   late final firestore = FirebaseFirestore.instance;
   late final storage = FirebaseStorage.instance;
   late final firebaseMessage = FirebaseMessaging.instance;
+  late final firebaseDatabase = FirebaseDatabase.instance;
 
   @override
   Future<void> checkNetwork() async {

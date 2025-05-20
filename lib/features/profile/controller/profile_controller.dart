@@ -3,7 +3,7 @@ import '../../feature_src.dart';
 class ProfileController extends BaseGetxController {
   final ProfileRepository profileRepository;
 
-  late final user = Get.find<HomeController>().currentUser;
+  final user = Get.find<HomeController>().currentUser;
 
   final languageController = ValueNotifier<bool>(
     SettingStorage.language != LanguageEnum.english,

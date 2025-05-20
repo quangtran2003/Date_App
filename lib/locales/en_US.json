@@ -166,7 +166,8 @@
         "easyDateUser": "Easy Date User"
       },
       "call": {
-        "callDecline": "Receiver deline the calli",
+        "callDecline": "Receiver deline the call",
+        "callCancel": "The recipient did not pick up the phone",
         "callIdNull":"Call id null, please try again later!",
         "called": "@user has made a call ",
         "audio": "audio",

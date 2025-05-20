@@ -4,23 +4,35 @@ import 'dart:developer';
 import 'package:easy_date/assets.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:googleapis_auth/auth_io.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  log("background!");
+  await Firebase.initializeApp();
   _showCustomNotif(message);
+  // final dataNoti = PushNotificationData.fromJson(message.data);
+
+  // if (MessageTypeEnum.isTypeCall(dataNoti.type) && dataNoti.callId != null) {
+  //   LocalNotif.showNotif(
+  //     id: dataNoti.hashCode,
+  //     title: dataNoti.notifTitle,
+  //     body: dataNoti.notifBody,
+  //     payload: jsonEncode(message.data),
+  //     notificationDetails: LocalNotif.incomingCallDetails(),
+  //   );
+  // }
 }
 
 void _handleMessage(RemoteMessage message) {
-  Map data = message.data;
+  // Map data = message.data;
 
-  if (data.containsKey('pageName')) {
-    logger.d("pageName: ${data['pageName']}");
-    Get.toNamed(data['pageName']);
-  }
+  // if (data.containsKey('pageName')) {
+  //   logger.d("pageName: ${data['pageName']}");
+  //   Get.toNamed(data['pageName']);
+  //}
 }
 
 void _showCustomNotif(RemoteMessage message) {

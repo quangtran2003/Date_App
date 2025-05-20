@@ -24,70 +24,50 @@ void _onDidReceiveForegroundNotificationResponse(
   _handleNotificationResponse(notificationResponse);
 }
 
-void _handleNotificationResponse(
+ Future<void> _handleNotificationResponse(
   NotificationResponse notificationResponse, {
   bool isTerminateApp = false,
 }) async {
   final payloadJson = notificationResponse.payload;
-  if (payloadJson == null) {
-    log('No payload found in notification response');
-    return;
-  }
+  if (payloadJson == null) return;
 
   try {
     final Map<String, dynamic> payload = jsonDecode(payloadJson);
-    log('Action ID: ${notificationResponse.actionId}, Notification ID: ${notificationResponse.id}');
     final dataNoti = PushNotificationData.fromJson(payload);
 
     if (notificationResponse.actionId == DECLINE_CALL) {
-      if (notificationResponse.id != null) {
-        await LocalNotif._notifPlugin.cancel(notificationResponse.id!);
-        log('Notification with ID ${notificationResponse.id} canceled');
-      } else {
-        log('Error: Notification ID is null');
-      }
-
+      await LocalNotif.notifPlugin.cancel(notificationResponse.id!);
       await FirebaseFirestore.instance
           .collection(FirebaseCollection.calls)
           .doc(dataNoti.callId)
           .update({
         'status': StatusCallEnum.rejected.value,
       });
-      log('Firebase updated: call ${dataNoti.callId} status set to rejected');
-    } else if (dataNoti.pageName != null && dataNoti.idReceiver != null) {
-      final isCall =
-          MessageTypeEnum.isTypeCall(dataNoti.type) && dataNoti.callId != null;
-      if (isTerminateApp) await Get.offAllNamed(AppRouteEnum.home.path);
-      isCall
-          ? Get.toNamed(
-              dataNoti.pageName!,
-              arguments: CallArgs(
-                typeCall:
-                    MessageTypeEnum.fromInt(int.parse(dataNoti.type ?? '')),
-                idCurrentUser: dataNoti.idReceiver ?? '',
-                nameCurrentUser: dataNoti.nameSender ?? '',
-                idOtherUser: dataNoti.idReceiver ?? '',
-                callID: dataNoti.callId,
-                statusCall: StatusCallEnum.accepted,
-              ),
-            )
-          : Get.toNamed(
-              dataNoti.pageName!,
-              arguments: UserChatArgument(
-                idReceiver: dataNoti.idSender ?? '',
-                nameReceiver: dataNoti.nameSender ?? '',
-                imgAvtReceiver: dataNoti.imgAvtSender ?? '',
-              ),
-            );
+    } 
+    else if (notificationResponse.actionId == ACCEPT_CALL) {
+      // For terminated state, the main.dart will handle the navigation
+      if (!isTerminateApp) {
+        Get.toNamed(
+          AppRouteEnum.video_call.path,
+          arguments: CallArgs(
+            typeCall: MessageTypeEnum.fromInt(int.parse(dataNoti.type ?? '')),
+            idCurrentUser: dataNoti.idReceiver ?? '',
+            nameCurrentUser: dataNoti.nameSender ?? '',
+            idOtherUser: dataNoti.idSender ?? '',
+            callID: dataNoti.callId,
+            statusCall: StatusCallEnum.accepted,
+          ),
+        );
+      }
     }
   } catch (e) {
-    log('Error handling notification response: $e');
+    logger.e('Error handling notification response: $e');
   }
 }
-
 class LocalNotif {
-  static final _notifPlugin = FlutterLocalNotificationsPlugin();
-
+  static final notifPlugin = FlutterLocalNotificationsPlugin();
+  static bool shouldNavigateToCallFromTerminate = false;
+  static CallArgs? callArgsFromTerminate;
   static Future<void> init() async {
     const androidSettings =
         AndroidInitializationSettings("@mipmap/ic_launcher");
@@ -116,18 +96,18 @@ class LocalNotif {
       importance: Importance.max,
     );
 
-    await _notifPlugin
+    await notifPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     // 👉 Request permission
-    await _notifPlugin
+    await notifPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
 
-    await _notifPlugin.initialize(
+    await notifPlugin.initialize(
       initializationSettings,
       onDidReceiveBackgroundNotificationResponse:
           _onDidReceiveBackgroundNotificationResponse,
@@ -137,19 +117,19 @@ class LocalNotif {
   }
 
   // handle notif from terminate state
-  static Future<bool> initialMessage() async {
+  static Future<bool?> initialMessage() async {
     final notifAppLaunchDetails =
-        await _notifPlugin.getNotificationAppLaunchDetails();
-    if (notifAppLaunchDetails == null) return false;
+        await notifPlugin.getNotificationAppLaunchDetails();
+    if (notifAppLaunchDetails == null) return null;
 
     final appOpenViaNotif = notifAppLaunchDetails.didNotificationLaunchApp;
     if (appOpenViaNotif) {
       final notifResponse = notifAppLaunchDetails.notificationResponse;
-      if (notifResponse == null) return false;
-      _handleNotificationResponse(notifResponse, isTerminateApp: true);
+      if (notifResponse == null) return null;
+      await _handleNotificationResponse(notifResponse, isTerminateApp: true);
       return true;
     }
-    return false;
+    return null;
   }
 
   static NotificationDetails _defaultNotifDetails() {
@@ -215,7 +195,7 @@ class LocalNotif {
     NotificationDetails? notificationDetails,
     String? payload,
   }) async {
-    await _notifPlugin.show(
+    await notifPlugin.show(
       id,
       title,
       body,
@@ -225,6 +205,6 @@ class LocalNotif {
   }
 
   static cancelNotif() async {
-    await _notifPlugin.cancelAll();
+    await notifPlugin.cancelAll();
   }
 }

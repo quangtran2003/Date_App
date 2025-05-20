@@ -166,6 +166,7 @@
     },
     "call": {
         "callDecline": "Người nhận từ chối cuộc gọi",
+        "callCancel": "Người nhận không nhấc máy",
         "callIdNull":"Id của cuộc gọi null, vui lòng thử lại sau!",
         "called":"@user đã thực hiện 1 cuộc gọi ",
         "audio":"thoại",
