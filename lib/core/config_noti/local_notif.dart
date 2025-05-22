@@ -24,7 +24,7 @@ void _onDidReceiveForegroundNotificationResponse(
   _handleNotificationResponse(notificationResponse);
 }
 
- Future<void> _handleNotificationResponse(
+Future<void> _handleNotificationResponse(
   NotificationResponse notificationResponse, {
   bool isTerminateApp = false,
 }) async {
@@ -43,8 +43,7 @@ void _onDidReceiveForegroundNotificationResponse(
           .update({
         'status': StatusCallEnum.rejected.value,
       });
-    } 
-    else if (notificationResponse.actionId == ACCEPT_CALL) {
+    } else if (notificationResponse.actionId == ACCEPT_CALL) {
       // For terminated state, the main.dart will handle the navigation
       if (!isTerminateApp) {
         Get.toNamed(
@@ -64,10 +63,9 @@ void _onDidReceiveForegroundNotificationResponse(
     logger.e('Error handling notification response: $e');
   }
 }
+
 class LocalNotif {
   static final notifPlugin = FlutterLocalNotificationsPlugin();
-  static bool shouldNavigateToCallFromTerminate = false;
-  static CallArgs? callArgsFromTerminate;
   static Future<void> init() async {
     const androidSettings =
         AndroidInitializationSettings("@mipmap/ic_launcher");
@@ -117,19 +115,18 @@ class LocalNotif {
   }
 
   // handle notif from terminate state
-  static Future<bool?> initialMessage() async {
+  static Future<void> initialMessage() async {
     final notifAppLaunchDetails =
         await notifPlugin.getNotificationAppLaunchDetails();
-    if (notifAppLaunchDetails == null) return null;
+    if (notifAppLaunchDetails == null) return;
 
     final appOpenViaNotif = notifAppLaunchDetails.didNotificationLaunchApp;
     if (appOpenViaNotif) {
       final notifResponse = notifAppLaunchDetails.notificationResponse;
-      if (notifResponse == null) return null;
+      if (notifResponse == null) return;
       await _handleNotificationResponse(notifResponse, isTerminateApp: true);
-      return true;
     }
-    return null;
+    return;
   }
 
   static NotificationDetails _defaultNotifDetails() {

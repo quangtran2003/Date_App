@@ -148,12 +148,13 @@ class ChatRepositoryImpl extends ChatRepository {
     required PushNotificationMessage notiModel,
     required String authToken,
   }) async {
-    await baseSendRequest(
+    final log = await baseSendRequest(
       ApiUrl.urlPushNoti,
       RequestMethod.POST,
       jsonMap: notiModel.toJson(),
       authBearerToken: authToken,
     );
+    logger.d(log);
   }
 
   @override
@@ -167,5 +168,4 @@ class ChatRepositoryImpl extends ChatRepository {
       return null;
     }
   }
-
 }

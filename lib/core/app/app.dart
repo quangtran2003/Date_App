@@ -5,22 +5,18 @@ import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/video_call/ui/ui_src.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 class App extends StatefulWidget {
   final AppConfig config;
   final String initialRoute;
-  final dynamic initialArguments;
 
   const App({
     super.key,
     required this.config,
     required this.initialRoute,
-    this.initialArguments,
   });
 
   @override
@@ -32,11 +28,10 @@ class AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    if (widget.initialRoute != AppRouteEnum.splash.path) return;
+    isFromNotifTerminate = widget.initialRoute != AppRouteEnum.splash.path;
+    if (isFromNotifTerminate) return;
     FCM.initialMessage();
-    LocalNotif.initialMessage().then((value) {
-      isFromNotifTerminate = value ?? false;
-    });
+    LocalNotif.initialMessage();
     RendererBinding.instance.deferFirstFrame();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -55,15 +50,12 @@ class AppState extends State<App> with WidgetsBindingObserver {
     if (Get.isRegistered<HomeRepository>()) {
       final homeRepo = Get.find<HomeRepository>();
       final uid = homeRepo.firebaseAuth.currentUser?.uid;
-      final isOfflineState = state == AppLifecycleState.paused ||
-          state == AppLifecycleState.inactive ||
-          state == AppLifecycleState.hidden ||
-          state == AppLifecycleState.detached;
+      final isOnlineState = state == AppLifecycleState.resumed;
 
       _handleAppLifecycle(
         uid: uid,
         homeRepo: homeRepo,
-        isOnline: !isOfflineState,
+        isOnline: isOnlineState,
       );
     }
   }
@@ -84,21 +76,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (widget.initialRoute != AppRouteEnum.splash.path) return;
-    if (isFromNotifTerminate) {
-      // Nếu flag điều hướng cuộc gọi được set từ LocalNotif
-      if (LocalNotif.shouldNavigateToCallFromTerminate &&
-          LocalNotif.callArgsFromTerminate != null) {
-        Future.microtask(() {
-          Get.offAllNamed(
-            AppRouteEnum.video_call.path,
-            arguments: LocalNotif.callArgsFromTerminate!,
-          );
-        });
-
-      }
-      return;
-    }
+    if (isFromNotifTerminate) return;
 
     _loadApp().whenComplete(
       () {
@@ -121,30 +99,22 @@ class AppState extends State<App> with WidgetsBindingObserver {
     // NOTE: Consider only enabling Crashlytics in the production environment
     // if (widget.config.env == AppEnv.prod)
 
-    // Pass all uncaught "fatal" errors from the framework to Crashlytics
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    // // Pass all uncaught "fatal" errors from the framework to Crashlytics
+    // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
+    // // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    // PlatformDispatcher.instance.onError = (error, stack) {
+    //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    //   return true;
+    // };
 
     // Init sau Firebase để tránh crash app nếu có lỗi
-    await _initBeforeFirstFrame().whenComplete(
+    await initBeforeFirstFrame().whenComplete(
       () => RendererBinding.instance.allowFirstFrame(),
     );
 
     // Precache images, load data for app from API, DB, etc.
     await _initAfterFirstFrame();
-  }
-
-  /// Đảm bảo màn splash có khi được hiển thị sẽ hiển thị đúng theme và ngôn ngữ
-  Future<void> _initBeforeFirstFrame() async {
-    await Hive.initFlutter();
-    await _initLocalStorages();
-    // Load data for splash screen
-    // await SplashScreen.precacheAssets(context);
   }
 
   Future<void> _initAfterFirstFrame() async {
@@ -153,29 +123,6 @@ class AppState extends State<App> with WidgetsBindingObserver {
       AlbumStickerStorage.init(),
     ]);
     // ApiClient.init(baseUrl: _config.baseUrl);
-  }
-
-  Future<void> _initLocalStorages() async {
-    await Future.wait([
-      AppStorage.init(),
-      _initSettingStorage(),
-    ]);
-  }
-
-  Future<void> _initSettingStorage() async {
-    await SettingStorage.init();
-    final language = SettingStorage.language;
-    if (language != null) {
-      Get.updateLocale(language.locale);
-    }
-    final theme = SettingStorage.themeMode;
-    Get.changeThemeMode(
-      theme == null
-          ? ThemeMode.system
-          : SettingStorage.themeMode == AppTheme.light
-              ? ThemeMode.light
-              : ThemeMode.dark,
-    );
   }
 
   @override
@@ -214,4 +161,36 @@ class AppState extends State<App> with WidgetsBindingObserver {
       ),
     );
   }
+}
+
+/// Đảm bảo màn splash có khi được hiển thị sẽ hiển thị đúng theme và ngôn ngữ
+Future<void> initBeforeFirstFrame() async {
+  await Hive.initFlutter();
+  await _initLocalStorages();
+  // Load data for splash screen
+  // await SplashScreen.precacheAssets(context);
+}
+
+Future<void> _initLocalStorages() async {
+  await Future.wait([
+    AppStorage.init(),
+    _initSettingStorage(),
+  ]);
+}
+
+
+Future<void> _initSettingStorage() async {
+  await SettingStorage.init();
+  final language = SettingStorage.language;
+  if (language != null) {
+    Get.updateLocale(language.locale);
+  }
+  final theme = SettingStorage.themeMode;
+  Get.changeThemeMode(
+    theme == null
+        ? ThemeMode.system
+        : SettingStorage.themeMode == AppTheme.light
+            ? ThemeMode.light
+            : ThemeMode.dark,
+  );
 }

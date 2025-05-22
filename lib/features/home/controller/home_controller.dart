@@ -2,6 +2,7 @@ import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/chat_bot/controller/chat_bot_controller.dart';
 import 'package:easy_date/features/chat_bot/ui/chat_bot_page.dart';
 import 'package:easy_date/features/home/home_src.dart';
+import 'package:easy_date/features/video_call/model/call_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
@@ -28,6 +29,10 @@ class HomeController extends BaseGetxController {
   @override
   void onInit() async {
     super.onInit();
+    if (Get.isRegistered<CallArgs>() &&
+        Get.find<CallArgs>().isFromTerminatedState) {
+      await initBeforeFirstFrame();
+    }
     userStream.addStream(homeRepository.getUserStream());
     currentUser.bindStream(userStream);
     //getUserCurrent();
@@ -48,7 +53,6 @@ class HomeController extends BaseGetxController {
       },
     );
   }
-
 
   @override
   void onClose() async {
