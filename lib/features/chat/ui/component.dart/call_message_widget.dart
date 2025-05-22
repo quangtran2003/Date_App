@@ -60,7 +60,9 @@ class CallMessageWidget extends StatelessWidget {
         width: AppDimens.sizeImageLarge,
         height: AppDimens.sizeImageBig,
         decoration: BoxDecoration(
-          color: AppColors.receiverMessageBgColor,
+          color: AppColors.isDarkMode
+              ? AppColors.darkAccentColor
+              : AppColors.receiverMessageBgColor,
           borderRadius: BorderRadius.circular(AppDimens.radius16),
         ),
         child: Column(

@@ -82,7 +82,6 @@ class AppState extends State<App> with WidgetsBindingObserver {
   }
 
   @override
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (widget.initialRoute != AppRouteEnum.splash.path) return;
@@ -96,6 +95,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
             arguments: LocalNotif.callArgsFromTerminate!,
           );
         });
+
       }
       return;
     }

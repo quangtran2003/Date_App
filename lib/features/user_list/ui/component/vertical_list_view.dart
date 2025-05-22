@@ -99,12 +99,27 @@ class VerticalListView extends BaseGetWidget<UserListController> {
     }
 
     String getLastMessage() {
-      lastContent = lastMessage?.type == MessageTypeEnum.text
-          ? lastContent
-          : LocaleKeys.user_chatSticker.tr;
-      return lastMessage?.isMe == false
-          ? lastContent
-          : LocaleKeys.user_chatSender.trParams({'content': lastContent});
+      switch (lastMessage?.type) {
+        case MessageTypeEnum.audioCall:
+          return '${LocaleKeys.call_called.trParams({
+                'user': lastMessage?.isMe == true
+                    ? LocaleKeys.call_you.tr
+                    : user2?.name ?? '',
+              }).tr}${LocaleKeys.call_audio.tr}';
+        case MessageTypeEnum.videoCall:
+          return '${LocaleKeys.call_called.trParams({
+                'user': lastMessage?.isMe == true
+                    ? LocaleKeys.call_you.tr
+                    : user2?.name ?? ''
+              }).tr}${LocaleKeys.call_video.tr}';
+        case MessageTypeEnum.sticker:
+          return LocaleKeys.user_chatSender
+              .trParams({'content': LocaleKeys.user_chatSticker.tr});
+        case MessageTypeEnum.text:
+          return lastContent;
+        default:
+          return lastContent;
+      }
     }
 
     if (user2 == null || userId2 == null) {

@@ -161,7 +161,9 @@ extension ProfileDetailWidget on ProfileDetailPage {
             padding: const EdgeInsets.all(AppDimens.paddingSmall),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: AppColors.darkPrimaryColor,
+              color: AppColors.isDarkMode
+                  ? AppColors.darkAccentColor
+                  : AppColors.grayLight8,
             ),
             child: Row(
               children: [
