@@ -25,9 +25,8 @@ void _onDidReceiveForegroundNotificationResponse(
 }
 
 Future<void> _handleNotificationResponse(
-  NotificationResponse notificationResponse, {
-  bool isTerminateApp = false,
-}) async {
+  NotificationResponse notificationResponse,
+) async {
   final payloadJson = notificationResponse.payload;
   if (payloadJson == null) return;
 
@@ -45,19 +44,17 @@ Future<void> _handleNotificationResponse(
       });
     } else if (notificationResponse.actionId == ACCEPT_CALL) {
       // For terminated state, the main.dart will handle the navigation
-      if (!isTerminateApp) {
-        Get.toNamed(
-          AppRouteEnum.video_call.path,
-          arguments: CallArgs(
-            typeCall: MessageTypeEnum.fromInt(int.parse(dataNoti.type ?? '')),
-            idCurrentUser: dataNoti.idReceiver ?? '',
-            nameCurrentUser: dataNoti.nameSender ?? '',
-            idOtherUser: dataNoti.idSender ?? '',
-            callID: dataNoti.callId,
-            statusCall: StatusCallEnum.accepted,
-          ),
-        );
-      }
+      Get.toNamed(
+        AppRouteEnum.video_call.path,
+        arguments: CallArgs(
+          typeCall: MessageTypeEnum.fromInt(int.parse(dataNoti.type ?? '')),
+          idCurrentUser: dataNoti.idReceiver ?? '',
+          nameCurrentUser: dataNoti.nameSender ?? '',
+          idOtherUser: dataNoti.idSender ?? '',
+          callID: dataNoti.callId,
+          statusCall: StatusCallEnum.accepted,
+        ),
+      );
     }
   } catch (e) {
     logger.e('Error handling notification response: $e');
@@ -124,7 +121,7 @@ class LocalNotif {
     if (appOpenViaNotif) {
       final notifResponse = notifAppLaunchDetails.notificationResponse;
       if (notifResponse == null) return;
-      await _handleNotificationResponse(notifResponse, isTerminateApp: true);
+      await _handleNotificationResponse(notifResponse);
     }
     return;
   }

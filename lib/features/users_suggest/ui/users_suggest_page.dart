@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/utils/widgets/logo_loading.dart';
 import 'package:shimmer/shimmer.dart';

@@ -36,9 +36,13 @@ abstract class BaseFirebaseRepository extends BaseRepository {
 
       // Kiểm tra nếu trong map 'users' có key là uid đang đăng nhập
       if (data.containsKey('users') && data['users'][uid] != null) {
-        await firestore.collection('users').doc(doc.id).set(
+        await firestore.collection('users').doc(doc.id).update(
           {
             'users.$uid.isOnline': isOnline,
+          },
+        );
+        await firestore.collection('users').doc(doc.id).update(
+          {
             'users.$uid.lastOnline': Timestamp.now(),
           },
         );

@@ -13,26 +13,9 @@ import 'package:googleapis_auth/auth_io.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   _showCustomNotif(message);
-  // final dataNoti = PushNotificationData.fromJson(message.data);
-
-  // if (MessageTypeEnum.isTypeCall(dataNoti.type) && dataNoti.callId != null) {
-  //   LocalNotif.showNotif(
-  //     id: dataNoti.hashCode,
-  //     title: dataNoti.notifTitle,
-  //     body: dataNoti.notifBody,
-  //     payload: jsonEncode(message.data),
-  //     notificationDetails: LocalNotif.incomingCallDetails(),
-  //   );
-  // }
 }
 
 void _handleMessage(RemoteMessage message) {
-  // Map data = message.data;
-
-  // if (data.containsKey('pageName')) {
-  //   logger.d("pageName: ${data['pageName']}");
-  //   Get.toNamed(data['pageName']);
-  //}
 }
 
 void _showCustomNotif(RemoteMessage message) {

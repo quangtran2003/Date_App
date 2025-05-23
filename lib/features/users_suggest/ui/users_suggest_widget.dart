@@ -187,27 +187,9 @@ AppBar _buildAppBar() {
   return AppBar(
     centerTitle: false,
     scrolledUnderElevation: 0,
-    title: InkWell(
-      onTap: () {
-        //LocalNotif.showNotif(id: 1, body: 'qưqw', title: 'qưeqweq');
-        LocalNotif.showNotif(
-          id: 1001,
-          title: "Cuộc gọi đến từ Minh",
-          body: "Nhấn để tham gia cuộc gọi video",
-          notificationDetails: LocalNotif.incomingCallDetails(),
-          payload: jsonEncode({
-            'type': 'video_call',
-            'uidUser': 'abc123',
-            'nameUser': 'Minh',
-            'imgUser': 'https://example.com/avatar.png',
-            'pageName': '/callPage', // Trang mở khi chọn Accept
-          }),
-        );
-      },
-      child: UtilWidget.buildText(
-        LocaleKeys.app_appName.tr,
-        style: AppTextStyle.font36Bo,
-      ),
+    title: UtilWidget.buildText(
+      LocaleKeys.app_appName.tr,
+      style: AppTextStyle.font36Bo,
     ),
   );
 }

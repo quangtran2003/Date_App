@@ -5,6 +5,7 @@ extension ChatWidget on ChatPage {
     final receiver = controller.receiverUser;
     return AppBar(
       leading: const BackButton(),
+      leadingWidth: AppDimens.btnSmall,
       scrolledUnderElevation: 0,
       title: _buildAvtAndname(receiver),
       actions: [

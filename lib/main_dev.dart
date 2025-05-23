@@ -16,22 +16,20 @@ void main() async {
     firebaseOptions: DefaultFirebaseOptions.currentPlatform,
   );
   await Firebase.initializeApp(options: config.firebaseOptions);
-  await LocalNotif.init();     
+  await LocalNotif.init();
   await FCM.init();
 
   // Check if app was launched from notification (terminated state)
-  String? initialRoute = await checkNotifFromTerminate();
-  if (initialRoute != null) {
-    runApp(
-      App(
-        config: config,
-        initialRoute: initialRoute,
-      ),
-    );
-  }
+  String initialRoute = await checkNotifFromTerminate();
+  runApp(
+    App(
+      config: config,
+      initialRoute: initialRoute,
+    ),
+  );
 }
 
-Future<String?> checkNotifFromTerminate() async {
+Future<String> checkNotifFromTerminate() async {
   // Check if app was launched from notification (terminated state)
   final notificationAppLaunchDetails =
       await LocalNotif.notifPlugin.getNotificationAppLaunchDetails();
@@ -70,7 +68,6 @@ Future<String?> checkNotifFromTerminate() async {
               .update({
             'status': StatusCallEnum.rejected.value,
           });
-          return null;
         }
       }
     }

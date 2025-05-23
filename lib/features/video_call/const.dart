@@ -1,3 +1,6 @@
 const String AppSign =
     '8293cdca982a3dcdc3c2818ae5503168a753ade59b785f7c98991ec17f939104';
+//"73bcc43333d3039e5ed0e4f6e524324bd771132e36183f9907f79de3967c0ff7"
 const int AppId = 2013807003;
+//177302231
+//các key dự phòng
