@@ -4,45 +4,9 @@ extension ChatWidget on ChatPage {
   PreferredSizeWidget _buildAppBar() {
     final receiver = controller.receiverUser;
     return AppBar(
-      leadingWidth: 24,
+      leading: const BackButton(),
       scrolledUnderElevation: 0,
-      title: InkWell(
-        borderRadius: BorderRadius.circular(AppDimens.radius8),
-        onTap: () {
-          Get.toNamed(
-            AppRouteEnum.profile_match.path,
-            arguments: receiver.idReceiver,
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            buildUserAvatar(
-              receiver.imgAvtReceiver,
-              receiver.isOnline,
-            ),
-            AppDimens.hm8,
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  UtilWidget.buildText(
-                    receiver.nameReceiver,
-                    style: AppTextStyle.font16Bo,
-                  ),
-                  UtilWidget.buildText(
-                    receiver.isOnline.value
-                        ? LocaleKeys.chat_online.tr
-                        : controller.timeAgoCustom(receiver.lastOnline),
-                    textColor: AppColors.dsGray2,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ).paddingSymmetric(horizontal: AppDimens.paddingSmallest),
-      ),
+      title: _buildAvtAndname(receiver),
       actions: [
         IconButton(
           onPressed: () => controller.gotoVideoCallPage(
@@ -95,6 +59,46 @@ extension ChatWidget on ChatPage {
           icon: const Icon(Icons.more_vert),
         ),
       ],
+    );
+  }
+
+  InkWell _buildAvtAndname(UserChatArgument receiver) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(AppDimens.radius8),
+      onTap: () {
+        Get.toNamed(
+          AppRouteEnum.profile_match.path,
+          arguments: receiver.idReceiver,
+        );
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildUserAvatar(
+            receiver.imgAvtReceiver,
+            receiver.isOnline,
+          ),
+          AppDimens.hm8,
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UtilWidget.buildText(
+                  receiver.nameReceiver,
+                  style: AppTextStyle.font16Bo,
+                ),
+                UtilWidget.buildText(
+                  receiver.isOnline.value
+                      ? LocaleKeys.chat_online.tr
+                      : controller.timeAgoCustom(receiver.lastOnline),
+                  textColor: AppColors.dsGray2,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ).paddingSymmetric(horizontal: AppDimens.paddingSmallest),
     );
   }
 

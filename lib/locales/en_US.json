@@ -73,7 +73,7 @@
         "chatNew": "New Chat",
         "acceptList": "Matched",
         "blockList": "Blocked",
-        "waitingList": "Waiting for match",
+        "waitingList": "Waiting",
         "chatSender": "You: @content",
         "chatSticker": "Sent a sticker",
         "acceptUser": "You successfully matched with @username <3",

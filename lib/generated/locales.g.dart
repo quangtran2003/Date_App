@@ -242,7 +242,7 @@ class Locales {
     'user_chatNew': 'New Chat',
     'user_acceptList': 'Matched',
     'user_blockList': 'Blocked',
-    'user_waitingList': 'Waiting for match',
+    'user_waitingList': 'Waiting',
     'user_chatSender': 'You: @content',
     'user_chatSticker': 'Sent a sticker',
     'user_acceptUser': 'You successfully matched with @username <3',

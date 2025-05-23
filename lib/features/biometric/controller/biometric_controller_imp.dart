@@ -61,9 +61,13 @@ class BiometricController extends BaseGetxController {
     }
   }
 
-  Future<void> authCheck({required Widget child}) async {
+  Future<void> authCheck(Function() func) async {
     showPopupBiometricSupport(
-        func: () => startBioMetricAuth(LocaleKeys.biometric_confirm.tr, child));
+      func: () => startBioMetricAuth(
+        LocaleKeys.biometric_confirm.tr,
+        func,
+      ),
+    );
   }
 
   Future<void> checkBiometricSupport() async {
@@ -85,16 +89,23 @@ class BiometricController extends BaseGetxController {
     }
   }
 
-  Future<void> startBioMetricAuth(String message, Widget child) async {
+  Future<void> startBioMetricAuth(String message, Function() func) async {
     try {
+      //xac thực sinh trắc học ở đây
       bool didAuthenticate = await auth.authenticate(
-          localizedReason: message,
-          options: const AuthenticationOptions(
-              biometricOnly: true, stickyAuth: true));
+        localizedReason: message,
+        options: const AuthenticationOptions(
+          biometricOnly: true,
+          stickyAuth: true,
+        ),
+      );
       if (didAuthenticate) {
-        Get.dialog(child);
+        func.call();
       } else {
-        showMessage(LocaleKeys.biometric_confirmFail.tr, isSuccess: true);
+        showMessage(
+          LocaleKeys.biometric_confirmFail.tr,
+          isSuccess: true,
+        );
       }
     } on PlatformException {
       if (kDebugMode) {
@@ -123,7 +134,6 @@ class BiometricController extends BaseGetxController {
     switch (supportState.value) {
       case SupportState.supported:
         return func();
-
       case SupportState.notSetUp:
         showMessage(LocaleKeys.biometric_confirmFail.tr);
         break;

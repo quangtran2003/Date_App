@@ -16,10 +16,12 @@ extension BiometricWidget on BiometricSetting {
         activeTrackColor: AppColors.primaryLight2,
         value: controller.hasBiometric.value,
         onChanged: (_) {
-          ShowPopup.showDialogConfirmWidget(
-            confirm: controller.checkPassword,
-            actionTitle: LocaleKeys.login_continue.tr,
-            buildBody: _buildBodyPopup(controller),
+          controller.authCheck(
+            () => ShowPopup.showDialogConfirmWidget(
+              confirm: controller.checkPassword,
+              actionTitle: LocaleKeys.login_continue.tr,
+              buildBody: _buildBodyPopup(controller),
+            ),
           );
         },
       ),

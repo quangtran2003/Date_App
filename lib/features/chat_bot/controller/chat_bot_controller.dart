@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 
 class ChatBotController extends BaseGetxController {
   late final GenerativeModel model;
-  //final RxList<File?> imageFiles = RxList<File?>();
   final RxList<String> imagePaths = RxList<String>();
   final TextEditingController textCtrl = TextEditingController();
   final scrollController = ScrollController();

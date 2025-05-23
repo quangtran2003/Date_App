@@ -5,9 +5,7 @@ import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/video_call/ui/ui_src.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
@@ -49,16 +47,21 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (Get.isRegistered<HomeRepository>()) {
-      final homeRepo = Get.find<HomeRepository>();
+    if (Get.isRegistered<HomeController>()) {
+      final homeRepo = Get.find<HomeController>().homeRepository;
       final uid = homeRepo.firebaseAuth.currentUser?.uid;
-      final isOnlineState = state == AppLifecycleState.resumed;
-
-      _handleAppLifecycle(
-        uid: uid,
-        homeRepo: homeRepo,
-        isOnline: isOnlineState,
-      );
+      if (state == AppLifecycleState.paused) {
+        _handleAppLifecycle(
+          uid: uid,
+          homeRepo: homeRepo,
+        );
+      } else if (state == AppLifecycleState.resumed) {
+        _handleAppLifecycle(
+          uid: uid,
+          homeRepo: homeRepo,
+          isOnline: true,
+        );
+      }
     }
   }
 
@@ -179,7 +182,6 @@ Future<void> _initLocalStorages() async {
     _initSettingStorage(),
   ]);
 }
-
 
 Future<void> _initSettingStorage() async {
   await SettingStorage.init();

@@ -39,7 +39,7 @@ class VideoCallController extends BaseGetxController {
       callerId: args?.idCurrentUser ?? '',
       receiverId: args?.idOtherUser ?? '',
     );
-    // await checkDeclinedCall();
+    await checkDeclinedCall();
   }
 
   Future<void> acceptCall() async {
@@ -47,8 +47,8 @@ class VideoCallController extends BaseGetxController {
     checkDeclinedCall(secondDelay: 5);
   }
 
-  Future<void> checkDeclinedCall({int secondDelay = 20}) async {
-    // Đợi 20 giây, sau đó kiểm tra trạng thái
+  Future<void> checkDeclinedCall({int secondDelay = 30}) async {
+    // Đợi 30 giây, sau đó kiểm tra trạng thái
     Future.delayed(
       Duration(seconds: secondDelay),
       () async {
