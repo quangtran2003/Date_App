@@ -33,9 +33,7 @@ class TextMessageWidget extends StatelessWidget {
               if (message.isMe)
                 UtilWidget.buildText(
                   message.createTimeHHmma,
-                  style: AppTextStyle.font10Re.copyWith(
-                    color: AppColors.grayLight6,
-                  ),
+                  style: AppTextStyle.font10Re.copyWith(),
                 ).paddingOnly(right: AppDimens.paddingSmallest),
               Flexible(
                 child: Container(
@@ -48,8 +46,12 @@ class TextMessageWidget extends StatelessWidget {
                       ),
                     ],
                     color: message.isMe
-                        ? AppColors.senderMessageBgColor
-                        : AppColors.receiverMessageBgColor,
+                        ? AppColors.isDarkMode
+                            ? AppColors.darkPrimaryColor
+                            : AppColors.senderMessageBgColor
+                        : AppColors.isDarkMode
+                            ? AppColors.darkAccentColor
+                            : AppColors.receiverMessageBgColor,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(AppDimens.radius16),
                       topRight: const Radius.circular(AppDimens.radius16),
@@ -63,9 +65,7 @@ class TextMessageWidget extends StatelessWidget {
                   ),
                   child: UtilWidget.buildText(
                     message.content,
-                    style: AppTextStyle.font16Semi.copyWith(
-                      color: AppColors.grayLight1,
-                    ),
+                    style: AppTextStyle.font16Semi.copyWith(),
                     maxLine: 20,
                   ).paddingSymmetric(
                     vertical: AppDimens.paddingSmall,

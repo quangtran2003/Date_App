@@ -15,9 +15,8 @@ void main() async {
     env: AppEnv.dev,
     firebaseOptions: DefaultFirebaseOptions.currentPlatform,
   );
-
   await Firebase.initializeApp(options: config.firebaseOptions);
-  await LocalNotif.init();
+  await LocalNotif.init();     
   await FCM.init();
 
   // Check if app was launched from notification (terminated state)

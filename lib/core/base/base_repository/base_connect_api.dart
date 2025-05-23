@@ -1,4 +1,3 @@
-
 import '../../../utils/utils_src.dart';
 import '../../const/const_src.dart';
 
@@ -121,7 +120,7 @@ class BaseConnectAPI {
       }
       return response.data;
     } catch (e) {
-      return functionError != null ? functionError(e) : showDialogError(e);
+      //return functionError != null ? functionError(e) : showDialogError(e);
     }
   }
 

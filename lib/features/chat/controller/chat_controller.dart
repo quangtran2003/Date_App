@@ -50,9 +50,9 @@ class ChatController extends BaseRefreshGetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    _listenHeartMessage();
 
     showLoading();
+    _listenHeartMessage();
     await getOldMessages();
 
     newMessages.bindStream(

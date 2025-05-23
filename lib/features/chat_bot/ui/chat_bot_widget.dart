@@ -69,10 +69,10 @@ BoxDecoration _buildBoxDecoration(bool isMe) {
     color: isMe
         ? AppColors.isDarkMode
             ? AppColors.darkPrimaryColor
-            : AppColors.grayLight7
+            : AppColors.senderMessageBgColor
         : AppColors.isDarkMode
             ? AppColors.darkAccentColor
-            : AppColors.grayLight8,
+            : AppColors.receiverMessageBgColor,
   );
 }
 
