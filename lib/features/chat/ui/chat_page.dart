@@ -17,7 +17,7 @@ class ChatPage extends BaseGetWidget<ChatController> {
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(Assets.ASSETS_IMAGES_CHAT_BACKGROUND_PNG),
+              image: AssetImage(Assets.ASSETS_IMAGES_PNG_CHAT_BACKGROUND_PNG),
               fit: BoxFit.cover,
             ),
           ),

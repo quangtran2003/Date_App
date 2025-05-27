@@ -5,147 +5,151 @@
 // ignore_for_file: constant_identifier_names
 
 /// {@template assets_generator.ASSETS_ICONS_APP_ICON2_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/app_icon2.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/app_icon2.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_ADD_USER_SELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_add_user_selected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_add_user_selected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_ADD_USER_UNSELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_add_user_unselected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_add_user_unselected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_BIOMETRIC_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_biometric.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_biometric.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_BLOCK_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_block.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_block.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_CHAT_SELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_chat_selected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_chat_selected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_CHAT_UNSELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_chat_unselected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_chat_unselected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_FINGERPRINT_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_fingerprint.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_fingerprint.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_HOME_SELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_home_selected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_home_selected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_HOME_UNSELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_home_unselected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_home_unselected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_LOCATION_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_location.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_location.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_PROFILE_SELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_profile_selected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_profile_selected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_IC_PROFILE_UNSELECTED_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/ic_profile_unselected.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/ic_profile_unselected.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_ICON_CLOSE_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/icon_close.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/icon_close.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_ICON_LIST_NULL_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/icon_list_null.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/icon_list_null.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_ICON_MAP_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/icon_map.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/icon_map.svg)
 /// {@endtemplate}
 
 /// {@template assets_generator.ASSETS_ICONS_ICON_TYM_SVG.preview}
-/// ![](e:\gitrepos\date_app\assets/icons/icon_tym.svg)
+/// ![](d:\gitrepository\date_app\assets/icons/icon_tym.svg)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_APP_ICON_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/app_icon.png)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_BG_HOME_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/bg_home.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_BG_HOME_GIF.preview}
-/// ![](e:\gitrepos\date_app\assets/images/bg_home.gif)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_LOVE_ANMATION_ICON_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/love_anmation_icon.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_BG_LOGIN_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/bg_login.png)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_META_AI_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/meta_ai.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_CHAT_BACKGROUND_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/chat_background.png)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_META_AI_DARK_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/meta_ai_dark.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_CHAT_LOVE_ICON_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/chat_love_icon.png)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_PLACE_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/place.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_DEFAULT_IMAGE_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/default_image.png)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_TYPING_DARK_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/typing-dark.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_DUCK_JPG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/duck.jpg)
+/// {@template assets_generator.ASSETS_IMAGES_GIF_TYPING_LIGHT_GIF.preview}
+/// ![](d:\gitrepository\date_app\assets/images/gif/typing_light.gif)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_GEMINI_ICON_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/gemini_icon.png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_APP_ICON_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/app_icon.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_GEMINI_TEXT_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/gemini_text.png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_BG_LOGIN_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/bg_login.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_GPT_CHAT_BOT_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/gpt_chat_bot.png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_CHAT_BACKGROUND_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/chat_background.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_HEART_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/heart.png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_CHAT_LOVE_ICON_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/chat_love_icon.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_LOVE__PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/love .png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_DEFAULT_IMAGE_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/default_image.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_LOVE_ANMATION_ICON_GIF.preview}
-/// ![](e:\gitrepos\date_app\assets/images/love_anmation_icon.gif)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_GEMINI_ICON_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/gemini_icon.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_LOVE_SUGGEST_ICON_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/love_suggest_icon.png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_GEMINI_ICON_DARK_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/gemini_icon_dark.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_META_AI_GIF.preview}
-/// ![](e:\gitrepos\date_app\assets/images/meta_ai.gif)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_GEMINI_TEXT_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/gemini_text.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_PLACE_GIF.preview}
-/// ![](e:\gitrepos\date_app\assets/images/place.gif)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_GPT_CHAT_BOT_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/gpt_chat_bot.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_PLACE_PNG.preview}
-/// ![](e:\gitrepos\date_app\assets/images/place.png)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_HEART_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/heart.png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_TYPING_DARK_GIF.preview}
-/// ![](e:\gitrepos\date_app\assets/images/typing-dark.gif)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_LOVE__PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/love .png)
 /// {@endtemplate}
 
-/// {@template assets_generator.ASSETS_IMAGES_TYPING_LIGHT_GIF.preview}
-/// ![](e:\gitrepos\date_app\assets/images/typing_light.gif)
+/// {@template assets_generator.ASSETS_IMAGES_PNG_LOVE_SUGGEST_ICON_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/love_suggest_icon.png)
+/// {@endtemplate}
+
+/// {@template assets_generator.ASSETS_IMAGES_PNG_PLACE_PNG.preview}
+/// ![](d:\gitrepository\date_app\assets/images/png/place.png)
 /// {@endtemplate}
 
 // ignore_for_file: camel_case_types, unused_element

@@ -32,7 +32,7 @@ Future<void> precacheImages(BuildContext context) async {
 
     // Precache Image
     precacheImage(
-      const AssetImage(Assets.ASSETS_IMAGES_CHAT_BACKGROUND_PNG),
+      const AssetImage(Assets.ASSETS_IMAGES_PNG_CHAT_BACKGROUND_PNG),
       context,
     ),
   ]);

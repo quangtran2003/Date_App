@@ -37,7 +37,7 @@ class ItemUtils {
                     ),
                   ),
                   child: Image.asset(
-                    imgAsset ?? Assets.ASSETS_IMAGES_DUCK_JPG,
+                    imgAsset ?? Assets.ASSETS_IMAGES_PNG_APP_ICON_PNG,
                   ),
                 ),
           ),

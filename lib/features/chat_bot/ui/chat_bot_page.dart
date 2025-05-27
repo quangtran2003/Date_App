@@ -24,7 +24,7 @@ class ChatBotPage extends BaseGetWidget<ChatBotController> {
           () => SafeArea(
             child: Column(
               children: [
-                _buildLablePage(),
+                _buildLablePage(controller),
                 Expanded(
                   child: Column(
                     children: [

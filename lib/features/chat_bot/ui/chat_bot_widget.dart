@@ -76,16 +76,25 @@ BoxDecoration _buildBoxDecoration(bool isMe) {
   );
 }
 
-Widget _buildLablePage() {
+Widget _buildLablePage(ChatBotController ctrl) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
-      Image.asset(
-        Assets.ASSETS_IMAGES_GEMINI_ICON_PNG,
-        height: AppDimens.btnLarge,
-        width: AppDimens.btnLarge,
-        fit: BoxFit.cover,
-      ),
+      Container(
+        height: AppDimens.sizeImage,
+        width: AppDimens.sizeImage,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage(
+              AppColors.isDarkMode
+                  ? Assets.ASSETS_IMAGES_GIF_META_AI_DARK_GIF
+                  : Assets.ASSETS_IMAGES_GIF_META_AI_GIF,
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ).paddingSymmetric(horizontal: AppDimens.paddingSmall),
       UtilWidget.buildText(
         "Dating AI",
         fontSize: AppDimens.sizeIconDefault,

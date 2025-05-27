@@ -65,7 +65,7 @@ Widget _buildInfoCard(UsersSuggestController controller) {
         Row(
           children: [
             Image.asset(
-              Assets.ASSETS_IMAGES_PLACE_GIF,
+              Assets.ASSETS_IMAGES_GIF_PLACE_GIF,
               height: AppDimens.sizeIcon,
               width: AppDimens.sizeIcon,
             ),
@@ -93,7 +93,7 @@ _buildImage(UsersSuggestController controller) {
         ),
         child: controller.userSuggest.value?.imgAvt == null
             ? Image.asset(
-                Assets.ASSETS_IMAGES_BG_LOGIN_PNG,
+                Assets.ASSETS_IMAGES_PNG_BG_LOGIN_PNG,
                 color: AppColors.grayLight5,
                 fit: BoxFit.cover,
               )
@@ -122,7 +122,7 @@ Widget _buildShimmerCard() {
         child: SizedBox(
           height: AppDimens.btnLarge,
           width: AppDimens.btnLarge,
-          child: Image.asset(Assets.ASSETS_IMAGES_APP_ICON_PNG),
+          child: Image.asset(Assets.ASSETS_IMAGES_PNG_APP_ICON_PNG),
         ),
       ),
     ),
@@ -136,46 +136,59 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
       spacing: AppDimens.paddingVerySmall,
       children: [
         _buildChoiceChip(
-          LocaleKeys.home_likedYou.tr,
-          () => Get.toNamed(
-            AppRouteEnum.user_list.path,
-            arguments: MatchEnum.waiting,
-          ),
-        ),
+            text: LocaleKeys.home_likedYou.tr,
+            onTap: () => Get.toNamed(
+                  AppRouteEnum.user_list.path,
+                  arguments: MatchEnum.waiting,
+                ),
+            noti: controller.countWaiting),
         _buildChoiceChip(
-          LocaleKeys.user_waitingList.tr,
-          () => Get.toNamed(
+          text: LocaleKeys.user_waitingList.tr,
+          onTap: () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.request,
           ),
+          noti: controller.countRequest,
         ),
         _buildChoiceChip(
-          LocaleKeys.user_blockList.tr,
-          () => Get.toNamed(
+          text: LocaleKeys.user_blockList.tr,
+          onTap: () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.block,
           ),
+          noti: controller.countBlock,
         ),
       ],
     ),
   ).paddingSymmetric(vertical: AppDimens.paddingSmall);
 }
 
-Widget _buildChoiceChip(String text, Function()? onTap) {
+Widget _buildChoiceChip({
+  required String text,
+  required Function()? onTap,
+  required RxInt noti,
+}) {
   return Expanded(
     child: InkWell(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.isDarkMode
-              ? AppColors.darkAccentColor
-              : AppColors.grayLight8,
-          borderRadius: BorderRadius.circular(AppDimens.radius12),
-        ),
-        child: Center(
-          child: UtilWidget.buildText(
-            text,
-            fontWeight: FontWeight.w700,
+      child: Obx(
+        () => Badge.count(
+          textColor: AppColors.white,
+          isLabelVisible: noti > 0,
+          count: noti.value,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.isDarkMode
+                  ? AppColors.darkAccentColor
+                  : AppColors.grayLight8,
+              borderRadius: BorderRadius.circular(AppDimens.radius12),
+            ),
+            child: Center(
+              child: UtilWidget.buildText(
+                text,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
       ),

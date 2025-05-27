@@ -182,25 +182,26 @@ flutter:
     - assets/icons/icon_list_null.svg
     - assets/icons/icon_map.svg
     - assets/icons/icon_tym.svg
-    - assets/images/app_icon.png
-    - assets/images/bg_home.gif
-    - assets/images/bg_login.png
-    - assets/images/chat_background.png
-    - assets/images/chat_love_icon.png
-    - assets/images/default_image.png
-    - assets/images/duck.jpg
-    - assets/images/gemini_icon.png
-    - assets/images/gemini_text.png
-    - assets/images/gpt_chat_bot.png
-    - assets/images/heart.png
-    - assets/images/love .png
-    - assets/images/love_anmation_icon.gif
-    - assets/images/love_suggest_icon.png
-    - assets/images/meta_ai.gif
-    - assets/images/place.gif
-    - assets/images/place.png
-    - assets/images/typing-dark.gif
-    - assets/images/typing_light.gif
+    - assets/images/gif/bg_home.gif
+    - assets/images/gif/love_anmation_icon.gif
+    - assets/images/gif/meta_ai.gif
+    - assets/images/gif/meta_ai_dark.gif
+    - assets/images/gif/place.gif
+    - assets/images/gif/typing-dark.gif
+    - assets/images/gif/typing_light.gif
+    - assets/images/png/app_icon.png
+    - assets/images/png/bg_login.png
+    - assets/images/png/chat_background.png
+    - assets/images/png/chat_love_icon.png
+    - assets/images/png/default_image.png
+    - assets/images/png/gemini_icon.png
+    - assets/images/png/gemini_icon_dark.png
+    - assets/images/png/gemini_text.png
+    - assets/images/png/gpt_chat_bot.png
+    - assets/images/png/heart.png
+    - assets/images/png/love .png
+    - assets/images/png/love_suggest_icon.png
+    - assets/images/png/place.png
     - assets/keys/service_account.json
     - assets/sound/phone_ring.mp3
 

@@ -32,13 +32,20 @@ Widget _buildButtonBiometric(LoginController controller) {
       child: BiometricLogin(
         func: () async {
           if (AppStorage.getBiometric == true) {
-            controller.biometricAuth(func: () async {
-              controller.passwordTextCtrl.text =
-                  await SecureStorage.password ?? '';
-              Get.toNamed(AppRouteEnum.home.path);
-            });
+            controller.biometricAuth(
+              func: () async {
+                final checkSignOut =
+                    controller.loginRepository.firebaseAuth.currentUser == null;
+                checkSignOut
+                    ? await controller.login()
+                    : Get.offAllNamed(AppRouteEnum.home.path);
+
+                controller.passwordTextCtrl.text =
+                    await SecureStorage.password ?? '';
+              },
+            );
           } else {
-            _promptBiometricSetup(controller);
+            controller.biometricSetup(controller);
           }
         },
       ),
@@ -48,18 +55,7 @@ Widget _buildButtonBiometric(LoginController controller) {
   );
 }
 
-void _formSettingBio(LoginController controller) {
-  ShowPopup.showDialogConfirmWidget(
-    confirm: () async {
-      await controller.login(isBiometric: true);
-    },
-    actionTitle: LocaleKeys.login_continue.tr,
-    buildBody: _buildBodyPopup(controller),
-  );
-  controller.passwordTextCtrl.clear();
-}
-
-Widget _buildBodyPopup(LoginController controller) {
+Widget buildBodyPopup(LoginController controller) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -74,14 +70,6 @@ Widget _buildBodyPopup(LoginController controller) {
   ).paddingSymmetric(
     horizontal: AppDimens.paddingVerySmall,
   );
-}
-
-void _promptBiometricSetup(LoginController controller) {
-  ShowPopup.showDialogConfirm(LocaleKeys.biometric_suggestBiometric.tr,
-      confirm: () => controller.biometricAuth(
-            func: () => _formSettingBio(controller),
-          ),
-      actionTitle: LocaleKeys.login_continue.tr);
 }
 
 Widget _buildInputEmail(LoginController controller) {
@@ -142,6 +130,7 @@ Widget _buildInputPasswordBiometric(LoginController controller) {
         iconNextTextInputAction: TextInputAction.done,
         isReadOnly: controller.isShowLoading.value,
         obscureText: true,
+        autoFocus: true,
         submitFunc: (_) {
           controller.login(isBiometric: true);
         },

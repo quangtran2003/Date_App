@@ -48,17 +48,18 @@ class AppState extends State<App> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (Get.isRegistered<HomeController>()) {
-      final homeRepo = Get.find<HomeController>().homeRepository;
+      final homeCtrl = Get.find<HomeController>();
+      final homeRepo = homeCtrl.homeRepository;
       final uid = homeRepo.firebaseAuth.currentUser?.uid;
-      if (state == AppLifecycleState.paused) {
+      if (state == AppLifecycleState.paused && homeCtrl.isOnline) {
         _handleAppLifecycle(
           uid: uid,
-          homeRepo: homeRepo,
+          homeCtrl: homeCtrl,
         );
-      } else if (state == AppLifecycleState.resumed) {
+      } else if (state == AppLifecycleState.resumed && !homeCtrl.isOnline) {
         _handleAppLifecycle(
           uid: uid,
-          homeRepo: homeRepo,
+          homeCtrl: homeCtrl,
           isOnline: true,
         );
       }
@@ -67,14 +68,15 @@ class AppState extends State<App> with WidgetsBindingObserver {
 
   Future<void> _handleAppLifecycle({
     required String? uid,
-    required HomeRepository homeRepo,
+    required HomeController homeCtrl,
     bool isOnline = false,
   }) async {
     if (uid == null) return;
-    await homeRepo.updateUserOnlineStatus(
+    await homeCtrl.homeRepository.updateUserOnlineStatus(
       isOnline: isOnline,
       uid: uid,
     );
+    homeCtrl.isOnline = isOnline;
     logger.d('App paused: Đã cập nhật trạng thái online = $isOnline');
   }
 

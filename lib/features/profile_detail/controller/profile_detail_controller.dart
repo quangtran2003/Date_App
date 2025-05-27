@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../feature_src.dart';
 
 class ProfileDetailController extends BaseGetxController {
@@ -136,6 +138,8 @@ class ProfileDetailController extends BaseGetxController {
         bio: bioController.text,
         place: placeController.text,
         uid: currentUser.value!.uid,
+        isOnline: true,
+        lastOnline: Timestamp.now(),
         imgDesc: imgDesc,
         imgAvt: imgAvt,
         birthday: int.parse(birthdayController.text),

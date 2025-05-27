@@ -36,10 +36,14 @@ class HomePage extends BaseGetWidget<HomeController> {
       child: Container(
         height: AppDimens.sizeImage,
         width: AppDimens.sizeImage,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-            image: AssetImage(Assets.ASSETS_IMAGES_META_AI_GIF),
+            image: AssetImage(
+              controller.isDarkMode.value
+                  ? Assets.ASSETS_IMAGES_GIF_META_AI_DARK_GIF
+                  : Assets.ASSETS_IMAGES_GIF_META_AI_GIF,
+            ),
             fit: BoxFit.cover,
           ),
         ),

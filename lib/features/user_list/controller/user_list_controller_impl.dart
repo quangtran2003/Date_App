@@ -6,7 +6,6 @@ class UserListControllerImpl extends UserListController {
   @override
   void onInit() async {
     super.onInit();
-
     if (listStatus == MatchEnum.accept) {
       chatList.bindStream(chatListStream());
     }
@@ -32,9 +31,9 @@ class UserListControllerImpl extends UserListController {
     return List.from(
       chats.where((chat) {
         final users = chat.users ?? [];
-        return users.any((userId) {
-          return userList.containsKey(userId);
-        });
+        return users.any((userId) =>
+           userList.containsKey(userId),
+        );
       }),
     );
   }

@@ -108,7 +108,7 @@ extension ProfileWidget on ProfilePage {
       ),
       contentPadding: EdgeInsets.zero,
       trailing: AdvancedSwitch(
-        activeColor: Colors.red,
+        activeColor: AppColors.primaryLight2,
         inactiveColor: Colors.indigo,
         activeChild: UtilWidget.buildText(
           "VN",

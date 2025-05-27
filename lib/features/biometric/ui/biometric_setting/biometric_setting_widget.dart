@@ -53,6 +53,7 @@ extension BiometricWidget on BiometricSetting {
           controller: controller.passwordController,
           iconNextTextInputAction: TextInputAction.done,
           isReadOnly: controller.isShowLoading.value,
+          autoFocus: true,
           obscureText: true,
           validator: (value) {
             if (value != null && (value.length < 6 || value.length > 20)) {

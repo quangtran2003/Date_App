@@ -82,72 +82,85 @@ class Assets {
   /// {@macro assets_generator.ASSETS_ICONS_ICON_TYM_SVG.preview}
   static const String ASSETS_ICONS_ICON_TYM_SVG = 'assets/icons/icon_tym.svg';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_APP_ICON_PNG.preview}
-  static const String ASSETS_IMAGES_APP_ICON_PNG = 'assets/images/app_icon.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_BG_HOME_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_BG_HOME_GIF =
+      'assets/images/gif/bg_home.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_BG_HOME_GIF.preview}
-  static const String ASSETS_IMAGES_BG_HOME_GIF = 'assets/images/bg_home.gif';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_LOVE_ANMATION_ICON_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_LOVE_ANMATION_ICON_GIF =
+      'assets/images/gif/love_anmation_icon.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_BG_LOGIN_PNG.preview}
-  static const String ASSETS_IMAGES_BG_LOGIN_PNG = 'assets/images/bg_login.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_META_AI_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_META_AI_GIF =
+      'assets/images/gif/meta_ai.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_CHAT_BACKGROUND_PNG.preview}
-  static const String ASSETS_IMAGES_CHAT_BACKGROUND_PNG =
-      'assets/images/chat_background.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_META_AI_DARK_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_META_AI_DARK_GIF =
+      'assets/images/gif/meta_ai_dark.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_CHAT_LOVE_ICON_PNG.preview}
-  static const String ASSETS_IMAGES_CHAT_LOVE_ICON_PNG =
-      'assets/images/chat_love_icon.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_PLACE_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_PLACE_GIF =
+      'assets/images/gif/place.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_DEFAULT_IMAGE_PNG.preview}
-  static const String ASSETS_IMAGES_DEFAULT_IMAGE_PNG =
-      'assets/images/default_image.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_TYPING_DARK_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_TYPING_DARK_GIF =
+      'assets/images/gif/typing-dark.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_DUCK_JPG.preview}
-  static const String ASSETS_IMAGES_DUCK_JPG = 'assets/images/duck.jpg';
+  /// {@macro assets_generator.ASSETS_IMAGES_GIF_TYPING_LIGHT_GIF.preview}
+  static const String ASSETS_IMAGES_GIF_TYPING_LIGHT_GIF =
+      'assets/images/gif/typing_light.gif';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_GEMINI_ICON_PNG.preview}
-  static const String ASSETS_IMAGES_GEMINI_ICON_PNG =
-      'assets/images/gemini_icon.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_APP_ICON_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_APP_ICON_PNG =
+      'assets/images/png/app_icon.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_GEMINI_TEXT_PNG.preview}
-  static const String ASSETS_IMAGES_GEMINI_TEXT_PNG =
-      'assets/images/gemini_text.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_BG_LOGIN_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_BG_LOGIN_PNG =
+      'assets/images/png/bg_login.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_GPT_CHAT_BOT_PNG.preview}
-  static const String ASSETS_IMAGES_GPT_CHAT_BOT_PNG =
-      'assets/images/gpt_chat_bot.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_CHAT_BACKGROUND_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_CHAT_BACKGROUND_PNG =
+      'assets/images/png/chat_background.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_HEART_PNG.preview}
-  static const String ASSETS_IMAGES_HEART_PNG = 'assets/images/heart.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_CHAT_LOVE_ICON_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_CHAT_LOVE_ICON_PNG =
+      'assets/images/png/chat_love_icon.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_LOVE__PNG.preview}
-  static const String ASSETS_IMAGES_LOVE__PNG = 'assets/images/love .png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_DEFAULT_IMAGE_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_DEFAULT_IMAGE_PNG =
+      'assets/images/png/default_image.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_LOVE_ANMATION_ICON_GIF.preview}
-  static const String ASSETS_IMAGES_LOVE_ANMATION_ICON_GIF =
-      'assets/images/love_anmation_icon.gif';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_GEMINI_ICON_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_GEMINI_ICON_PNG =
+      'assets/images/png/gemini_icon.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_LOVE_SUGGEST_ICON_PNG.preview}
-  static const String ASSETS_IMAGES_LOVE_SUGGEST_ICON_PNG =
-      'assets/images/love_suggest_icon.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_GEMINI_ICON_DARK_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_GEMINI_ICON_DARK_PNG =
+      'assets/images/png/gemini_icon_dark.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_META_AI_GIF.preview}
-  static const String ASSETS_IMAGES_META_AI_GIF = 'assets/images/meta_ai.gif';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_GEMINI_TEXT_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_GEMINI_TEXT_PNG =
+      'assets/images/png/gemini_text.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_PLACE_GIF.preview}
-  static const String ASSETS_IMAGES_PLACE_GIF = 'assets/images/place.gif';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_GPT_CHAT_BOT_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_GPT_CHAT_BOT_PNG =
+      'assets/images/png/gpt_chat_bot.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_PLACE_PNG.preview}
-  static const String ASSETS_IMAGES_PLACE_PNG = 'assets/images/place.png';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_HEART_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_HEART_PNG =
+      'assets/images/png/heart.png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_TYPING_DARK_GIF.preview}
-  static const String ASSETS_IMAGES_TYPING_DARK_GIF =
-      'assets/images/typing-dark.gif';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_LOVE__PNG.preview}
+  static const String ASSETS_IMAGES_PNG_LOVE__PNG =
+      'assets/images/png/love .png';
 
-  /// {@macro assets_generator.ASSETS_IMAGES_TYPING_LIGHT_GIF.preview}
-  static const String ASSETS_IMAGES_TYPING_LIGHT_GIF =
-      'assets/images/typing_light.gif';
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_LOVE_SUGGEST_ICON_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_LOVE_SUGGEST_ICON_PNG =
+      'assets/images/png/love_suggest_icon.png';
+
+  /// {@macro assets_generator.ASSETS_IMAGES_PNG_PLACE_PNG.preview}
+  static const String ASSETS_IMAGES_PNG_PLACE_PNG =
+      'assets/images/png/place.png';
 
   static const String ASSETS_KEYS_SERVICE_ACCOUNT_JSON =
       'assets/keys/service_account.json';

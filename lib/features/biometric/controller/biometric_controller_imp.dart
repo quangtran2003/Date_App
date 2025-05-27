@@ -20,6 +20,7 @@ class BiometricController extends BaseGetxController {
   final Rx<Biometric> biometric = Rx(Biometric.fingerprint);
   final RxBool hasBiometric = (AppStorage.getBiometric ?? false).obs;
   final RxBool isHidePass = true.obs;
+  final LocalAuthentication auth = LocalAuthentication();
 
   @override
   void onInit() async {
@@ -30,7 +31,6 @@ class BiometricController extends BaseGetxController {
     super.onInit();
   }
 
-  final LocalAuthentication auth = LocalAuthentication();
 
   Future<void> checkBiometric() async {
     try {

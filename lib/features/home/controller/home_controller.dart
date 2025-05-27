@@ -1,13 +1,9 @@
-import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/chat_bot/controller/chat_bot_controller.dart';
 import 'package:easy_date/features/chat_bot/ui/chat_bot_page.dart';
-import 'package:easy_date/features/home/home_src.dart';
+import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/video_call/model/call_args.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../utils/utils_src.dart';
 
 class HomeController extends BaseGetxController {
   final HomeRepository homeRepository;
@@ -17,6 +13,8 @@ class HomeController extends BaseGetxController {
   final currentPageIndex = 0.obs;
   final pageController = PageController();
   late final currentUser = Rxn<InfoUserMatchModel>();
+  final RxBool isDarkMode = AppColors.isDarkMode.obs;
+  bool isOnline = false;
 
   /// Nếu cần lắng nghe sự thay đổi của user, dùng `userStream` thay vì `currentUser`
   /// vì BehaviorSubject khi lắng nghe sẽ nhận được giá trị cuối cùng của stream
@@ -35,13 +33,16 @@ class HomeController extends BaseGetxController {
     }
     userStream.addStream(homeRepository.getUserStream());
     currentUser.bindStream(userStream);
-    //getUserCurrent();
     ever(
       currentUser,
       (user) async {
-        if (!_hasHandledUserChange && user != null) {
+        if (user == null) return;
+        if (Get.isRegistered<UsersSuggestController>()) {
+          Get.find<UsersSuggestController>().getDataCountBadge();
+        }
+        if (!_hasHandledUserChange) {
           _hasHandledUserChange = true;
-          //userStream.add(user);
+          isOnline = true;
           await Future.wait([
             homeRepository.getFirebaseMessagingToken(user.uid),
             homeRepository.updateUserOnlineStatus(
