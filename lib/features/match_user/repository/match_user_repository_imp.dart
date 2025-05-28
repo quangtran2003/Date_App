@@ -90,4 +90,15 @@ class MatchUserRepositoryImp extends MatchUserRepository {
       'users.$uidMatch': user.toJson(),
     });
   }
+
+  @override
+  Future<void> deleteUser(String uidAcc, String uidMatch) async {
+    await checkNetwork();
+    final documentReference =
+        firestore.collection(FirebaseCollection.users).doc(uidAcc);
+
+    await documentReference.update({
+      'users.$uidMatch': FieldValue.delete(),
+    });
+  }
 }

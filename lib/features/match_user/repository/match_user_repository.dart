@@ -13,4 +13,6 @@ abstract class MatchUserRepository extends BaseFirebaseRepository {
   // Future<List<InfoUserMatchModel>> fetchNextPage(InfoUserMatchModel userLogin);
 
   Future<void> matchUser(String uidAcc, User user, String uidMatch);
+  
+  Future<void> deleteUser(String uidAcc, String uidMatch);
 }
