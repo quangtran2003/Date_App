@@ -136,12 +136,13 @@ Widget _buildListChoiceChips(UsersSuggestController controller) {
       spacing: AppDimens.paddingVerySmall,
       children: [
         _buildChoiceChip(
-            text: LocaleKeys.home_likedYou.tr,
-            onTap: () => Get.toNamed(
-                  AppRouteEnum.user_list.path,
-                  arguments: MatchEnum.waiting,
-                ),
-            noti: controller.countWaiting),
+          text: LocaleKeys.home_likedYou.tr,
+          onTap: () => Get.toNamed(
+            AppRouteEnum.user_list.path,
+            arguments: MatchEnum.waiting,
+          ),
+          noti: controller.countWaiting,
+        ),
         _buildChoiceChip(
           text: LocaleKeys.user_waitingList.tr,
           onTap: () => Get.toNamed(
@@ -174,6 +175,7 @@ Widget _buildChoiceChip({
       child: Obx(
         () => Badge.count(
           textColor: AppColors.white,
+          backgroundColor: AppColors.colorRed,
           isLabelVisible: noti > 0,
           count: noti.value,
           child: Container(

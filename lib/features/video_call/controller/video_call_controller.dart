@@ -23,7 +23,9 @@ class VideoCallController extends BaseGetxController {
       videoCallRepository.getCallStream(args!.callID!),
     );
     ever(callInfo, (CallInfo? info) {
-      if (info != null && info.status == StatusCallEnum.rejected.value) {
+      if (info != null &&
+          info.status == StatusCallEnum.rejected.value &&
+          info.callerId == videoCallRepository.firebaseAuth.currentUser?.uid) {
         Get.back();
         showSnackBar(
           LocaleKeys.call_callDecline.tr,

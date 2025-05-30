@@ -20,7 +20,6 @@ class HomeController extends BaseGetxController {
   /// vì BehaviorSubject khi lắng nghe sẽ nhận được giá trị cuối cùng của stream
   late final userStream = BehaviorSubject<InfoUserMatchModel?>.seeded(null);
 
-  bool _hasHandledUserChange = false;
   DateTime? _currentBackPressTime;
   final RxBool canPop = false.obs;
 
@@ -40,17 +39,18 @@ class HomeController extends BaseGetxController {
         if (Get.isRegistered<UsersSuggestController>()) {
           Get.find<UsersSuggestController>().getDataCountBadge();
         }
-        if (!_hasHandledUserChange) {
-          _hasHandledUserChange = true;
-          isOnline = true;
-          await Future.wait([
+        // if (!_hasHandledUserChange) {
+        //_hasHandledUserChange = true;
+        isOnline = true;
+        await Future.wait([
             homeRepository.getFirebaseMessagingToken(user.uid),
+          if (!user.isOnline.value)
             homeRepository.updateUserOnlineStatus(
               isOnline: true,
               uid: user.uid,
             ),
-          ]);
-        }
+        ]);
+        // }
       },
     );
   }
