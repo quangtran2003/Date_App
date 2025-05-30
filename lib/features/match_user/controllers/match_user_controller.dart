@@ -32,7 +32,7 @@ class MatchUserController extends BaseGetxController {
 
   late InfoUserMatchModel userMatchView;
 
-  HomeController homeController = Get.find();
+  HomeController homeController = Get.find<HomeController>();
 
   final heartOverlayController = HeartOverlayController();
 
@@ -181,7 +181,7 @@ class MatchUserController extends BaseGetxController {
         uid: infoUserMatch.uid,
         token: userModel.token,
         lastOnline: userModel.lastOnline,
-      );
+      )..isOnline.value = userModel.isOnline.value;
 
       // Người B nhận yêu cầu từ tài khoản này
       User userMatch = User(
@@ -193,7 +193,7 @@ class MatchUserController extends BaseGetxController {
         uid: userModel.uid,
         token: userModel.token,
         lastOnline: userModel.lastOnline,
-      );
+      )..isOnline.value = userModel.isOnline.value;
 
       try {
         await Future.wait([
@@ -210,8 +210,7 @@ class MatchUserController extends BaseGetxController {
             userMatch,
             userModel.uid,
           ),
-
-          pushNotif(infoUserMatch),
+          if (infoUserMatch.token != userModel.token) pushNotif(infoUserMatch)
         ]);
       } catch (e, s) {
         handleException(e, stackTrace: s);
@@ -255,7 +254,7 @@ class MatchUserController extends BaseGetxController {
       imgAvtSender: currentUser?.imgAvt,
       idSender: currentUser?.uid,
       notifTitle: currentUser?.name ?? LocaleKeys.notification_easyDateUser.tr,
-      notifBody: 'Đã thích bạn, hãy nhanh vào ghép đôi thôi',
+      notifBody: LocaleKeys.notification_likedYou.tr,
     );
     return PushNotificationMessage(
       data: data,

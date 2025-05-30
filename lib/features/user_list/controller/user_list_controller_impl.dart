@@ -31,8 +31,8 @@ class UserListControllerImpl extends UserListController {
     return List.from(
       chats.where((chat) {
         final users = chat.users ?? [];
-        return users.any((userId) =>
-           userList.containsKey(userId),
+        return users.any(
+          (userId) => userList.containsKey(userId),
         );
       }),
     );
@@ -43,22 +43,41 @@ class UserListControllerImpl extends UserListController {
     try {
       final currentUser = homeController.currentUser.value;
       if (currentUser == null) return;
-      await repository.acceptUserRequest(user);
-      await repository.firestore
-          .collection(FirebaseCollection.users)
-          .doc(user.key)
-          .update({
-        "users.${currentUser.uid}": User(
-          uid: currentUser.uid,
-          name: currentUser.name,
-          imgAvt: currentUser.imgAvt,
-          createTime: currentUser.createTime,
-          updateTime: currentUser.updateTime,
-          status: MatchEnum.accept.value,
-          token: currentUser.token,
-          lastOnline: currentUser.lastOnline,
-        ).toJson(),
-      });
+      final userTemp = User(
+        uid: currentUser.uid,
+        name: currentUser.name,
+        imgAvt: currentUser.imgAvt,
+        createTime: currentUser.createTime,
+        updateTime: currentUser.updateTime,
+        status: MatchEnum.accept.value,
+        token: currentUser.token,
+        lastOnline: currentUser.lastOnline,
+      )..isOnline.value = currentUser.isOnline.value;
+      Future.wait([
+        repository.acceptUserRequest(user),
+        repository.firestore
+            .collection(FirebaseCollection.users)
+            .doc(user.key)
+            .update({"users.${currentUser.uid}": userTemp.toJson()}),
+      ]);
+      // await repository.acceptUserRequest(user);
+      // await repository.firestore
+      //     .collection(FirebaseCollection.users)
+      //     .doc(user.key)
+      //     .update({
+      //   "users.${currentUser.uid}": User(
+      //     uid: currentUser.uid,
+      //     name: currentUser.name,
+      //     imgAvt: currentUser.imgAvt,
+      //     createTime: currentUser.createTime,
+      //     updateTime: currentUser.updateTime,
+      //     status: MatchEnum.accept.value,
+      //     token: currentUser.token,
+      //     lastOnline: currentUser.lastOnline,
+      //   )
+      //     ..isOnline.value = currentUser.isOnline.value
+      //     ..toJson(),
+      // });
       final params = {'username': user.value.name};
       showSnackBar(LocaleKeys.user_acceptUser.trParams(params).tr);
     } catch (e) {
