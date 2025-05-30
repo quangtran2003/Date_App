@@ -163,7 +163,8 @@
       "notification": {
         "tapToJoinVideoCall": "Tap to join video call",
         "videoCallFrom": "The video call from ",
-        "easyDateUser": "Easy Date User"
+        "easyDateUser": "Easy Date User",
+        "likedYou":"Like you, let's quickly pair up"
       },
       "call": {
         "callDecline": "Receiver deline the call",

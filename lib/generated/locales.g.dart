@@ -164,6 +164,7 @@ class LocaleKeys {
       'notification_tapToJoinVideoCall';
   static const notification_videoCallFrom = 'notification_videoCallFrom';
   static const notification_easyDateUser = 'notification_easyDateUser';
+  static const notification_likedYou = 'notification_likedYou';
   static const call_callDecline = 'call_callDecline';
   static const call_callCancel = 'call_callCancel';
   static const call_callIdNull = 'call_callIdNull';
@@ -324,6 +325,7 @@ class Locales {
     'notification_tapToJoinVideoCall': 'Tap to join video call',
     'notification_videoCallFrom': 'The video call from ',
     'notification_easyDateUser': 'Easy Date User',
+    'notification_likedYou': 'Like you, let\'s quickly pair up',
     'call_callDecline': 'Receiver deline the call',
     'call_callCancel': 'The recipient did not pick up the phone',
     'call_callIdNull': 'Call id null, please try again later!',
@@ -485,6 +487,7 @@ class Locales {
     'notification_tapToJoinVideoCall': 'Nhấn để tham gia cuộc gọi',
     'notification_videoCallFrom': 'Cuộc gọi đến từ ',
     'notification_easyDateUser': 'Người dùng easy date',
+    'notification_likedYou': 'Đã thích bạn, hãy nhanh vào ghép đôi thôi',
     'call_callDecline': 'Người nhận từ chối cuộc gọi',
     'call_callCancel': 'Người nhận không nhấc máy',
     'call_callIdNull': 'Id của cuộc gọi null, vui lòng thử lại sau!',

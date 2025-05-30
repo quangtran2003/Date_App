@@ -162,7 +162,8 @@
     "notification": {
         "tapToJoinVideoCall": "Nhấn để tham gia cuộc gọi",
         "videoCallFrom": "Cuộc gọi đến từ ",
-        "easyDateUser": "Người dùng easy date"
+        "easyDateUser": "Người dùng easy date",
+        "likedYou":"Đã thích bạn, hãy nhanh vào ghép đôi thôi"
     },
     "call": {
         "callDecline": "Người nhận từ chối cuộc gọi",
