@@ -206,6 +206,7 @@ AppBar _buildAppBar() {
     title: UtilWidget.buildText(
       LocaleKeys.app_appName.tr,
       style: AppTextStyle.font36Bo,
+      textColor: AppColors.primaryLight2,
     ),
   );
 }
