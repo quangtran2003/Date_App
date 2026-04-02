@@ -177,7 +177,7 @@ class LocaleKeys {
 
 class Locales {
   static const en_US = {
-    'app_appName': 'Easy Date',
+    'app_appName': 'Crushly!',
     'app_anErrorOccurred': 'An error occurred',
     'app_noInternet': 'Internet is not available',
     'app_loading': 'Loading...',
@@ -323,7 +323,7 @@ class Locales {
     'matchUser_gender': 'Gender: ',
   };
   static const vi_VN = {
-    'app_appName': 'Crushly',
+    'app_appName': 'Crushly!',
     'app_anErrorOccurred': 'Có lỗi xảy ra',
     'app_noInternet': 'Internet không khả dụng',
     'app_loading': 'Đang tải...',

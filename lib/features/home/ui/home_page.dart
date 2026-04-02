@@ -19,25 +19,12 @@ class HomePage extends BaseGetWidget<HomeController> {
             controller.canPop.value = false;
           }
         },
-        child: SDSSafeArea(
-          child: Scaffold(
-            body: _buildBody(),
-            bottomNavigationBar: _buildBottomNavigationBar(),
-            floatingActionButton: _buildFloatingAction(),
-          ),
-// =======
-//         // onPopInvoked: (didPop) async {
-//         //   if (didPop) return;
-//         //   final shouldPop = await controller.onWillPop();
-//         //   if (!shouldPop) {
-//         //     controller.canPop.value = false;
-//         //   }
-//         // },
-//         child: Scaffold(
-//           body: _buildBody(),
-//           bottomNavigationBar: _buildBottomNavigationBar(),
-//           floatingActionButton: _buildFloatingAction(),
-// >>>>>>> Stashed changes
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          body: _buildBody(),
+          bottomNavigationBar: _buildBottomNavigationBar(),
+          floatingActionButton: _buildFloatingAction(),
         ),
       ),
     );

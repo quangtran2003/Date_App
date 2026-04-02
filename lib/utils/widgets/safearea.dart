@@ -4,8 +4,8 @@ class SDSSafeArea extends StatelessWidget {
   const SDSSafeArea({
     super.key,
     required this.child,
-    this.top = true,
-    this.bottom = true,
+    this.top = false,
+    this.bottom = false,
     this.left = false,
     this.right = false,
   });
