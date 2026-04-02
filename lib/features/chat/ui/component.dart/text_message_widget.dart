@@ -9,10 +9,10 @@ import '../../../../utils/utils_src.dart';
 
 class TextMessageWidget extends StatelessWidget {
   const TextMessageWidget({
-    Key? key,
+    super.key,
     required this.message,
     this.showDate = false,
-  }) : super(key: key);
+  });
 
   final ChatMessage message;
   final bool showDate;

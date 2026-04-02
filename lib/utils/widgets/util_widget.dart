@@ -758,29 +758,26 @@ class UtilWidget {
     required bool isSelected,
     void Function(bool)? onChanged,
   }) {
-    return ChoiceChip(
-      label: buildText(
-        title,
-        style: AppTextStyle.font14Semi.copyWith(
-          color: isSelected ? AppColors.primaryLight2 : AppColors.grayLight3,
-        ),
-      ),
-      selected: isSelected,
-      onSelected: onChanged,
-      padding: const EdgeInsets.symmetric(
-        vertical: AppDimens.paddingVerySmall,
-        horizontal: AppDimens.paddingSmall,
-      ),
-      selectedColor: AppColors.primaryLight7,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
           color: isSelected ? AppColors.primaryLight2 : AppColors.grayLight7,
-          width: 1,
         ),
-        borderRadius: BorderRadius.circular(AppDimens.radius16),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppDimens.radius16),
+        ),
       ),
-      showCheckmark: false,
+      child: Center(
+        child: buildText(
+          title,
+          style: AppTextStyle.font14Semi.copyWith(
+            color: isSelected ? AppColors.primaryLight2 : AppColors.grayLight3,
+          ),
+        ),
+      ).paddingSymmetric(
+        horizontal: AppDimens.paddingSmall,
+        vertical: AppDimens.paddingVerySmall,
+      ),
     );
   }
 

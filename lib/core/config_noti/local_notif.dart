@@ -198,7 +198,11 @@ class LocalNotif {
     );
   }
 
-  static cancelNotif() async {
+  static Future<void> cancelNotif() async {
     await notifPlugin.cancelAll();
+// =======
+//   static Future<void> cancelNotif() async {
+//     await _notifPlugin.cancelAll();
+// >>>>>>> Stashed changes
   }
 }

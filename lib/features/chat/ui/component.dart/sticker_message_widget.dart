@@ -6,10 +6,10 @@ import '../../chat_src.dart';
 
 class StickerMessageWidget extends StatelessWidget {
   const StickerMessageWidget({
-    Key? key,
+    super.key,
     required this.message,
     required this.showDate,
-  }) : super(key: key);
+  });
 
   final ChatMessage message;
   final bool showDate;

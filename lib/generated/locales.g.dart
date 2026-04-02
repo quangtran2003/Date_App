@@ -109,7 +109,6 @@ class LocaleKeys {
   static const chat_dayAgo = 'chat_dayAgo';
   static const chat_monthAgo = 'chat_monthAgo';
   static const chat_yearAgo = 'chat_yearAgo';
-  static const chat_sendedASticker = 'chat_sendedASticker';
   static const sticker_stickerPageTitle = 'sticker_stickerPageTitle';
   static const sticker_invalidAlumUrl = 'sticker_invalidAlumUrl';
   static const sticker_loadAlumSuccess = 'sticker_loadAlumSuccess';
@@ -160,6 +159,7 @@ class LocaleKeys {
   static const matchUser_dataIsEmpty = 'matchUser_dataIsEmpty';
   static const matchUser_address = 'matchUser_address';
   static const matchUser_gender = 'matchUser_gender';
+  static const chat_sendedASticker = 'chat_sendedASticker';
   static const notification_tapToJoinVideoCall =
       'notification_tapToJoinVideoCall';
   static const notification_videoCallFrom = 'notification_videoCallFrom';
@@ -243,7 +243,7 @@ class Locales {
     'user_chatNew': 'New Chat',
     'user_acceptList': 'Matched',
     'user_blockList': 'Blocked',
-    'user_waitingList': 'Waiting',
+    'user_waitingList': 'Waiting for match',
     'user_chatSender': 'You: @content',
     'user_chatSticker': 'Sent a sticker',
     'user_acceptUser': 'You successfully matched with @username <3',
@@ -275,7 +275,6 @@ class Locales {
     'chat_dayAgo': 'days ago',
     'chat_monthAgo': 'months ago',
     'chat_yearAgo': 'years ago',
-    'chat_sendedASticker': 'Sended a sticker',
     'sticker_stickerPageTitle': 'Stickers',
     'sticker_invalidAlumUrl': 'Invalid album URL',
     'sticker_loadAlumSuccess': 'Sticker album loaded successfully',
@@ -322,21 +321,9 @@ class Locales {
     'matchUser_dataIsEmpty': 'No more data',
     'matchUser_address': 'Address: ',
     'matchUser_gender': 'Gender: ',
-    'notification_tapToJoinVideoCall': 'Tap to join video call',
-    'notification_videoCallFrom': 'The video call from ',
-    'notification_easyDateUser': 'Easy Date User',
-    'notification_likedYou': 'Like you, let\'s quickly pair up',
-    'call_callDecline': 'Receiver deline the call',
-    'call_callCancel': 'The recipient did not pick up the phone',
-    'call_callIdNull': 'Call id null, please try again later!',
-    'call_called': '@user has made a call ',
-    'call_audio': 'audio',
-    'call_video': 'video',
-    'call_callAgain': 'Call again',
-    'call_you': 'You',
   };
   static const vi_VN = {
-    'app_appName': 'Easy Date',
+    'app_appName': 'Crushly',
     'app_anErrorOccurred': 'Có lỗi xảy ra',
     'app_noInternet': 'Internet không khả dụng',
     'app_loading': 'Đang tải...',

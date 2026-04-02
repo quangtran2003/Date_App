@@ -25,6 +25,19 @@ class HomePage extends BaseGetWidget<HomeController> {
             bottomNavigationBar: _buildBottomNavigationBar(),
             floatingActionButton: _buildFloatingAction(),
           ),
+// =======
+//         // onPopInvoked: (didPop) async {
+//         //   if (didPop) return;
+//         //   final shouldPop = await controller.onWillPop();
+//         //   if (!shouldPop) {
+//         //     controller.canPop.value = false;
+//         //   }
+//         // },
+//         child: Scaffold(
+//           body: _buildBody(),
+//           bottomNavigationBar: _buildBottomNavigationBar(),
+//           floatingActionButton: _buildFloatingAction(),
+// >>>>>>> Stashed changes
         ),
       ),
     );
@@ -73,11 +86,19 @@ class HomePage extends BaseGetWidget<HomeController> {
 
   Widget _buildBottomNavigationBar() {
     return Container(
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(AppDimens.radius30),
           topRight: Radius.circular(AppDimens.radius30),
         ),
+
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.grayLight1.withValues(alpha: 0.05),
+            blurRadius: 4,
+            offset: Offset(0, -3),
+          ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(

@@ -83,7 +83,7 @@ Widget _buildInfoCard(UsersSuggestController controller) {
   );
 }
 
-_buildImage(UsersSuggestController controller) {
+Widget _buildImage(UsersSuggestController controller) {
   return Expanded(
     child: SizedBox(
       width: double.infinity,
@@ -116,8 +116,9 @@ Widget _buildShimmerCard() {
     highlightColor: Colors.grey.withValues(alpha: 0.5),
     child: Container(
       decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.4),
-          borderRadius: BorderRadius.circular(AppDimens.radius20)),
+        color: Colors.white.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(AppDimens.radius20),
+      ),
       child: Center(
         child: SizedBox(
           height: AppDimens.btnLarge,

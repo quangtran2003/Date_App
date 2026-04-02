@@ -5,9 +5,9 @@ import '../../../../utils/widgets/utils_widgets.src.dart';
 
 class MessageDateWidget extends StatelessWidget {
   const MessageDateWidget({
-    Key? key,
+    super.key,
     required this.date,
-  }) : super(key: key);
+  });
 
   final String date;
 

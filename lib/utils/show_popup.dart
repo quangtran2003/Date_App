@@ -12,6 +12,7 @@ class ShowPopup {
     _numDialog++;
     await Get.dialog(
       NavigatorPopHandler(
+        onPopWithResult: (result) => onBackPress(isActiveBack),
         child: dialog,
       ),
       barrierDismissible: barrierDismissible,

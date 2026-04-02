@@ -7,6 +7,8 @@
 /// {@template assets_generator.ASSETS_ICONS_APP_ICON2_SVG.preview}
 /// ![](e:\gitrepos\date_app\assets/icons/app_icon2.svg)
 /// {@endtemplate}
+library;
+
 
 /// {@template assets_generator.ASSETS_ICONS_IC_ADD_USER_SELECTED_SVG.preview}
 /// ![](e:\gitrepos\date_app\assets/icons/ic_add_user_selected.svg)

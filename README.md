@@ -1,4 +1,5 @@
-# easy_date
+
+# Crushly ❤️
 
 ## Config firebase
 - https://codewithandrea.com/articles/flutter-flavors-for-firebase-apps/#setting-up-multiple-firebase-environments
@@ -8,8 +9,7 @@
 fvm flutter build apk --flavor dev --target lib/main_dev.dart
 ```
 
-# RULES:
-- Check network trước khi call API
-- Try-Catch lỗi trong controller khi call API (xem feat login), nếu muốn tự handle lỗi cụ thể thì có thể try on catch
+
+Crushly là ứng dụng mobile dành cho việc kết nối và hẹn hò. Dự án được xây dựng bằng Flutter, hỗ trợ cả Android và iOS.
 
 # Vào trang: https://temp-mail.org/vi/ để tạo email tạm

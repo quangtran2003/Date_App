@@ -47,19 +47,19 @@ class FCM extends BaseFirebaseRepository {
     _listenOpenNotif();
   }
 
-  static _foregroundHandler() {
+  static void _foregroundHandler() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('foreground!');
       _showCustomNotif(message);
     });
   }
 
-  static _backgroundHandler() {
+  static void _backgroundHandler() {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   // for terminate state
-  static initialMessage() async {
+  static Future<void> initialMessage() async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
@@ -67,7 +67,7 @@ class FCM extends BaseFirebaseRepository {
     }
   }
 
-  static _listenOpenNotif() {
+  static void _listenOpenNotif() {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 

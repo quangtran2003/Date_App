@@ -2,6 +2,7 @@ import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/video_call/model/call_args.dart';
 import 'package:easy_date/features/video_call/model/call_info.dart';
 import 'package:easy_date/features/video_call/repository/video_call_repository.dart';
+import 'package:easy_date/utils/pip_service.dart';
 
 class VideoCallController extends BaseGetxController {
   final VideoCallRepository videoCallRepository;
@@ -17,6 +18,7 @@ class VideoCallController extends BaseGetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    PipService.setEnabled(true);
     if (args?.callID == null) return;
     args?.statusCall == StatusCallEnum.init ? initCall() : acceptCall();
     callInfo.bindStream(
@@ -74,6 +76,7 @@ class VideoCallController extends BaseGetxController {
   }
 
   Future<void> handleCallEnd() async {
+    PipService.setEnabled(false);
     try {
       // Xóa dữ liệu cuộc gọi
       await videoCallRepository.firestore

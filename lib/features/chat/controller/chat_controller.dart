@@ -76,6 +76,7 @@ class ChatController extends BaseRefreshGetxController {
         canShowHeartOverlay = false;
         heartFly();
         if (await Vibration.hasVibrator()) {
+
           Vibration.vibrate(duration: 20);
         }
         await Future.delayed(heartAnimationDuration);
@@ -274,6 +275,26 @@ class ChatController extends BaseRefreshGetxController {
       token: receiverToken,
     );
   }
+
+  //   PushNotificationModel getNotifModel(
+  //   bool isSticker,
+  //   String message,
+  //   String receiverToken,
+  // ) {
+  //   return PushNotificationModel(
+  //     data: Data(
+  //       pageName: AppRouteEnum.chat.path,
+  //       uidUser: receiverUser.uid,
+  //       nameUser: receiverUser.name,
+  //       imgUser: receiverUser.avatar,
+  //     ),
+  //     notification: NotificationContent(
+  //       title: currentUser.value?.name ?? 'Người dùng Crushly',
+  //       body: isSticker ? 'Đã gửi một nhãn dán!' : message,
+  //     ),
+  //     token: receiverToken,
+  //   );
+  // }
 
   Future<void> blockUser() async {
     if (currentUser.value == null) {

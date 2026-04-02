@@ -9,18 +9,18 @@ extension ChatWidget on ChatPage {
       scrolledUnderElevation: 0,
       title: _buildAvtAndname(receiver),
       actions: [
-        IconButton(
-          onPressed: () => controller.gotoVideoCallPage(
-            MessageTypeEnum.audioCall,
-          ),
-          icon: const Icon(Icons.call),
-        ),
-        IconButton(
-          onPressed: () => controller.gotoVideoCallPage(
-            MessageTypeEnum.videoCall,
-          ),
-          icon: const Icon(Icons.videocam),
-        ),
+        // IconButton(
+        //   onPressed: () => controller.gotoVideoCallPage(
+        //     MessageTypeEnum.audioCall,
+        //   ),
+        //   icon: const Icon(Icons.call),
+        // ),
+        // IconButton(
+        //   onPressed: () => controller.gotoVideoCallPage(
+        //     MessageTypeEnum.videoCall,
+        //   ),
+        //   icon: const Icon(Icons.videocam),
+        // ),
         IconButton(
           onPressed: () {
             Get.bottomSheet(

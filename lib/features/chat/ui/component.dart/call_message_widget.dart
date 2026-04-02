@@ -2,12 +2,12 @@ import 'package:easy_date/features/feature_src.dart';
 
 class CallMessageWidget extends StatelessWidget {
   const CallMessageWidget({
-    Key? key,
+    super.key,
     required this.message,
     required this.showDate,
     required this.receiverName,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final ChatMessage message;
   final bool showDate;

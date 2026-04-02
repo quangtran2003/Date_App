@@ -63,13 +63,13 @@ class ProfileDetailController extends BaseGetxController {
     gender.value = value!;
   }
 
-  void onChangeSexualFemale(value) {
-    isSexualFemale.value = value;
+  void onChangeSexualFemale(bool? value) {
+    isSexualFemale.value = value ?? false;
     updateSexualRequired();
   }
 
-  void onChangeSexualMale(value) {
-    isSexualMale.value = value;
+  void onChangeSexualMale(bool? value) {
+    isSexualMale.value = value ?? false;
     updateSexualRequired();
   }
 
