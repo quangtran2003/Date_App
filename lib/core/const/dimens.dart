@@ -18,7 +18,7 @@ class AppDimens {
   static const double sizeImage = 50;
   static const double sizeImageMedium = 70;
   static const double sizeImageBig = 90;
-  static const double sizeImageLarge = 200;
+  static const double sizeImageLarge = 160;
   static const double sizeImageMax = 300;
 
   static const bottomAppBarHeight = 60.0;

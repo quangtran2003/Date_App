@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/core/base/base_repository/base_repository.dart';
 import 'package:easy_date/core/const/firebase_collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -12,6 +13,7 @@ abstract class BaseFirebaseRepository extends BaseRepository {
   late final firestore = FirebaseFirestore.instance;
   late final storage = FirebaseStorage.instance;
   late final firebaseMessage = FirebaseMessaging.instance;
+  late final firebaseDatabase = FirebaseDatabase.instance;
 
   @override
   Future<void> checkNetwork() async {
@@ -22,11 +24,13 @@ abstract class BaseFirebaseRepository extends BaseRepository {
     required bool isOnline,
     required String uid,
   }) async {
-    logger.d(FieldValue.serverTimestamp());
-    firestore.collection(FirebaseCollection.users).doc(uid).update({
-      'isOnline': isOnline,
-      'lastOnline': FieldValue.serverTimestamp(),
-    });
+    firestore.collection(FirebaseCollection.users).doc(uid).update(
+      {
+        'isOnline': isOnline,
+        'lastOnline': FieldValue.serverTimestamp(),
+      },
+//      SetOptions(merge: true),
+    );
     final querySnapshot =
         await firestore.collection(FirebaseCollection.users).get();
 
@@ -35,10 +39,12 @@ abstract class BaseFirebaseRepository extends BaseRepository {
 
       // Kiểm tra nếu trong map 'users' có key là uid đang đăng nhập
       if (data.containsKey('users') && data['users'][uid] != null) {
-        await firestore.collection('users').doc(doc.id).update({
-          'users.$uid.isOnline': isOnline,
-          'users.$uid.lastOnline': FieldValue.serverTimestamp(),
-        });
+        await firestore.collection('users').doc(doc.id).update(
+          {
+            'users.$uid.isOnline': isOnline,
+            'users.$uid.lastOnline': FieldValue.serverTimestamp(),
+          },
+        );
       }
     }
   }

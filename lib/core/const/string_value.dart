@@ -1,5 +1,5 @@
 class AppStr {
-  static const String appName = 'Easy Date';
+  static const String appName = 'Crushly';
   static const String close = "Đóng";
   static const String rateUs = 'Đánh giá ứng dụng';
   static const String shareApp = 'Chia sẻ ứng dụng';
@@ -11,7 +11,7 @@ class AppStr {
   static const String notification = "Thông báo";
   static const String cancel = "Huỷ";
   static const String messageUseNoInternet =
-      "Bạn đang không kết nối đến hệ thống Easy Date";
+      "Bạn đang không kết nối đến hệ thống Crushly";
   static const String errorNoticeValidateNum = "Không được để trống";
   static const String inputEmpty = ' không được bỏ trống!';
   static String inputValidateLength({int length = 10}) =>

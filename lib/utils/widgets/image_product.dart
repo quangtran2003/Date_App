@@ -34,7 +34,7 @@ class SDSImageProduct extends StatelessWidget {
           padding:
               paddingImage ?? const EdgeInsets.all(AppDimens.paddingSmall),
           child: const SDSImageSvg(
-         Assets.ASSETS_IMAGES_DEFAULT_IMAGE_PNG,
+         Assets.ASSETS_IMAGES_PNG_DEFAULT_IMAGE_PNG,
           ),
         ),
         fit: fit ?? BoxFit.cover,

@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/utils/widgets/logo_loading.dart';
@@ -12,10 +13,10 @@ class UsersSuggestPage extends GetView<UsersSuggestController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: SafeArea(
-        child: Column(
+    return SDSSafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildListChoiceChips(controller),

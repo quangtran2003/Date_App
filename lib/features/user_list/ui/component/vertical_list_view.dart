@@ -1,0 +1,155 @@
+part of 'component_src.dart';
+
+class VerticalListView extends BaseGetWidget<UserListController> {
+  final String? tagKey;
+
+  const VerticalListView({super.key, this.tagKey});
+
+  @override
+  String? get tag => tagKey;
+
+  @override
+  Widget buildWidgets(BuildContext context) {
+    return baseShowLoading(() {
+      if (controller.isAcceptList) {
+        return Obx(_buildChatList);
+      }
+      return Obx(_buildUserList);
+    });
+  }
+
+  Widget _buildChatList() {
+    if (controller.chatList.isEmpty) {
+      return const BaseListEmpty();
+    }
+    return ListView.builder(
+      itemBuilder: _buildChatItem,
+      itemCount: controller.chatList.length,
+    );
+  }
+
+  Widget _buildUserList() {
+    if (controller.userList.isEmpty) {
+      return const BaseListEmpty();
+    }
+    return ListView.builder(
+      itemBuilder: _buildUserItem,
+      itemCount: controller.userList.length,
+    );
+  }
+
+  Widget _buildUserName(String? name) {
+    return UtilWidget.buildText(
+      name ?? '',
+      fontSize: AppDimens.fontSmall(),
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  Widget _buildUserItem(BuildContext context, int index) {
+    final user = controller.userList.entries.elementAt(index);
+    return ListTile(
+      title: _buildUserName(user.value.name),
+      leading: buildUserAvatar(user.value.imgAvt, user.value.isOnline),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton.filledTonal(
+            onPressed: () => controller.removeUserRequest(user),
+            icon: const Icon(Icons.close),
+          ),
+          Visibility(
+            visible: controller.isWaitingList,
+            child: IconButton.filledTonal(
+              onPressed: () => controller.acceptUserRequest(user),
+              icon: const Icon(Icons.check),
+            ),
+          ),
+        ],
+      ),
+      onTap: controller.isBlockList
+          ? null
+          : () {
+              Get.toNamed(
+                AppRouteEnum.profile_match.path,
+                arguments: user.value.uid,
+              );
+            },
+    );
+  }
+
+  Widget _buildChatItem(BuildContext context, int index) {
+    final chat = controller.chatList[index];
+    final lastMessage = chat.lastMessage;
+    final lastTime = lastMessage?.createDate;
+    var lastContent = lastMessage?.content ?? '';
+    final user1 = controller.homeController.currentUser.value;
+    final userId1 = user1?.uid;
+    chat.users?.remove(userId1);
+    final userId2 = chat.users?.last;
+    final user2 = controller.userList[userId2];
+
+    String getLastTime() {
+      if (lastTime == null) return '';
+      final now = DateTime.now();
+      final isToday = now.year == lastTime.year &&
+          now.month == lastTime.month &&
+          now.day == lastTime.day;
+      return convertDateToString(lastTime, isToday ? PATTERN_11 : PATTERN_2);
+    }
+
+    String getLastMessage() {
+      switch (lastMessage?.type) {
+        case MessageTypeEnum.audioCall:
+          return '${LocaleKeys.call_called.trParams({
+                'user': lastMessage?.isMe == true
+                    ? LocaleKeys.call_you.tr
+                    : user2?.name ?? '',
+              }).tr}${LocaleKeys.call_audio.tr}';
+        case MessageTypeEnum.videoCall:
+          return '${LocaleKeys.call_called.trParams({
+                'user': lastMessage?.isMe == true
+                    ? LocaleKeys.call_you.tr
+                    : user2?.name ?? ''
+              }).tr}${LocaleKeys.call_video.tr}';
+        case MessageTypeEnum.sticker:
+          return LocaleKeys.user_chatSender
+              .trParams({'content': LocaleKeys.user_chatSticker.tr});
+        case MessageTypeEnum.text:
+          return lastContent;
+        default:
+          return lastContent;
+      }
+    }
+
+    if (user2 == null || userId2 == null) {
+      return const SizedBox.shrink();
+    }
+
+    return ListTile(
+      leading: buildUserAvatar(user2.imgAvt, user2.isOnline),
+      title: _buildUserName(user2.name),
+      subtitle: Row(
+        children: [
+          Flexible(
+            child: UtilWidget.buildText(getLastMessage()),
+          ),
+          const Icon(
+            Icons.circle,
+            size: AppDimens.padding2,
+          ).paddingSymmetric(horizontal: AppDimens.padding6),
+          UtilWidget.buildText(getLastTime()),
+        ],
+      ),
+      onTap: () => Get.toNamed(
+        AppRouteEnum.chat.path,
+        arguments: UserChatArgument(
+          idReceiver: userId2,
+          nameReceiver: user2.name,
+          imgAvtReceiver: user2.imgAvt,
+          lastOnline: user2.lastOnline,
+        )..isOnline.value = user2.isOnline.value,
+      ),
+    );
+  }
+}

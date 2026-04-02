@@ -159,11 +159,25 @@ class LocaleKeys {
   static const matchUser_dataIsEmpty = 'matchUser_dataIsEmpty';
   static const matchUser_address = 'matchUser_address';
   static const matchUser_gender = 'matchUser_gender';
+  static const chat_sendedASticker = 'chat_sendedASticker';
+  static const notification_tapToJoinVideoCall =
+      'notification_tapToJoinVideoCall';
+  static const notification_videoCallFrom = 'notification_videoCallFrom';
+  static const notification_easyDateUser = 'notification_easyDateUser';
+  static const notification_likedYou = 'notification_likedYou';
+  static const call_callDecline = 'call_callDecline';
+  static const call_callCancel = 'call_callCancel';
+  static const call_callIdNull = 'call_callIdNull';
+  static const call_called = 'call_called';
+  static const call_audio = 'call_audio';
+  static const call_video = 'call_video';
+  static const call_callAgain = 'call_callAgain';
+  static const call_you = 'call_you';
 }
 
 class Locales {
   static const en_US = {
-    'app_appName': 'Easy Date',
+    'app_appName': 'Crushly!',
     'app_anErrorOccurred': 'An error occurred',
     'app_noInternet': 'Internet is not available',
     'app_loading': 'Loading...',
@@ -309,7 +323,7 @@ class Locales {
     'matchUser_gender': 'Gender: ',
   };
   static const vi_VN = {
-    'app_appName': 'Easy Date',
+    'app_appName': 'Crushly!',
     'app_anErrorOccurred': 'Có lỗi xảy ra',
     'app_noInternet': 'Internet không khả dụng',
     'app_loading': 'Đang tải...',
@@ -409,6 +423,7 @@ class Locales {
     'chat_dayAgo': 'ngày trước',
     'chat_monthAgo': 'tháng trước',
     'chat_yearAgo': 'năm trước',
+    'chat_sendedASticker': 'Đã gửi một nhãn dán',
     'sticker_stickerPageTitle': 'Stickers',
     'sticker_invalidAlumUrl': 'URL album không hợp lệ',
     'sticker_loadAlumSuccess': 'Tải album sticker thành công',
@@ -456,5 +471,17 @@ class Locales {
     'matchUser_dataIsEmpty': 'Dữ liệu đã hết',
     'matchUser_address': 'Địa chỉ: ',
     'matchUser_gender': 'Giới tính: ',
+    'notification_tapToJoinVideoCall': 'Nhấn để tham gia cuộc gọi',
+    'notification_videoCallFrom': 'Cuộc gọi đến từ ',
+    'notification_easyDateUser': 'Người dùng easy date',
+    'notification_likedYou': 'Đã thích bạn, hãy nhanh vào ghép đôi thôi',
+    'call_callDecline': 'Người nhận từ chối cuộc gọi',
+    'call_callCancel': 'Người nhận không nhấc máy',
+    'call_callIdNull': 'Id của cuộc gọi null, vui lòng thử lại sau!',
+    'call_called': '@user đã thực hiện 1 cuộc gọi ',
+    'call_audio': 'thoại',
+    'call_video': 'video',
+    'call_callAgain': 'Gọi lại',
+    'call_you': 'Bạn',
   };
 }

@@ -1,10 +1,11 @@
-# Easy Date ❤️
 
+# Crushly ❤️
 Ứng dụng hẹn hò đơn giản, dễ sử dụng với giao diện thân thiện và màu sắc nhẹ nhàng tương tự hẹn hò của facebook.
 
 ## Giới thiệu
 
-Easy Date là ứng dụng mobile dành cho việc kết nối và hẹn hò. Dự án được xây dựng bằng Flutter, hỗ trợ cả Android và iOS.
+
+Crushly là ứng dụng mobile dành cho việc kết nối và hẹn hò. Dự án được xây dựng bằng Flutter, hỗ trợ cả Android và iOS.
 
 ## Các màn hình chính
 

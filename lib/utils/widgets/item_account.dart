@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../assets.dart';
 import '../../core/const/const_src.dart';
 import '../utils_src.dart';
@@ -37,7 +38,7 @@ class ItemUtils {
                     ),
                   ),
                   child: Image.asset(
-                    imgAsset ?? Assets.ASSETS_IMAGES_DUCK_JPG,
+                    imgAsset ?? Assets.ASSETS_IMAGES_PNG_APP_ICON_PNG,
                   ),
                 ),
           ),
@@ -131,7 +132,7 @@ class ItemUtils {
           ),
         ),
         CupertinoSwitch(
-          activeColor: activeColor ?? AppColors.lightPrimaryColor,
+          activeTrackColor: activeColor ?? AppColors.lightPrimaryColor,
           value: value ?? false,
           onChanged: onChanged,
         ),

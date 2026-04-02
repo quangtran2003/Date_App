@@ -1,0 +1,28 @@
+import 'package:easy_date/features/feature_src.dart';
+//import 'package:easy_date/features/video_call/const.dart';
+import 'package:easy_date/features/video_call/controller/video_call_controller.dart';
+
+class CallPage extends BaseGetWidget<VideoCallController> {
+  const CallPage({super.key});
+
+  @override
+  Widget buildWidgets(BuildContext context) {
+    //  final args = controller.args;
+    return Scaffold(
+      body: Center(
+        child: UtilWidget.buildText(LocaleKeys.call_callIdNull.tr),
+      ),
+    );
+    // : ZegoUIKitPrebuiltCall(
+    //     appID: AppId,
+    //     appSign: AppSign,
+    //     userID: args?.idCurrentUser ?? '',
+    //     userName: args?.nameCurrentUser ?? '',
+    //     callID: args?.callID ?? '',
+    //     onDispose: controller.handleCallEnd,
+    //     config: args?.typeCall == MessageTypeEnum.audioCall
+    //         ? ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
+    //         : ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
+    //   );
+  }
+}

@@ -7,12 +7,12 @@ class BuildInputTextWithLabel extends StatelessWidget {
   final bool isRequired;
 
   const BuildInputTextWithLabel({
-    Key? key,
+    super.key,
     this.label,
     required this.buildInputText,
     this.isRequired = false,
     this.textStyle,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Column(

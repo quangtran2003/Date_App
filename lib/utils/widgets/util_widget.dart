@@ -421,7 +421,6 @@ class UtilWidget {
       // barrierDismissible: true,
       theme: ThemeData(
         primaryColor: AppColors.white,
-        dialogBackgroundColor: AppColors.dateTimeColor,
         primarySwatch: Colors.deepOrange,
         disabledColor: AppColors.dsGray3,
         focusColor: AppColors.lightPrimaryColor,
@@ -430,6 +429,8 @@ class UtilWidget {
               Get.textTheme.bodyLarge!.copyWith(color: AppColors.dsGray3),
           bodyMedium: Get.textTheme.bodyLarge,
         ),
+        dialogTheme:
+            const DialogThemeData(backgroundColor: AppColors.dateTimeColor),
       ),
       styleDatePicker: MaterialRoundedDatePickerStyle(
         paddingMonthHeader: const EdgeInsets.all(15),
@@ -584,7 +585,7 @@ class UtilWidget {
             ? null
             : [
                 BoxShadow(
-                  color: AppColors.colorConfirm.withOpacity(0.3),
+                  color: AppColors.colorConfirm.withValues(alpha: 0.3),
                   blurRadius: 23.3,
                   offset: const Offset(1, 1),
                 ),
@@ -757,29 +758,26 @@ class UtilWidget {
     required bool isSelected,
     void Function(bool)? onChanged,
   }) {
-    return ChoiceChip(
-      label: buildText(
-        title,
-        style: AppTextStyle.font14Semi.copyWith(
-          color: isSelected ? AppColors.primaryLight2 : AppColors.grayLight3,
-        ),
-      ),
-      selected: isSelected,
-      onSelected: onChanged,
-      padding: const EdgeInsets.symmetric(
-        vertical: AppDimens.paddingVerySmall,
-        horizontal: AppDimens.paddingSmall,
-      ),
-      selectedColor: AppColors.primaryLight7,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
           color: isSelected ? AppColors.primaryLight2 : AppColors.grayLight7,
-          width: 1,
         ),
-        borderRadius: BorderRadius.circular(AppDimens.radius16),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppDimens.radius16),
+        ),
       ),
-      showCheckmark: false,
+      child: Center(
+        child: buildText(
+          title,
+          style: AppTextStyle.font14Semi.copyWith(
+            color: isSelected ? AppColors.primaryLight2 : AppColors.grayLight3,
+          ),
+        ),
+      ).paddingSymmetric(
+        horizontal: AppDimens.paddingSmall,
+        vertical: AppDimens.paddingVerySmall,
+      ),
     );
   }
 

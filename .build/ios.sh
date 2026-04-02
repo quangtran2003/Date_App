@@ -19,7 +19,7 @@ cd ..
 fvm flutter build ipa --target lib/main_dev.dart --release --export-method ad-hoc
 
 
-APP_BUNDLE_PATH="./build/ios/ipa/Easy Date.ipa"
+APP_BUNDLE_PATH="./build/ios/ipa/Crushly.ipa"
 firebase appdistribution:distribute "$APP_BUNDLE_PATH" \
     --app  1:788899673990:ios:1346a9e9901894adce1e07   \
     --release-notes "Version: $VERSION - $(date "+%Y-%m-%d %H:%M:%S")" \

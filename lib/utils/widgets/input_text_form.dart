@@ -92,8 +92,10 @@ class BuildInputTextState extends State<BuildInputText> {
               },
               child: Icon(
                 Icons.clear,
-                color:
-                    widget.inputTextFormModel.suffixColor ?? AppColors.dsGray1,
+                color: widget.inputTextFormModel.suffixColor ??
+                    (AppColors.isDarkMode
+                        ? AppColors.white
+                        : AppColors.dsGray1),
               ),
             ),
           );

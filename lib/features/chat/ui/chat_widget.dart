@@ -4,46 +4,23 @@ extension ChatWidget on ChatPage {
   PreferredSizeWidget _buildAppBar() {
     final receiver = controller.receiverUser;
     return AppBar(
-      leadingWidth: 24,
+      leading: const BackButton(),
+      leadingWidth: AppDimens.btnSmall,
       scrolledUnderElevation: 0,
-      title: InkWell(
-        borderRadius: BorderRadius.circular(AppDimens.radius8),
-        onTap: () {
-          Get.toNamed(
-            AppRouteEnum.profile_match.path,
-            arguments: receiver.uid,
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            buildUserAvatar(
-              receiver.avatar,
-              receiver.isOnline,
-            ),
-            AppDimens.hm8,
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  UtilWidget.buildText(
-                    receiver.name,
-                    style: AppTextStyle.font16Bo,
-                  ),
-                  UtilWidget.buildText(
-                    receiver.isOnline.value
-                        ? LocaleKeys.chat_online.tr
-                        : controller.timeAgoCustom(receiver.lastOnline),
-                    textColor: AppColors.dsGray2,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ).paddingSymmetric(horizontal: AppDimens.paddingSmallest),
-      ),
+      title: _buildAvtAndname(receiver),
       actions: [
+        // IconButton(
+        //   onPressed: () => controller.gotoVideoCallPage(
+        //     MessageTypeEnum.audioCall,
+        //   ),
+        //   icon: const Icon(Icons.call),
+        // ),
+        // IconButton(
+        //   onPressed: () => controller.gotoVideoCallPage(
+        //     MessageTypeEnum.videoCall,
+        //   ),
+        //   icon: const Icon(Icons.videocam),
+        // ),
         IconButton(
           onPressed: () {
             Get.bottomSheet(
@@ -86,6 +63,46 @@ extension ChatWidget on ChatPage {
     );
   }
 
+  InkWell _buildAvtAndname(UserChatArgument receiver) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(AppDimens.radius8),
+      onTap: () {
+        Get.toNamed(
+          AppRouteEnum.profile_match.path,
+          arguments: receiver.idReceiver,
+        );
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildUserAvatar(
+            receiver.imgAvtReceiver,
+            receiver.isOnline,
+          ),
+          AppDimens.hm8,
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UtilWidget.buildText(
+                  receiver.nameReceiver,
+                  style: AppTextStyle.font16Bo,
+                ),
+                UtilWidget.buildText(
+                  receiver.isOnline.value
+                      ? LocaleKeys.chat_online.tr
+                      : controller.timeAgoCustom(receiver.lastOnline),
+                  textColor: AppColors.dsGray2,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ).paddingSymmetric(horizontal: AppDimens.paddingSmallest),
+    );
+  }
+
   Widget _buildBody() {
     return SafeArea(
       child: HeartOverlay(
@@ -101,7 +118,7 @@ extension ChatWidget on ChatPage {
         ),
         child: Column(
           children: [
-            Expanded(child: _buildMessages()),
+            _buildMessages(),
             _buildInput(),
           ],
         ),
@@ -110,72 +127,86 @@ extension ChatWidget on ChatPage {
   }
 
   Widget _buildMessages() {
-    return Obx(
-      () {
-        if (controller.isShowLoading.value) {
-          return const Center(child: LogoLoading());
-        }
+    return Expanded(
+      child: Obx(
+        () {
+          if (controller.isShowLoading.value) {
+            return const Center(child: LogoLoading());
+          }
 
-        if (controller.oldMessages.isEmpty && controller.newMessages.isEmpty) {
-          return Center(
-            child: UtilWidget.buildText(
-              LocaleKeys.chat_emptyChat.tr,
-              style: AppTextStyle.font16Re.copyWith(
-                color: AppColors.grayLight6,
+          if (controller.oldMessages.isEmpty &&
+              controller.newMessages.isEmpty) {
+            return Center(
+              child: UtilWidget.buildText(
+                LocaleKeys.chat_emptyChat.tr,
+                style: AppTextStyle.font16Re.copyWith(
+                  color: AppColors.grayLight6,
+                ),
+              ),
+            );
+          }
+
+          final messages = [
+            ...controller.newMessages.reversed,
+            ...controller.oldMessages
+          ];
+
+          return UtilWidget.buildSmartRefresher(
+            refreshController: controller.refreshController,
+            onRefresh: controller.onRefresh,
+            onLoadMore: controller.onLoadMore,
+            enablePullUp: true,
+            // enablePullDown: true,
+            child: ListView.separated(
+              controller: controller.chatScrollController,
+              reverse: true,
+              itemBuilder: (context, index) {
+                final chatMessage = messages[index];
+
+                bool showDate = false;
+                if (index == messages.length - 1) {
+                  showDate = true;
+                } else {
+                  final previousMessage = messages[index + 1];
+                  showDate =
+                      chatMessage.createDate != previousMessage.createDate;
+                }
+
+                switch (chatMessage.type) {
+                  case MessageTypeEnum.text:
+                    return TextMessageWidget(
+                      showDate: showDate,
+                      message: chatMessage,
+                    );
+                  case MessageTypeEnum.sticker:
+                    return StickerMessageWidget(
+                      showDate: showDate,
+                      message: chatMessage,
+                    );
+                  case MessageTypeEnum.audioCall:
+                  case MessageTypeEnum.videoCall:
+                    return CallMessageWidget(
+                      showDate: showDate,
+                      message: chatMessage,
+                      receiverName: controller.receiverUser.nameReceiver,
+                      onTap: () => controller.gotoVideoCallPage(
+                        chatMessage.type,
+                      ),
+                    );
+                }
+              },
+              itemCount: messages.length,
+              separatorBuilder: (context, index) {
+                return AppDimens.vm16;
+              },
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.paddingDefault,
+                vertical: AppDimens.paddingDefault,
               ),
             ),
           );
-        }
-
-        final messages = [
-          ...controller.newMessages.reversed,
-          ...controller.oldMessages
-        ];
-
-        return UtilWidget.buildSmartRefresher(
-          refreshController: controller.refreshController,
-          onRefresh: controller.onRefresh,
-          onLoadMore: controller.onLoadMore,
-          enablePullUp: true,
-          // enablePullDown: true,
-          child: ListView.separated(
-            controller: controller.chatScrollController,
-            reverse: true,
-            itemBuilder: (context, index) {
-              final chatMessage = messages[index];
-
-              bool showDate = false;
-              if (index == messages.length - 1) {
-                showDate = true;
-              } else {
-                final previousMessage = messages[index + 1];
-                showDate = chatMessage.createDate != previousMessage.createDate;
-              }
-
-              switch (chatMessage.type) {
-                case MessageType.text:
-                  return TextMessageWidget(
-                    showDate: showDate,
-                    message: chatMessage,
-                  );
-                case MessageType.sticker:
-                  return StickerMessageWidget(
-                    showDate: showDate,
-                    message: chatMessage,
-                  );
-              }
-            },
-            itemCount: messages.length,
-            separatorBuilder: (context, index) {
-              return AppDimens.vm16;
-            },
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.paddingDefault,
-              vertical: AppDimens.paddingDefault,
-            ),
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 
@@ -194,6 +225,7 @@ extension ChatWidget on ChatPage {
       },
       textInputAction: TextInputAction.send,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(AppDimens.paddingDefault),
         enabledBorder: InputBorder.none,
         focusedBorder: InputBorder.none,
         filled: true,
@@ -209,7 +241,6 @@ extension ChatWidget on ChatPage {
           },
           child: const Icon(
             Icons.sentiment_satisfied_alt,
-            size: AppDimens.sizeIconSpinner,
             color: Colors.grey,
           ),
         ),
@@ -228,7 +259,8 @@ extension ChatWidget on ChatPage {
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppDimens.paddingVerySmall),
+                          horizontal: AppDimens.paddingVerySmall,
+                        ),
                         child: Icon(
                           CupertinoIcons.heart_fill,
                           size: AppDimens.sizeIcon28,
@@ -243,7 +275,8 @@ extension ChatWidget on ChatPage {
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppDimens.paddingVerySmall),
+                          horizontal: AppDimens.paddingVerySmall,
+                        ),
                         child: Icon(
                           Icons.send,
                           size: AppDimens.sizeIcon28,

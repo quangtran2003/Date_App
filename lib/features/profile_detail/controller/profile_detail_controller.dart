@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../feature_src.dart';
 
 class ProfileDetailController extends BaseGetxController {
@@ -12,8 +14,6 @@ class ProfileDetailController extends BaseGetxController {
   final List<String> listImgUrl = [];
   String? avatarPath;
   final isUploadedAvatar = false.obs;
-
-  // final languageController = ValueNotifier<bool>(false);
 
   RxInt gender = 0.obs;
   RxBool isSexualFemale = false.obs;
@@ -63,13 +63,13 @@ class ProfileDetailController extends BaseGetxController {
     gender.value = value!;
   }
 
-  void onChangeSexualFemale(value) {
-    isSexualFemale.value = value;
+  void onChangeSexualFemale(bool? value) {
+    isSexualFemale.value = value ?? false;
     updateSexualRequired();
   }
 
-  void onChangeSexualMale(value) {
-    isSexualMale.value = value;
+  void onChangeSexualMale(bool? value) {
+    isSexualMale.value = value ?? false;
     updateSexualRequired();
   }
 
@@ -125,7 +125,9 @@ class ProfileDetailController extends BaseGetxController {
       }
 
       if (!(formKey.currentState?.validate() ?? false) ||
-          isSexualRequired.value) return;
+          isSexualRequired.value) {
+        return;
+      }
 
       showLoadingOverlay();
       final String imgAvt = await updateImageAvt();
@@ -136,6 +138,8 @@ class ProfileDetailController extends BaseGetxController {
         bio: bioController.text,
         place: placeController.text,
         uid: currentUser.value!.uid,
+        isOnline: true,
+        lastOnline: Timestamp.now(),
         imgDesc: imgDesc,
         imgAvt: imgAvt,
         birthday: int.parse(birthdayController.text),

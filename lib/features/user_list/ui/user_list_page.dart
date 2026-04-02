@@ -11,9 +11,11 @@ class UserListPage extends BaseGetWidget<UserListController> {
 
   @override
   Widget buildWidgets(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: VerticalListView(tagKey: tagKey),
+    return SDSSafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: VerticalListView(tagKey: tagKey),
+      ),
     );
   }
 

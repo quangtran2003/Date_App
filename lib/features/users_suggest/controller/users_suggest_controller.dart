@@ -1,4 +1,6 @@
 import 'package:easy_date/core/base/base_controller/base_refresh_controller.dart';
+import 'package:easy_date/core/enum/match_enum.dart';
+import 'package:easy_date/features/home/controller/home_controller.dart';
 import 'package:easy_date/utils/utils_src.dart';
 
 import '../../../core/models/info_user_match_model.dart';
@@ -12,14 +14,34 @@ class UsersSuggestController extends BaseRefreshGetxController {
   });
 
   final userSuggest = Rxn<InfoUserMatchModel>();
+  final userCurrent = Get.find<HomeController>().currentUser;
+  final countWaiting = 0.obs;
+  final countBlock = 0.obs;
+  final countRequest = 0.obs;
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    _getUserSuggest();
+    await getUserSuggest();
+    getDataCountBadge();
   }
 
-  Future<void> _getUserSuggest() async {
+  void getDataCountBadge() {
+    countWaiting.value = userCurrent.value?.users.entries
+            .where((user) => user.value.status == MatchEnum.waiting.value)
+            .length ??
+        0;
+    countBlock.value = userCurrent.value?.users.entries
+            .where((user) => user.value.status == MatchEnum.block.value)
+            .length ??
+        0;
+    countRequest.value = userCurrent.value?.users.entries
+            .where((user) => user.value.status == MatchEnum.request.value)
+            .length ??
+        0;
+  }
+
+  Future<void> getUserSuggest() async {
     try {
       isShowLoading.value = true;
       final data = await usersSuggestRepository.getUserSuggest();
@@ -38,7 +60,7 @@ class UsersSuggestController extends BaseRefreshGetxController {
 
   @override
   Future<void> onRefresh() async {
-    await _getUserSuggest();
+    await getUserSuggest();
     refreshController.refreshCompleted();
   }
 }

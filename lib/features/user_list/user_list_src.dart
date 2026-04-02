@@ -11,7 +11,7 @@ export 'package:flutter/material.dart'
         DropdownButtonFormField;
 
 export 'binding/binding_src.dart';
-export 'component/component_src.dart';
+export 'ui/component/component_src.dart';
 export 'controller/controller_src.dart';
 export 'repository/repository_src.dart';
 export 'ui/ui_src.dart';

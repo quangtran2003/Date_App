@@ -2,6 +2,7 @@ import 'package:easy_date/core/core_src.dart';
 import 'package:easy_date/features/login/login_src.dart';
 import 'package:easy_date/features/register/model/register_success_result.dart';
 import 'package:easy_date/routes/routers_src.dart';
+import 'package:easy_date/utils/show_popup.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -76,6 +77,25 @@ class LoginController extends BaseGetxController {
     _getEmailAndPassword();
   }
 
+  void biometricSetup(LoginController controller) {
+    ShowPopup.showDialogConfirm(LocaleKeys.biometric_suggestBiometric.tr,
+        confirm: () => controller.biometricAuth(
+              func: () => showInputPassword(controller),
+            ),
+        actionTitle: LocaleKeys.login_continue.tr);
+  }
+
+  void showInputPassword(LoginController controller) {
+    ShowPopup.showDialogConfirmWidget(
+      confirm: () async {
+        await controller.login(isBiometric: true);
+      },
+      actionTitle: LocaleKeys.login_continue.tr,
+      buildBody: buildBodyPopup(controller),
+    );
+    controller.passwordTextCtrl.clear();
+  }
+
   Future<void> _getEmailAndPassword() async {
     final result =
         await Future.wait([SecureStorage.email, SecureStorage.password]);
@@ -110,7 +130,7 @@ class LoginController extends BaseGetxController {
     super.onClose();
   }
 
-  Future<void> login({isBiometric = false}) async {
+  Future<void> login({bool isBiometric = false}) async {
     final email = emailTextCtrl.text.trim();
     final password =
         isBiometric ? passwordBiometricCtrl.text : passwordTextCtrl.text;

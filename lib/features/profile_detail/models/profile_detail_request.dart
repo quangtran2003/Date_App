@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProfileDetailRequest {
   ProfileDetailRequest({
     required this.bio,
@@ -10,6 +12,8 @@ class ProfileDetailRequest {
     required this.name,
     required this.birthday,
     required this.gender,
+    required this.isOnline,
+    required this.lastOnline,
   });
 
   final String bio;
@@ -22,6 +26,8 @@ class ProfileDetailRequest {
   final String name;
   final int birthday;
   final int gender;
+  final bool isOnline;
+  final Timestamp? lastOnline;
 
   Map<String, dynamic> toJson() => {
         "name": name,
@@ -33,5 +39,7 @@ class ProfileDetailRequest {
         "imgAvt": imgAvt,
         "status": status,
         "gender": gender,
+        "isOnline": isOnline,
+        "lastOnline": lastOnline ?? Timestamp.now(),
       };
 }

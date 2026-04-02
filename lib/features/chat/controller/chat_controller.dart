@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date/core/config_noti/fcm.dart';
+import 'package:easy_date/features/video_call/model/call_args.dart';
 import 'package:heart_overlay/heart_overlay.dart';
 import 'package:vibration/vibration.dart';
 
@@ -16,15 +17,19 @@ class ChatController extends BaseRefreshGetxController {
   final ChatRepository chatRepository;
 
   final currentUser = Get.find<HomeController>().currentUser;
+
   final receiverUser = Get.arguments as UserChatArgument;
 
   final messageTextCtrl = TextEditingController();
+
   final chatScrollController = ScrollController();
 
   final showSendButton = false.obs;
 
   bool canShowHeartOverlay = true;
+
   final heartOverlayController = HeartOverlayController();
+
   StreamSubscription<List<ChatMessage>>? lastMessageSub;
 
   ChatController({
@@ -37,21 +42,25 @@ class ChatController extends BaseRefreshGetxController {
   final oldMessages = <ChatMessage>[].obs;
   final newMessages = <ChatMessage>[].obs;
 
+  String get getRoomId => chatRepository.getChatRoomId(
+        currentUser.value!.uid,
+        receiverUser.idReceiver,
+      );
+
   @override
   Future<void> onInit() async {
     super.onInit();
-    _listenHeartMessage();
 
     showLoading();
+    _listenHeartMessage();
     await getOldMessages();
 
     newMessages.bindStream(
       chatRepository.getNewMessageStream(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         firstDoc: firstMessageDoc,
       ),
     );
-
     hideLoading();
   }
 
@@ -62,11 +71,12 @@ class ChatController extends BaseRefreshGetxController {
         return;
       }
       if (canShowHeartOverlay &&
-          lastMessage.type == MessageType.text &&
+          lastMessage.type == MessageTypeEnum.text &&
           lastMessage.content == heartText) {
         canShowHeartOverlay = false;
         heartFly();
-        if (await Vibration.hasVibrator() ?? false) {
+        if (await Vibration.hasVibrator()) {
+
           Vibration.vibrate(duration: 20);
         }
         await Future.delayed(heartAnimationDuration);
@@ -116,7 +126,7 @@ class ChatController extends BaseRefreshGetxController {
     try {
       final (messages, newLastDoc, newFirstDoc) =
           await chatRepository.getOldMessages(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         lastDoc: lastMessageDoc,
       );
 
@@ -151,11 +161,14 @@ class ChatController extends BaseRefreshGetxController {
 
       await Future.wait([
         chatRepository.createMessage(
-          receiverId: receiverUser.uid,
+          receiverId: receiverUser.idReceiver,
           message: message,
-          type: MessageType.text,
+          type: MessageTypeEnum.text,
         ),
-        pushNotif(message),
+        pushNotif(
+          message,
+          type: MessageTypeEnum.text,
+        ),
       ]);
 
       _scrollToBottom();
@@ -167,12 +180,34 @@ class ChatController extends BaseRefreshGetxController {
   Future<void> sendSticker(Sticker sticker) async {
     try {
       await chatRepository.createMessage(
-        receiverId: receiverUser.uid,
+        receiverId: receiverUser.idReceiver,
         message: sticker.link,
-        type: MessageType.sticker,
+        type: MessageTypeEnum.sticker,
       );
 
-      await pushNotif(sticker.link, isSticker: true);
+      await pushNotif(
+        LocaleKeys.chat_sendedASticker.tr,
+        type: MessageTypeEnum.sticker,
+      );
+
+      _scrollToBottom();
+    } catch (e) {
+      handleException(e);
+    }
+  }
+
+  Future<void> sendCall(MessageTypeEnum type) async {
+    try {
+      await chatRepository.createMessage(
+        receiverId: receiverUser.idReceiver,
+        message: '',
+        type: type,
+      );
+
+      await pushNotif(
+        LocaleKeys.notification_tapToJoinVideoCall.tr,
+        type: type,
+      );
 
       _scrollToBottom();
     } catch (e) {
@@ -182,25 +217,26 @@ class ChatController extends BaseRefreshGetxController {
 
   Future<void> pushNotif(
     String message, {
-    bool isSticker = false,
+    required MessageTypeEnum type,
   }) async {
     try {
       // Step 1: Get receiver's FCM token
       final receiverToken =
-          await chatRepository.getDeviceReceiverToken(receiverUser.uid);
+          await chatRepository.getDeviceReceiverToken(receiverUser.idReceiver);
       //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
-      // await chatRepository.firebaseMessage.getToken();
+      //await chatRepository.firebaseMessage.getToken();
       logger.d(receiverToken);
       if (receiverToken == null) return;
 
       // Step 2: Get server auth token
       final serverAuthToken = await FCM.getToken();
       logger.d(serverAuthToken);
+
       // Step 3: Prepare notification data
       final notificationPayload = getNotifModel(
-        isSticker,
-        message,
-        receiverToken,
+        type: type,
+        message: message,
+        receiverToken: receiverToken,
       );
 
       // Step 4: Push to server
@@ -213,24 +249,33 @@ class ChatController extends BaseRefreshGetxController {
     }
   }
 
-  PushNotificationMessage getNotifModel(
-    bool isSticker,
-    String message,
-    String receiverToken,
-  ) {
+  PushNotificationMessage getNotifModel({
+    required MessageTypeEnum type,
+    required String message,
+    required String receiverToken,
+  }) {
+    final callId =
+        type == MessageTypeEnum.audioCall || type == MessageTypeEnum.videoCall
+            ? getRoomId
+            : null;
     final data = PushNotificationData(
-      pageName: AppRouteEnum.chat.path,
-      uidUser: receiverUser.uid,
-      nameUser: receiverUser.name,
-      imgUser: receiverUser.avatar,
-      notifTitle: currentUser.value?.name ?? 'Người dùng Easy Date',
-      notifBody: isSticker ? 'Đã gửi một nhãn dán!' : message,
+      callId: callId,
+      pageName: type.getPageName,
+      nameSender: currentUser.value?.name,
+      imgAvtSender: currentUser.value?.imgAvt,
+      idReceiver: receiverUser.idReceiver,
+      idSender: currentUser.value?.uid,
+      notifTitle:
+          currentUser.value?.name ?? LocaleKeys.notification_easyDateUser.tr,
+      notifBody: message,
+      type: type.value.toString(),
     );
     return PushNotificationMessage(
       data: data,
       token: receiverToken,
     );
   }
+
   //   PushNotificationModel getNotifModel(
   //   bool isSticker,
   //   String message,
@@ -244,7 +289,7 @@ class ChatController extends BaseRefreshGetxController {
   //       imgUser: receiverUser.avatar,
   //     ),
   //     notification: NotificationContent(
-  //       title: currentUser.value?.name ?? 'Người dùng Easy Date',
+  //       title: currentUser.value?.name ?? 'Người dùng Crushly',
   //       body: isSticker ? 'Đã gửi một nhãn dán!' : message,
   //     ),
   //     token: receiverToken,
@@ -269,9 +314,9 @@ class ChatController extends BaseRefreshGetxController {
 
       // user đối tác, bị user hiện tại block
       final otherUser = BlockUserRequest(
-        uid: receiverUser.uid,
-        imgAvt: receiverUser.avatar,
-        name: receiverUser.name,
+        uid: receiverUser.idReceiver,
+        imgAvt: receiverUser.imgAvtReceiver,
+        name: receiverUser.nameReceiver,
         status: PairingStatusEnum.block, // BLOCK
       );
 
@@ -308,6 +353,19 @@ class ChatController extends BaseRefreshGetxController {
         offset: offset,
       );
     }
+  }
+
+  void gotoVideoCallPage(MessageTypeEnum typeMessageEnum) async {
+    Get.toNamed(
+      AppRouteEnum.video_call.path,
+      arguments: CallArgs(
+        idCurrentUser: currentUser.value?.uid ?? '',
+        nameCurrentUser: currentUser.value?.name ?? '',
+        callID: getRoomId,
+        typeCall: typeMessageEnum,
+      ),
+    );
+    await sendCall(typeMessageEnum);
   }
 
   @override

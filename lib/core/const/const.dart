@@ -1,8 +1,8 @@
 class AppConst {
   //app
-  static const String appName = "Easy Date";
+  static const String appName = "Crushly";
   static const String appStoreId = "6469520457";
-  static const String playStoreName = "vn.lochv.hrm";
+  static const String playStoreName = "";
 
   //base
   static const int pageSize = 10;

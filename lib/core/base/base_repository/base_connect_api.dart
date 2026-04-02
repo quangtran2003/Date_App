@@ -1,5 +1,3 @@
-import 'package:dio_log/utils/dio_log_util.dart';
-
 import '../../../utils/utils_src.dart';
 import '../../const/const_src.dart';
 
@@ -12,7 +10,7 @@ class BaseConnectAPI {
   static Dio getBaseDio() {
     Dio dio = Dio();
 
-    DioLog.initAdapter(dio: dio);
+    //DioLog.initAdapter(dio: dio);
     dio.options = buildDefaultOptions();
 
     // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
@@ -122,14 +120,16 @@ class BaseConnectAPI {
       }
       return response.data;
     } catch (e) {
-      return functionError != null ? functionError(e) : showDialogError(e);
+      //return functionError != null ? functionError(e) : showDialogError(e);
     }
   }
 
   dynamic showDialogError(dynamic e) {
     if (e.response?.data != null &&
         e.response.data is Map &&
-        e.response.data["Data"] != null) return e.response.data;
+        e.response.data["Data"] != null) {
+      return e.response.data;
+    }
     onErrorCallBack(e);
   }
 

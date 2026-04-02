@@ -4,41 +4,35 @@ import 'dart:developer';
 import 'package:easy_date/assets.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:googleapis_auth/auth_io.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  log("background!");
+  await Firebase.initializeApp();
   _showCustomNotif(message);
 }
 
 void _handleMessage(RemoteMessage message) {
-  Map data = message.data;
-
-  if (data.containsKey('pageName')) {
-    logger.d("pageName: ${data['pageName']}");
-    Get.toNamed(data['pageName']);
-  }
 }
 
 void _showCustomNotif(RemoteMessage message) {
-  // if (message.notification != null) {
-  //   LocalNotif.showNotif(
-  //     id: message.hashCode,
-  //     title: message.notification!.title,
-  //     body: message.notification!.body,
-  //     payload: jsonEncode(message.data),
-  //   );
-  // }
+  final dataNoti = PushNotificationData.fromJson(message.data);
 
-  if (message.data.containsKey('notif_title')) {
+  final isTypeCall = MessageTypeEnum.isTypeCall(dataNoti.type ?? '');
+
+  //nếu ở màn chat, có thông báo tin nhắn sẽ không hiển thị
+  if (Get.currentRoute == AppRouteEnum.chat.path && !isTypeCall) return;
+
+  if (dataNoti.notifTitle != null) {
     LocalNotif.showNotif(
-      id: message.hashCode,
-      title: message.data['notif_title'],
-      body: message.data['notif_body'],
+      id: dataNoti.hashCode,
+      title: dataNoti.notifTitle,
+      body: dataNoti.notifBody,
       payload: jsonEncode(message.data),
+      notificationDetails: isTypeCall ? LocalNotif.incomingCallDetails() : null,
     );
   }
 }
@@ -53,20 +47,19 @@ class FCM extends BaseFirebaseRepository {
     _listenOpenNotif();
   }
 
-  static _foregroundHandler() {
+  static void _foregroundHandler() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('foreground!');
-      if (Get.currentRoute == AppRouteEnum.chat.path) return;
       _showCustomNotif(message);
     });
   }
 
-  static _backgroundHandler() {
+  static void _backgroundHandler() {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   // for terminate state
-  static initialMessage() async {
+  static Future<void> initialMessage() async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
@@ -74,7 +67,7 @@ class FCM extends BaseFirebaseRepository {
     }
   }
 
-  static _listenOpenNotif() {
+  static void _listenOpenNotif() {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 

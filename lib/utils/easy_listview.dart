@@ -1,5 +1,3 @@
-library easy_listview;
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -69,7 +67,7 @@ class EasyListViewState extends State<EasyListView> {
         )
       : _buildList();
 
-  Widget _itemBuilder(context, index) {
+  Widget _itemBuilder(BuildContext context, int index) {
     var headerCount = _headerCount();
     var totalItemCount = _dataItemCount() + headerCount + _footerCount();
     switch (_itemType(index, totalItemCount)) {
@@ -82,12 +80,11 @@ class EasyListViewState extends State<EasyListView> {
       case ItemType.dividerData:
         return _buildDividerWithData(index, index - headerCount);
       case ItemType.data:
-      default:
         return widget.itemBuilder(context, index - headerCount);
     }
   }
 
-  _buildList() {
+  Widget _buildList() {
     var headerCount = _headerCount();
     var totalItemCount = _dataItemCount() + headerCount + _footerCount();
     ScrollView listView = widget.isSliverMode
@@ -109,7 +106,7 @@ class EasyListViewState extends State<EasyListView> {
     return Stack(children: children);
   }
 
-  ItemType _itemType(itemIndex, totalItemCount) {
+  ItemType _itemType(int itemIndex, int totalItemCount) {
     if (_isHeader(itemIndex)) {
       return ItemType.header;
     } else if (_isLoadMore(itemIndex, totalItemCount)) {
@@ -136,7 +133,7 @@ class EasyListViewState extends State<EasyListView> {
             : _defaultLoadMore;
   }
 
-  Widget _buildDividerWithData(index, dataIndex) => index.isEven
+  Widget _buildDividerWithData(int index, int dataIndex) => index.isEven
       ? widget.dividerBuilder != null
           ? widget.dividerBuilder!(context, dataIndex ~/ 2)
           : widget.isSliverMode
@@ -144,12 +141,13 @@ class EasyListViewState extends State<EasyListView> {
               : _defaultDivider
       : widget.itemBuilder(context, dataIndex ~/ 2);
 
-  bool _isHeader(itemIndex) => _hasHeader() && itemIndex == 0;
+  bool _isHeader(int itemIndex) => _hasHeader() && itemIndex == 0;
 
-  bool _isLoadMore(itemIndex, total) =>
+  bool _isLoadMore(int itemIndex, int total) =>
       widget.loadMore && itemIndex == total - 1;
 
-  bool _isFooter(itemIndex, total) => _hasFooter() && itemIndex == total - 1;
+  bool _isFooter(int itemIndex, int total) =>
+      _hasFooter() && itemIndex == total - 1;
 
   int _headerCount() => _hasHeader() ? 1 : 0;
 

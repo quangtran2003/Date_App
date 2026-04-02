@@ -5,6 +5,7 @@ class ChatRepositoryImpl extends ChatRepository {
   late final _chatRoomsCollection =
       firestore.collection(FirebaseCollection.chats);
 
+  @override
   String getChatRoomId(String senderId, String receiverId) {
     final ids = [senderId, receiverId];
     ids.sort();
@@ -87,7 +88,7 @@ class ChatRepositoryImpl extends ChatRepository {
   Future<void> createMessage({
     required String receiverId,
     required String message,
-    required MessageType type,
+    required MessageTypeEnum type,
   }) async {
     final chatRoomId = getChatRoomId(userId, receiverId);
 
@@ -147,12 +148,13 @@ class ChatRepositoryImpl extends ChatRepository {
     required PushNotificationMessage notiModel,
     required String authToken,
   }) async {
-    await baseSendRequest(
+    final log = await baseSendRequest(
       ApiUrl.urlPushNoti,
       RequestMethod.POST,
       jsonMap: notiModel.toJson(),
       authBearerToken: authToken,
     );
+    logger.d(log);
   }
 
   @override

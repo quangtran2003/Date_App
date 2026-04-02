@@ -3,7 +3,7 @@ import '../../feature_src.dart';
 class ProfileController extends BaseGetxController {
   final ProfileRepository profileRepository;
 
-  late final user = Get.find<HomeController>().currentUser;
+  final user = Get.find<HomeController>().currentUser;
 
   final languageController = ValueNotifier<bool>(
     SettingStorage.language != LanguageEnum.english,
@@ -19,11 +19,11 @@ class ProfileController extends BaseGetxController {
   ProfileController({
     required this.profileRepository,
   });
-  @override
-  onInit() async {
-    super.onInit();
-    hasBiometric.value = AppStorage.getBiometric ?? false;
-  }
+  // @override
+  // onInit() async {
+  //   super.onInit();
+  //   hasBiometric.value = AppStorage.getBiometric ?? false;
+  // }
 
   // @override
   // void onClose() {
@@ -40,6 +40,7 @@ class ProfileController extends BaseGetxController {
           isOnline: false,
           uid: user.value?.uid ?? '',
         );
+        Get.find<HomeController>().isOnline = false;
         profileRepository.logout();
         Get.offAllNamed(AppRouteEnum.login.path);
       },
@@ -55,6 +56,7 @@ class ProfileController extends BaseGetxController {
     Get.changeThemeMode(
       theme == AppTheme.light ? ThemeMode.light : ThemeMode.dark,
     );
+    Get.find<HomeController>().isDarkMode.value = theme == AppTheme.dark;
     await SettingStorage.saveThemeMode(theme);
   }
 

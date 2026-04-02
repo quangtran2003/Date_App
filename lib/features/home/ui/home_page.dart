@@ -4,15 +4,15 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../assets.dart';
 
-class HomePage extends GetView<HomeController> {
+class HomePage extends BaseGetWidget<HomeController> {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidgets(BuildContext context) {
     return Obx(
       () => PopScope(
         canPop: controller.canPop.value,
-        onPopInvoked: (didPop) async {
+        onPopInvokedWithResult: (didPop, _) async {
           if (didPop) return;
           final shouldPop = await controller.onWillPop();
           if (!shouldPop) {
@@ -20,6 +20,8 @@ class HomePage extends GetView<HomeController> {
           }
         },
         child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
           body: _buildBody(),
           bottomNavigationBar: _buildBottomNavigationBar(),
           floatingActionButton: _buildFloatingAction(),
@@ -34,10 +36,14 @@ class HomePage extends GetView<HomeController> {
       child: Container(
         height: AppDimens.sizeImage,
         width: AppDimens.sizeImage,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-            image: AssetImage(Assets.ASSETS_IMAGES_META_AI_GIF),
+            image: AssetImage(
+              controller.isDarkMode.value
+                  ? Assets.ASSETS_IMAGES_GIF_META_AI_DARK_GIF
+                  : Assets.ASSETS_IMAGES_GIF_META_AI_GIF,
+            ),
             fit: BoxFit.cover,
           ),
         ),
@@ -67,16 +73,17 @@ class HomePage extends GetView<HomeController> {
 
   Widget _buildBottomNavigationBar() {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
+      decoration:  BoxDecoration(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(AppDimens.radius30),
           topRight: Radius.circular(AppDimens.radius30),
         ),
+
         boxShadow: [
           BoxShadow(
-            color: AppColors.grayLight1.withOpacity(0.05),
+            color: AppColors.grayLight1.withValues(alpha: 0.05),
             blurRadius: 4,
-            offset: const Offset(0, -3),
+            offset: Offset(0, -3),
           ),
         ],
       ),
@@ -89,7 +96,7 @@ class HomePage extends GetView<HomeController> {
           // With material3, to set color for BottomAppBar,
           // we need to set color with both color and surfaceTintColor attributes
           // color: Colors.white,
-          surfaceTintColor: Colors.white,
+          surfaceTintColor: AppColors.grayLight8,
           shape: const CircularNotchedRectangle(),
           padding: EdgeInsets.zero,
           height: AppDimens.bottomAppBarHeight,
@@ -189,7 +196,7 @@ class HomePage extends GetView<HomeController> {
             : [
                 BoxShadow(
                   color: isSelected
-                      ? AppColors.primaryLight2.withOpacity(0.25)
+                      ? AppColors.primaryLight2.withValues(alpha: 0.25)
                       : Colors.transparent,
                   blurRadius: 7.7,
                   offset: const Offset(1, 4),

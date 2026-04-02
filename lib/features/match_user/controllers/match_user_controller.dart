@@ -1,13 +1,17 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_date/core/config_noti/fcm.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/match_user/match_user_src.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:heart_overlay/heart_overlay.dart';
 
 class MatchUserController extends BaseGetxController {
-  MatchUserController({required this.matchUserRepository});
+  MatchUserController({
+    required this.matchUserRepository,
+    required this.chatRepository,
+  });
 
   final CardSwiperController cardSwiperController = CardSwiperController();
 
@@ -15,6 +19,8 @@ class MatchUserController extends BaseGetxController {
       <InfoUserMatchModel>[].obs;
 
   final MatchUserRepository matchUserRepository;
+
+  final ChatRepository chatRepository;
 
   RxDouble ratioIconLeft = 1.0.obs;
 
@@ -26,7 +32,7 @@ class MatchUserController extends BaseGetxController {
 
   late InfoUserMatchModel userMatchView;
 
-  HomeController homeController = Get.find();
+  HomeController homeController = Get.find<HomeController>();
 
   final heartOverlayController = HeartOverlayController();
 
@@ -141,14 +147,20 @@ class MatchUserController extends BaseGetxController {
   ) async {
     String uidAcc = matchUserRepository.firebaseAuth.currentUser!.uid;
     User user = User(
-        imgAvt: infoUserMatchModel.imgAvt,
-        createTime: Timestamp.now(),
-        name: infoUserMatchModel.name,
-        updateTime: Timestamp.now(),
-        status: PairingStatusEnum.skip,
-        uid: infoUserMatchModel.uid);
+      imgAvt: infoUserMatchModel.imgAvt,
+      createTime: Timestamp.now(),
+      name: infoUserMatchModel.name,
+      updateTime: Timestamp.now(),
+      status: PairingStatusEnum.skip,
+      uid: infoUserMatchModel.uid,
+      token: infoUserMatchModel.token,
+      lastOnline: infoUserMatchModel.lastOnline,
+    );
     try {
-      await matchUserRepository.matchUser(uidAcc, user, infoUserMatchModel.uid);
+      await Future.wait([
+        matchUserRepository.matchUser(uidAcc, user, infoUserMatchModel.uid),
+        matchUserRepository.deleteUser(infoUserMatchModel.uid, uidAcc)
+      ]);
     } catch (e, s) {
       handleException(e, stackTrace: s);
     }
@@ -167,7 +179,9 @@ class MatchUserController extends BaseGetxController {
         updateTime: Timestamp.now(),
         status: PairingStatusEnum.request,
         uid: infoUserMatch.uid,
-      );
+        token: userModel.token,
+        lastOnline: userModel.lastOnline,
+      )..isOnline.value = userModel.isOnline.value;
 
       // Người B nhận yêu cầu từ tài khoản này
       User userMatch = User(
@@ -177,16 +191,26 @@ class MatchUserController extends BaseGetxController {
         updateTime: Timestamp.now(),
         status: PairingStatusEnum.waiting,
         uid: userModel.uid,
-      );
+        token: userModel.token,
+        lastOnline: userModel.lastOnline,
+      )..isOnline.value = userModel.isOnline.value;
 
       try {
         await Future.wait([
           // thêm vào thằng tài khoản đang đăng nhập
-          matchUserRepository.matchUser(uidAcc, userAcc, infoUserMatch.uid),
+          matchUserRepository.matchUser(
+            uidAcc,
+            userAcc,
+            infoUserMatch.uid,
+          ),
 
           // thêm vào tài khoản được match
           matchUserRepository.matchUser(
-              infoUserMatch.uid, userMatch, userModel.uid),
+            infoUserMatch.uid,
+            userMatch,
+            userModel.uid,
+          ),
+          if (infoUserMatch.token != userModel.token) pushNotif(infoUserMatch)
         ]);
       } catch (e, s) {
         handleException(e, stackTrace: s);
@@ -194,5 +218,47 @@ class MatchUserController extends BaseGetxController {
     } else {
       listInfoUserMatchModel.value = [];
     }
+  }
+
+  Future<void> pushNotif(InfoUserMatchModel infoUserMatch) async {
+    try {
+      // Step 1: Get receiver's FCM token
+      final receiverToken = infoUserMatch.token;
+      //await ChatRepositoryImpl().getDeviceReceiverToken(infoUserMatch.uid);
+      //bỏ cmt nếu muốn test noti trên thiết bị hiện tại
+      logger.d(receiverToken);
+      // if (receiverToken == null) return;
+
+      // Step 2: Get server auth token
+      final serverAuthToken = await FCM.getToken();
+      logger.d(serverAuthToken);
+
+      // Step 3: Prepare notification data
+      final notificationPayload = getNotifModel(receiverToken);
+
+      // Step 4: Push to server
+      await chatRepository.pushNoti(
+        notiModel: notificationPayload,
+        authToken: serverAuthToken,
+      );
+    } catch (e) {
+      logger.d(e);
+    }
+  }
+
+  PushNotificationMessage getNotifModel(String receiverToken) {
+    final currentUser = homeController.currentUser.value;
+    final data = PushNotificationData(
+      pageName: AppRouteEnum.home.path,
+      nameSender: currentUser?.name,
+      imgAvtSender: currentUser?.imgAvt,
+      idSender: currentUser?.uid,
+      notifTitle: currentUser?.name ?? LocaleKeys.notification_easyDateUser.tr,
+      notifBody: LocaleKeys.notification_likedYou.tr,
+    );
+    return PushNotificationMessage(
+      data: data,
+      token: receiverToken,
+    );
   }
 }

@@ -7,6 +7,7 @@ class HomeBinding extends Bindings {
       () => HomeController(
         homeRepository: HomeRepositoryImpl(),
       ),
+      fenix: true,
     );
   }
 }

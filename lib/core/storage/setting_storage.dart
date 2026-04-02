@@ -11,8 +11,12 @@ class SettingStorage {
   static late final Box _box;
 
   static Future<void> init() async {
-    Hive.registerAdapter(LanguageEnumAdapter());
-    Hive.registerAdapter(AppThemeAdapter());
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(LanguageEnumAdapter());
+    }
+    if (!Hive.isAdapterRegistered(3)) {
+      Hive.registerAdapter(AppThemeAdapter());
+    }
 
     _box = await Hive.openBox(_boxName);
   }

@@ -25,8 +25,6 @@ extension PrintSize on SizePrint {
         return 3;
       case SizePrint.extraLarge:
         return 4;
-      default:
-        return 0;
     }
   }
 }
@@ -40,8 +38,6 @@ extension PrintAlign on AlignPrint {
         return 1;
       case AlignPrint.right:
         return 2;
-      default:
-        return 0;
     }
   }
 }

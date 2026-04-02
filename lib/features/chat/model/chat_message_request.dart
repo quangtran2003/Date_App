@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'message_type.dart';
+import '../../../core/enum/message_type.dart';
 
 class ChatMessageRequest {
   final String senderId;
   final String content;
-  final MessageType type;
+  final MessageTypeEnum type;
 
   const ChatMessageRequest({
     required this.senderId,
@@ -17,7 +17,7 @@ class ChatMessageRequest {
     return {
       'senderId': senderId,
       'content': content,
-      'type': type.firebaseValue,
+      'type': type.value,
       'createTime': FieldValue.serverTimestamp(),
     };
   }

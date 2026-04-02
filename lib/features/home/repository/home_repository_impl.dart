@@ -37,27 +37,4 @@ final class HomeRepositoryImpl extends HomeRepository {
     );
     return null;
   }
-
-  @override
-  Future<void> updateUserOnlineStatus({
-    required bool isOnline,
-    required String uid,
-  }) async {
-    firestore.collection(FirebaseCollection.users).doc(uid).update({
-      'isOnline': isOnline,
-    });
-    final querySnapshot =
-        await firestore.collection(FirebaseCollection.users).get();
-
-    for (final doc in querySnapshot.docs) {
-      final data = doc.data();
-
-      // Kiểm tra nếu trong map 'users' có key là uid đang đăng nhập
-      if (data.containsKey('users') && data['users'][uid] != null) {
-        await firestore.collection('users').doc(doc.id).update({
-          'users.$uid.isOnline': isOnline,
-        });
-      }
-    }
-  }
 }

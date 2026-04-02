@@ -1,7 +1,7 @@
 part of 'user_list_repository.dart';
 
 class UserListRepositoryImpl extends UserListRepository {
-  late final String _userId = firebaseAuth.currentUser?.uid??'';
+  late final String _userId = firebaseAuth.currentUser?.uid ?? '';
 
   @override
   Stream<List<Chat>> getChatList() {
@@ -25,15 +25,18 @@ class UserListRepositoryImpl extends UserListRepository {
   @override
   Future<void> acceptUserRequest(MapEntry<String, User> user) async {
     await checkNetwork();
+    final userTemp = User(
+      uid: user.value.uid,
+      name: user.value.name,
+      imgAvt: user.value.imgAvt,
+      createTime: user.value.createTime,
+      updateTime: user.value.updateTime,
+      status: MatchEnum.accept.value,
+      token: user.value.token,
+      lastOnline: user.value.lastOnline,
+    )..isOnline.value = user.value.isOnline.value;
     return firestore.collection(FirebaseCollection.users).doc(_userId).update({
-      "users.${user.key}": User(
-        uid: user.value.uid,
-        name: user.value.name,
-        imgAvt: user.value.imgAvt,
-        createTime: user.value.createTime,
-        updateTime: user.value.updateTime,
-        status: MatchEnum.accept.value,
-      ).toJson(),
+      "users.${user.key}": userTemp.toJson(),
     });
   }
 

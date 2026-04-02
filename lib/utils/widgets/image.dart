@@ -39,7 +39,7 @@ class SDSImageNetwork extends StatelessWidget {
           return Center(
             child: Shimmer.fromColors(
               baseColor: Colors.grey,
-              highlightColor: Colors.grey.withOpacity(0.5),
+              highlightColor: Colors.grey.withValues(alpha: 0.5),
               child: SizedBox(
                 height: sdsImageNetworkModel.widthLoadding,
                 width: sdsImageNetworkModel.widthLoadding,

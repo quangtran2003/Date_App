@@ -978,7 +978,7 @@ DerivedData/
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 \lib\assets.preview.dart
 
-# FVM Version Cache
-.fvm/"assets/keys/service_account.json" 
-.fvm/assets/keys/service_account.json
 #"assets/keys/service_account.json" 
+
+# FVM Version Cache
+.fvm/

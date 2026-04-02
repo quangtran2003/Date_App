@@ -43,7 +43,9 @@ Widget _buildInfoCard(UsersSuggestController controller) {
       vertical: AppDimens.paddingSmall,
     ),
     decoration: BoxDecoration(
-      color: AppColors.isDarkMode ? AppColors.darkAccentColor : AppColors.white,
+      color: AppColors.isDarkMode
+          ? AppColors.darkAccentColor
+          : AppColors.grayLight8,
       borderRadius: const BorderRadius.vertical(
         bottom: Radius.circular(AppDimens.radius20),
       ),
@@ -63,7 +65,7 @@ Widget _buildInfoCard(UsersSuggestController controller) {
         Row(
           children: [
             Image.asset(
-              Assets.ASSETS_IMAGES_PLACE_GIF,
+              Assets.ASSETS_IMAGES_GIF_PLACE_GIF,
               height: AppDimens.sizeIcon,
               width: AppDimens.sizeIcon,
             ),
@@ -81,7 +83,7 @@ Widget _buildInfoCard(UsersSuggestController controller) {
   );
 }
 
-_buildImage(UsersSuggestController controller) {
+Widget _buildImage(UsersSuggestController controller) {
   return Expanded(
     child: SizedBox(
       width: double.infinity,
@@ -91,7 +93,7 @@ _buildImage(UsersSuggestController controller) {
         ),
         child: controller.userSuggest.value?.imgAvt == null
             ? Image.asset(
-                Assets.ASSETS_IMAGES_BG_LOGIN_PNG,
+                Assets.ASSETS_IMAGES_PNG_BG_LOGIN_PNG,
                 color: AppColors.grayLight5,
                 fit: BoxFit.cover,
               )
@@ -108,19 +110,20 @@ _buildImage(UsersSuggestController controller) {
   );
 }
 
-Shimmer _buildShimmerCard() {
+Widget _buildShimmerCard() {
   return Shimmer.fromColors(
     baseColor: Colors.grey,
-    highlightColor: Colors.grey.withOpacity(0.5),
+    highlightColor: Colors.grey.withValues(alpha: 0.5),
     child: Container(
       decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(AppDimens.radius20)),
+        color: Colors.white.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(AppDimens.radius20),
+      ),
       child: Center(
         child: SizedBox(
           height: AppDimens.btnLarge,
           width: AppDimens.btnLarge,
-          child: Image.asset(Assets.ASSETS_IMAGES_APP_ICON_PNG),
+          child: Image.asset(Assets.ASSETS_IMAGES_PNG_APP_ICON_PNG),
         ),
       ),
     ),
@@ -130,53 +133,79 @@ Shimmer _buildShimmerCard() {
 Widget _buildListChoiceChips(UsersSuggestController controller) {
   return SizedBox(
     height: AppDimens.sizeIconLarge,
-    child: ListView(
-      scrollDirection: Axis.horizontal,
+    child: Row(
+      spacing: AppDimens.paddingVerySmall,
       children: [
-        UtilWidget.buildChoiceChip(
-          isSelected: true,
-          title: LocaleKeys.home_likedYou.tr,
-          onChanged: (_) => Get.toNamed(
+        _buildChoiceChip(
+          text: LocaleKeys.home_likedYou.tr,
+          onTap: () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.waiting,
           ),
+          noti: controller.countWaiting,
         ),
-        AppDimens.hm8,
-        UtilWidget.buildChoiceChip(
-          isSelected: true,
-          title: LocaleKeys.user_waitingList.tr,
-          onChanged: (_) => Get.toNamed(
+        _buildChoiceChip(
+          text: LocaleKeys.user_waitingList.tr,
+          onTap: () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.request,
           ),
+          noti: controller.countRequest,
         ),
-        AppDimens.hm8,
-        UtilWidget.buildChoiceChip(
-          isSelected: true,
-          title: LocaleKeys.user_blockList.tr,
-          onChanged: (_) => Get.toNamed(
+        _buildChoiceChip(
+          text: LocaleKeys.user_blockList.tr,
+          onTap: () => Get.toNamed(
             AppRouteEnum.user_list.path,
             arguments: MatchEnum.block,
           ),
+          noti: controller.countBlock,
         ),
       ],
     ),
   ).paddingSymmetric(vertical: AppDimens.paddingSmall);
 }
 
+Widget _buildChoiceChip({
+  required String text,
+  required Function()? onTap,
+  required RxInt noti,
+}) {
+  return Expanded(
+    child: InkWell(
+      onTap: onTap,
+      child: Obx(
+        () => Badge.count(
+          textColor: AppColors.white,
+          backgroundColor: AppColors.colorRed,
+          isLabelVisible: noti > 0,
+          count: noti.value,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.isDarkMode
+                  ? AppColors.darkAccentColor
+                  : AppColors.grayLight8,
+              borderRadius: BorderRadius.circular(AppDimens.radius12),
+            ),
+            child: Center(
+              child: UtilWidget.buildText(
+                text,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 AppBar _buildAppBar() {
   return AppBar(
     centerTitle: false,
     scrolledUnderElevation: 0,
-    title: InkWell(
-      onTap: () {
-        Get.toNamed(AppRouteEnum.pair.path);
-        // /LocalNotif.showNotif(id: 1, body: 'qưqw', title: 'qưeqweq');
-      },
-      child: UtilWidget.buildText(
-        LocaleKeys.app_appName.tr,
-        style: AppTextStyle.font36Bo,
-      ),
+    title: UtilWidget.buildText(
+      LocaleKeys.app_appName.tr,
+      style: AppTextStyle.font36Bo,
     ),
   );
 }

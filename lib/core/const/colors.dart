@@ -43,7 +43,7 @@ class AppColors {
   static const grayLight5 = Color(0xFFA1A8AE);
   static const grayLight6 = Color(0xFFC0C4C8);
   static const grayLight7 = Color(0xFFEBECED);
-  static const bgText = Color(0XFFE5E6EB);
+  static const grayLight8 = Color(0XFFE5E6EB);
   static Color primaryLight7 = const Color(0xffFEF1E8);
   static const scaffoldBackground = Color(0xFFF6F6F6);
   static const Color colorConfirm = Color(0xffE95626);

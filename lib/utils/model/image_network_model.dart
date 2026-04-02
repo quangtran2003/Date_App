@@ -16,7 +16,7 @@ class SDSImageNetworkModel {
     this.imgUrl,
     this.height = AppDimens.sizeImageBig,
     this.width = AppDimens.sizeImage,
-    this.imageDefault = Assets.ASSETS_IMAGES_DEFAULT_IMAGE_PNG,
+    this.imageDefault = Assets.ASSETS_IMAGES_PNG_DEFAULT_IMAGE_PNG,
     this.errorWidget,
     this.borderRadius,
     this.fit = BoxFit.fill,

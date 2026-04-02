@@ -10,6 +10,7 @@ enum AppRouteEnum {
   profile_detail,
   pair,
   forgot_pass,
+  video_call,
   profile_match;
 
   String get path {

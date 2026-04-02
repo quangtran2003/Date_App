@@ -70,20 +70,6 @@ class MatchUserRepositoryImp extends MatchUserRepository {
     return listInfoUserMatch;
   }
 
-  // @override
-  // Future<List<InfoUserMatchModel>> fetchNextPage(
-  //     InfoUserMatchModel userLogin) async {
-  //   await checkNetwork();
-  //   List<InfoUserMatchModel> listInfoUserMatch = [];
-  //   if (lastDocument == null) {
-  //     listInfoUserMatch = await _fetchPage(userLogin);
-  //   } else {
-  //     listInfoUserMatch = await _fetchPage(userLogin, startAfter: lastDocument);
-  //   }
-  //
-  //   return listInfoUserMatch;
-  // }
-
   // Get data cần match
   @override
   Future<List<InfoUserMatchModel>> getDataMatch(
@@ -102,6 +88,17 @@ class MatchUserRepositoryImp extends MatchUserRepository {
 
     await documentReference.update({
       'users.$uidMatch': user.toJson(),
+    });
+  }
+
+  @override
+  Future<void> deleteUser(String uidAcc, String uidMatch) async {
+    await checkNetwork();
+    final documentReference =
+        firestore.collection(FirebaseCollection.users).doc(uidAcc);
+
+    await documentReference.update({
+      'users.$uidMatch': FieldValue.delete(),
     });
   }
 }
