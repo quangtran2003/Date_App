@@ -104,8 +104,12 @@ class ProfileDetailController extends BaseGetxController {
   }
 
   void onDeleteImage(int index) {
-    listImgUrl.removeAt(index);
-    listImgUpload.removeAt(index);
+    try {
+      listImgUrl.removeAt(index);
+      listImgUpload.removeAt(index);
+    } catch (e, s) {
+      handleException(e, stackTrace: s);
+    }
   }
 
   Future<void> onSaveInfo() async {

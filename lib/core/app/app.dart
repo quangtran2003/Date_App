@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_date/core/config_noti/fcm.dart';
+import 'package:easy_date/utils/shorebird_util.dart';
 import 'package:easy_date/core/config_noti/local_notif.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/video_call/ui/ui_src.dart';
@@ -62,6 +63,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
           homeCtrl: homeCtrl,
           isOnline: true,
         );
+        ShorebirdUtils.instance.checkUpdateAndRestart();
       }
     }
   }

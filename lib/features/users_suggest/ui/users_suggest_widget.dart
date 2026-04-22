@@ -205,6 +205,7 @@ AppBar _buildAppBar() {
     scrolledUnderElevation: 0,
     title: UtilWidget.buildText(
       LocaleKeys.app_appName.tr,
+     // fontSize: 6,
       style: AppTextStyle.font36Bo,
       textColor: AppColors.primaryLight2,
     ),

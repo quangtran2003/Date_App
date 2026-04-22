@@ -1,0 +1,88 @@
+# default_platform(:android)
+
+# platform :android do
+
+#   desc "Build & distribute to Firebase App Distribution"
+#   lane :firebase do
+#     # Build Flutter AAB/APK
+#     sh("cd .. && fvm flutter build apk --target lib/main.dart --release")
+
+#     firebase_app_distribution(
+#       app: "1:788899673990:android:ANDROID_APP_ID",  # thay bằng app ID Android
+#       apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+#       release_notes: "Android build - #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}",
+#       groups: "tester",
+#       firebase_cli_token: ENV["FIREBASE_TOKEN"]
+#     )
+#   end
+
+#   desc "Build & upload to Play Store (internal track)"
+#   lane :play_store do
+#     # Đọc version từ pubspec.yaml
+#     pubspec = File.read("../../pubspec.yaml")
+#     version_line = pubspec.match(/^version:\s+(.+)/)
+#     full_version = version_line[1].strip
+#     version_name = full_version.split("+").first
+#     version_code = full_version.split("+").last.to_i
+
+#     UI.message("Building version #{version_name}+#{version_code}")
+
+#     sh("cd .. && fvm flutter build appbundle --target lib/main.dart --release --build-name=#{version_name} --build-number=#{version_code}")
+
+#     upload_to_play_store(
+#       track: "production",
+#       aab: "../build/app/outputs/bundle/release/app-release.aab",
+#       json_key: "../assets/keys/service_account.json",
+#       skip_upload_screenshots: true,
+#       skip_upload_images: true,
+#       skip_upload_metadata: true,
+#       skip_upload_changelogs: true
+#     )
+
+#     UI.success("✅ Upload thành công: #{version_name}+#{version_code}")
+#   end
+
+# end
+default_platform(:android)
+
+platform :android do
+
+  desc "Build & distribute to Firebase App Distribution"
+  lane :firebase do
+    # Build Flutter AAB/APK
+    sh("cd .. && fvm flutter build apk --target lib/main.dart --release")
+
+    firebase_app_distribution(
+      app: "1:788899673990:android:ANDROID_APP_ID",  # thay bằng app ID Android
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      release_notes: "Android build - #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}",
+      groups: "tester",
+      firebase_cli_token: ENV["FIREBASE_TOKEN"]
+    )
+  end
+
+  desc "Upload AAB từ Shorebird release lên Play Store (KHÔNG build lại)"
+  lane :play_store do
+    aab_path = "../build/app/outputs/bundle/release/app-release.aab"
+
+    UI.user_error!("AAB không tồn tại tại #{aab_path}. Hãy chạy 'shorebird release android' trước.") unless File.exist?(aab_path)
+
+    pubspec = File.read("../../pubspec.yaml")
+    full_version = pubspec.match(/^version:\s+(.+)/)[1].strip
+
+    UI.message("Uploading Shorebird AAB: #{full_version}")
+
+    upload_to_play_store(
+      track: "production",
+      aab: aab_path,
+      json_key: "../assets/keys/service_account.json",
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true
+    )
+
+    UI.success("✅ Upload thành công: #{full_version}")
+  end
+
+end

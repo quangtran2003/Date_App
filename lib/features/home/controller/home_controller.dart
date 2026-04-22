@@ -2,6 +2,7 @@ import 'package:easy_date/features/chat_bot/controller/chat_bot_controller.dart'
 import 'package:easy_date/features/chat_bot/ui/chat_bot_page.dart';
 import 'package:easy_date/features/feature_src.dart';
 import 'package:easy_date/features/video_call/model/call_args.dart';
+import 'package:easy_date/utils/shorebird_util.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -43,7 +44,7 @@ class HomeController extends BaseGetxController {
         //_hasHandledUserChange = true;
         isOnline = true;
         await Future.wait([
-            homeRepository.getFirebaseMessagingToken(user.uid),
+          homeRepository.getFirebaseMessagingToken(user.uid),
           if (!user.isOnline.value)
             homeRepository.updateUserOnlineStatus(
               isOnline: true,
@@ -56,12 +57,18 @@ class HomeController extends BaseGetxController {
   }
 
   @override
+  Future<void> onReady() async {
+    super.onReady();
+    await ShorebirdUtils.instance.checkUpdateAndRestart();
+  }
+
+  @override
   void onClose() async {
     pageController.dispose();
     await userStream.drain();
     userStream.close();
     super.dispose();
-  }
+  } 
 
   void gotoChatBot() {
     Get.to(

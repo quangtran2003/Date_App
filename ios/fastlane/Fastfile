@@ -1,0 +1,52 @@
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Build & distribute to Firebase App Distribution"
+  lane :firebase do |options|
+    # Lấy version từ pubspec.yaml
+    pubspec = YAML.load_file("../pubspec.yaml")
+    version = pubspec["version"].split("+")[0]
+    build_number = pubspec["number"]
+
+    # Update version trong Xcode
+    increment_version_number(
+      version_number: version,
+      xcodeproj: "Runner.xcodeproj"
+    )
+    increment_build_number(
+      build_number: build_number,
+      xcodeproj: "Runner.xcodeproj"
+    )
+
+    # Build Flutter trước
+    sh("cd .. && fvm flutter build ipa --target lib/main.dart --release --export-method ad-hoc")
+
+    # Distribute lên Firebase
+    firebase_app_distribution(
+      app: "1:788899673990:ios:1346a9e9901894adce1e07",
+      ipa_path: "../build/ios/ipa/Crushly.ipa",
+      release_notes: "Version: #{version} - #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}",
+      groups: "tester",
+      firebase_cli_token: ENV["FIREBASE_TOKEN"]
+    )
+  end
+
+  desc "Build & upload to TestFlight"
+  lane :testflight do
+    pubspec = YAML.load_file("../pubspec.yaml")
+    version = pubspec["version"].split("+")[0]
+    build_number = pubspec["number"]
+
+    increment_version_number(version_number: version, xcodeproj: "Runner.xcodeproj")
+    increment_build_number(build_number: build_number, xcodeproj: "Runner.xcodeproj")
+
+    sh("cd .. && fvm flutter build ipa --target lib/main.dart --release")
+
+    upload_to_testflight(
+      ipa_path: "../build/ios/ipa/Crushly.ipa",
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+end

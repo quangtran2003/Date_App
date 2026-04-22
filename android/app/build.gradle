@@ -48,8 +48,8 @@ android {
         applicationId "vn.crusly.com"
         minSdkVersion 25
         targetSdkVersion 36
-        versionCode 15
-        versionName "1.0.1"
+        versionCode 22
+        versionName "1.0.2"
     }
 
     signingConfigs {
@@ -70,12 +70,14 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.release
+
+            //signingConfig signingConfigs.debug
         }
     }
 
     dependencies {
-        implementation 'com.android.support:multidex:1.0.3'
+        implementation 'com.android.support:multidex:2.0.1'
         coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     }
 

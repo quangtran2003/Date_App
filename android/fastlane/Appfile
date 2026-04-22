@@ -1,0 +1,2 @@
+json_key_file("assets/keys/service_account.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("vn.crusly.com") # e.g. com.krausefx.app
